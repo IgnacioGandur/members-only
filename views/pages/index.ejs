@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="/css/variables.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <%- include('../partials/navbar.ejs') %>
+    <h1>
+        Homepage
+    </h1>
+        <% if(locals.user) { %>
+            <p>
+                Hello <%= user.first_name %> <%= user.last_name %> welcome back!
+            </p>
+        <% } else { %>
+            <p>
+                Please register and login to see the content of this page.
+            </p>
+        <% } %>
+        <%- include('../partials/render-message.ejs', {messages}) %>
+        <% if(locals.validationErrors) { %>
+            <% validationErrors.forEach((error)=>{ %>
+                <p>
+                    <%= error.msg %>
+                </p>
+            <% }) %>
+        <% } %>
+</body>
+</html>

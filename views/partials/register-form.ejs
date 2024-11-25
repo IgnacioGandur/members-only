@@ -1,0 +1,59 @@
+<form action="/register" method="POST">
+    <label for="firstName">
+        First name:
+        <input type="text" name="firstName" id="firstName" />
+    </label>
+    <label for="lastName">
+        Last name:
+        <input type="text" name="lastName" id="lastName" />
+    </label>
+    <label for="username">
+         Username:
+        <input type="text" name="username" id="username" />
+    </label>
+    <label for="password">
+        Password:
+        <input type="password" name="password" id="password" />
+    </label>
+    <label for="confirmPassword">
+        Repeat your password:
+        <input type="password" name="confirmPassword" id="confirmPassword" />
+    </label>
+    <label for="bio">
+        Bio:
+        <input type="text" name="bio" id="bio" />
+    </label>
+    <div>
+        <p>
+            Select your gender:
+        </p>
+        <div class='genre'>
+            <label for='male'>
+                Male
+                <input type="radio" name="gender" id="male" value="male" />
+            </label>
+            <label for='female'>
+                Female
+                <input type="radio" name="gender" id="female" value="female" />
+            </label>
+        </div>
+    </div>
+    <div class='profile-pictures-container'>
+        <p>
+            Choose a profile picture:
+        </p>
+        <% if(locals.profilePictures) { %>
+            <% profilePictures.forEach((profilePicture) => { %>
+                <div class="option">
+                    <label for="<%= profilePicture.description %>">
+                        <img style="width: 150px;" src="<%= profilePicture.path %>" alt="<%= profilePicture.description %>" />
+                    </label>
+                    <input type="radio" name="profilePicture" id="<%= profilePicture.description %>" value="<%= profilePicture.id %>" <%= profilePicture.id === 1 ? 'checked' : '' %> />
+                </div>
+            <% }) %>
+        <% } %>
+    </div>
+    <button type="submit">
+        Create user
+    </button>
+</form>

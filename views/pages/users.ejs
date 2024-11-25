@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>Users</title>
+    </head>
+    <body>
+        <%- include('../partials/navbar.ejs') %>
+        <h1>
+            Users page
+        </h1>
+        <% if(locals.users) { %>
+            <% users.forEach((user)=> { %>
+                <div class="user">
+                    <h2>
+                        <%= user.first_name %> <%= user.last_name %>!
+                    </h2>
+                    <p>
+                        <%= user.username %>
+                    </p>
+                    <p>
+                        <%= user.gender %>
+                    </p>
+                    <p>
+                        <%= user.isMember %>
+                    </p>
+                    <p>
+                        <%= user.isAdmin %>
+                    </p>
+                    <img src="<%= user.profile_picture %>" alt="<%= user.ppf_description %>" />
+                </div>
+            <% }) %>
+        <% } %>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>Login</title>
+    </head>
+    <body>
+        <%- include('../partials/navbar.ejs') %>
+        <h1>
+            Login page
+        </h1>
+        <%- include('../partials/login-form.ejs') %>
+        <% if(locals.validationErrors) { %>
+            <div class="validation-errors">
+                <% validationErrors.forEach((error)=>{ %>
+                    <p>
+                        <%= error.msg %>
+                    </p>
+                <% }) %>
+            </div>
+        <% } %>
+    </body>
+</html>

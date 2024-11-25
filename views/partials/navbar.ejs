@@ -1,0 +1,22 @@
+<nav>
+    <a href="/">
+        Homepage
+    </a>
+    <a href="/users">
+        Users
+    </a>
+    <a href="/register">
+        Register
+    </a>
+    <a href="/login">
+        Login
+    </a>
+    <a href="/dashboard">
+        Dashboard
+    </a>
+    <% if(locals.user) { %>
+        <a href="/new-message">
+            New message
+        </a>
+    <% } %>
+</nav>

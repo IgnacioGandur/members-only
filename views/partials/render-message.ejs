@@ -1,0 +1,51 @@
+<% if(locals.messages) { %>
+    <div class="messages">
+        <% messages.forEach((message)=>{ %>
+            <div class="message">
+                <img src="<%= message.profile_picture %>" alt="<%= message.ppf_description %>" />
+                <h2>
+                    <% if(locals.user) { %>
+                        <% if(locals.user.is_member) { %>
+                            <%= message.first_name %> <%= message.last_name %>
+                        <% } else { %>
+                            Anonymous
+                        <% } %>
+                    <% } else { %>
+                        Anonymous
+                    <% } %>
+                </h2>
+                <p>
+                    <%= message.username %>
+                </p>
+                <span>
+                    <%= message.gender %>
+                </span>
+                <p>
+                    <%= message.is_admin %>
+                </p>
+                <p>
+                    <%= message.is_member %>
+                </p>
+                <p>
+                    <%= message.message_title %>
+                </p>
+                <p>
+                    <%= message.message_content %>
+                </p>
+                <span>
+                    <%= message.message_date %>
+                </span>
+                <% if(locals.user) { %>
+                    <% if(locals.user.is_admin) { %>
+                        <form action="/delete-message" method="POST">
+                            <input type="hidden" name="messageId" value="<%= message.message_id %>" />
+                            <button type="submit">
+                                Delete this message
+                            </button>
+                        </form>
+                    <% } %>
+                <% } %>
+            </div>
+        <% }) %>
+    </div>
+<% } %>

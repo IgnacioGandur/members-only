@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>
+            New post
+        </title>
+    </head>
+    <body>
+        <%- include('../partials/navbar.ejs') %>
+        <h1>
+            Create a new message!
+        </h1>
+        <form action="/new-message" method="POST">
+            <label for="title">
+                Message title:
+                <input type="text" name="title" id="title" />
+            </label>
+            <label for="content">
+                Message content:
+                <input type="text" name="content" id="content" />
+            </label>
+            <button type="submit">
+                Create message!
+            </button>
+        </form>
+    </body>
+</html>
