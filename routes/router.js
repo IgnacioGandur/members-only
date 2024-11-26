@@ -13,6 +13,7 @@ const adminRouter = require("./adminRouter");
 const deleteUserRouter = require("./deleteUserRouter");
 const newMessageRouter = require("./newMessageRouter");
 const deleteMessageRouter = require("./deleteMessageRouter");
+const messagesRouter = require("./messagesRouter");
 
 router.use("/", indexRouter);
 router.use("/register", registerRouter);
@@ -25,5 +26,6 @@ router.use("/admin-pass", adminRouter);
 router.use("/delete-user", deleteUserRouter);
 router.use("/new-message", newMessageRouter);
 router.use("/delete-message", deleteMessageRouter);
+router.use("/messages", messagesRouter);
 
 module.exports = router;

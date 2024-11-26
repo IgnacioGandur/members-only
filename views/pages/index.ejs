@@ -21,13 +21,5 @@
                 Please register and login to see the content of this page.
             </p>
         <% } %>
-        <%- include('../partials/render-message.ejs', {messages}) %>
-        <% if(locals.validationErrors) { %>
-            <% validationErrors.forEach((error)=>{ %>
-                <p>
-                    <%= error.msg %>
-                </p>
-            <% }) %>
-        <% } %>
 </body>
 </html>
