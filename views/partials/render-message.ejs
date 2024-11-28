@@ -1,51 +1,75 @@
 <% if(locals.messages) { %>
-    <div class="messages">
+    <div class="messages-container">
         <% messages.forEach((message)=>{ %>
-            <div class="message">
-                <img src="<%= message.profile_picture %>" alt="<%= message.ppf_description %>" />
-                <h2>
+            <article class="message">
+                <div class="header">
+                    <img src="<%= message.profile_picture %>" alt="User Profile Picture 1" />
+                    <div class="user-info">
+                        <div class="full-name">
+                            <% if(locals.user) { %>
+                                <% if(locals.user.is_member) { %>
+                                    <span>
+                                        <%= message.first_name %> <%= message.last_name %>
+                                    </span>
+                                <% } else { %>
+                                    <span>
+                                        Anonymous
+                                    </span>
+                                <% } %>
+                            <% } else { %>
+                                <span>
+                                    Anonymous
+                                </span>
+                            <% } %>
+                            <div class="badges">
+                                <span title="Admin" class="material-symbols-sharp">
+                                    <%= message.is_admin ? 'local_police' : '' %>
+                                </span>
+                                <span title="Member" class="material-symbols-sharp">
+                                    <%= message.is_member ? 'award_star' : '' %>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="username-and-gender">
+                            <p class="username">
+                                @<%= message.username %>
+                            </p>
+                            <span class="material-symbols-sharp <%= user.gender === 'male' ? 'male' : 'female' %>">
+                                <%= message.gender %>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="message-content">
+                    <p class="title">
+                        <%= message.message_title %>
+                    </p>
+                    <p class="body">
+                        <%= message.message_content %>
+                    </p>
+                </div>
+                <div class="message-interactions">
+                    <span class="like-button">
+                        like
+                    </span>
+                    <span class="dislike-button">
+                        dislike
+                    </span>
                     <% if(locals.user) { %>
-                        <% if(locals.user.is_member) { %>
-                            <%= message.first_name %> <%= message.last_name %>
-                        <% } else { %>
-                            Anonymous
+                        <% if(locals.user.is_admin) { %>
+                            <form action="/delete-message" method="POST">
+                                <input type="hidden" name="messageId" value="<%= message.message_id %>" />
+                                <button type="submit">
+                                    Delete this message
+                                </button>
+                            </form>
                         <% } %>
-                    <% } else { %>
-                        Anonymous
                     <% } %>
-                </h2>
-                <p>
-                    <%= message.username %>
-                </p>
-                <span>
-                    <%= message.gender %>
-                </span>
-                <p>
-                    <%= message.is_admin %>
-                </p>
-                <p>
-                    <%= message.is_member %>
-                </p>
-                <p>
-                    <%= message.message_title %>
-                </p>
-                <p>
-                    <%= message.message_content %>
-                </p>
-                <span>
+                </div>
+                <p class="message-date">
                     <%= message.message_date %>
-                </span>
-                <% if(locals.user) { %>
-                    <% if(locals.user.is_admin) { %>
-                        <form action="/delete-message" method="POST">
-                            <input type="hidden" name="messageId" value="<%= message.message_id %>" />
-                            <button type="submit">
-                                Delete this message
-                            </button>
-                        </form>
-                    <% } %>
-                <% } %>
-            </div>
+                </p>
+            </article>
         <% }) %>
     </div>
 <% } %>

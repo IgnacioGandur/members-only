@@ -6,6 +6,7 @@ const messagesController = {
         res.render("pages/messages", {
             messages: messages,
             user: req.user,
+            pageTitle: "Messages",
         });
     },
 };
