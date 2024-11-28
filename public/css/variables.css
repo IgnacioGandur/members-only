@@ -1,4 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Poiret+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Tangerine:wght@400;700&display=swap");
+
 :root {
-    --main-color: #663399;
-    --accent-color: #ffbf00;
+    --color-main: #663399;
+    --color-accent: #ffbf00;
+    --color-transparent-border: #ffffff33;
+    --font-main: "Roboto", serif;
+    --font-secondary: "Poiret One", serif;
+    --font-logo: "Tangerine", cursive;
 }

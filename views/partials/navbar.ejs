@@ -1,25 +1,70 @@
-<nav>
+<nav class="navbar">
     <a href="/">
-        Homepage
+        <span class="material-symbols-sharp">
+            home
+        </span>
+        <p class="description">
+            Home
+        </p>
     </a>
     <a href="/users">
-        Users
+        <span class="material-symbols-sharp">
+            group
+        </span>
+        <p class="description">
+            Users
+        </p>
     </a>
     <a href="/register">
-        Register
+        <span class="material-symbols-sharp">
+            person_add
+        </span>
+        <p class="description">
+            Register
+        </p>
     </a>
     <a href="/login">
-        Login
+        <span class="material-symbols-sharp">
+            login
+        </span>
+        <p class="description">
+            Login
+        </p>
     </a>
     <a href="/dashboard">
-        Dashboard
+        <span class="material-symbols-sharp">
+            dashboard
+        </span>
+        <p class="description">
+            Dashboard
+        </p>
     </a>
     <% if(locals.user) { %>
         <a href="/new-message">
-            New message
+            <span class="material-symbols-sharp">
+                send
+            </span>
+            <p class="description">
+                New Message
+            </p>
         </a>
     <% } %>
     <a href="/messages">
-        Messages
+        <span class="material-symbols-sharp">
+            chat
+        </span>
+        <p class="description">
+            Messages
+        </p>
     </a>
+    <% if(locals.user) { %>
+        <a class="logout" href="/logout">
+            <span class="material-symbols-sharp">
+                logout
+            </span>
+            <p class="description">
+                Logout
+            </p>
+        </a>
+    <% } %>
 </nav>

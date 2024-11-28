@@ -9,13 +9,14 @@
         <link rel="stylesheet" href="/css/styles.css">
         <link rel="stylesheet" href="/css/register.css">
         <link rel="stylesheet" href="/css/variables.css">
+        <link rel="stylesheet" href="/css/navbar.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20,100,0..1,-50" />
+        <link rel="stylesheet" href="/css/background.css">
         <title>Register page</title>
     </head>
     <body>
+        <div class="background"></div>
         <%- include('../partials/navbar.ejs') %>
-        <h1>
-            Register page
-        </h1>
         <% if(locals.validationErrors) { %>
             <div class="errors">
                 <ul>
@@ -27,6 +28,16 @@
                 </ul>
             </div>
         <% } %>
-        <%- include('../partials/register-form.ejs', {profilePictures}) %>
+        <main>
+            <div class="form-container">
+                <div class="image">
+                    <h1>
+                        Register in Members Only!
+                    </h1>
+                </div>
+                <div class="separator"></div>
+                <%- include('../partials/register-form.ejs', {profilePictures}) %>
+            </div>
+        </main>
     </body>
 </html>

@@ -1,7 +1,7 @@
 *,
 *::before,
 *::after {
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -9,20 +9,20 @@
 
 html,
 body {
-    background-color: #000000;
     min-height: 100vh;
     overflow: auto;
     color: #ffffff;
 }
 
-html {
+body {
+    /*background-image: url("/images/bg-deco-1.svg");*/
+    /*background-size: 100%;*/
+    /*background-repeat: no-repeat;*/
     display: flex;
-    justify-content: center;
 }
 
-body {
-    width: 100%;
-    max-width: 1240px;
+main {
+    flex: 1;
 }
 
 a {

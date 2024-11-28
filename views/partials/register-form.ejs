@@ -1,59 +1,97 @@
-<form action="/register" method="POST">
-    <label for="firstName">
-        First name:
-        <input type="text" name="firstName" id="firstName" />
-    </label>
-    <label for="lastName">
-        Last name:
-        <input type="text" name="lastName" id="lastName" />
-    </label>
-    <label for="username">
-         Username:
-        <input type="text" name="username" id="username" />
-    </label>
-    <label for="password">
-        Password:
-        <input type="password" name="password" id="password" />
-    </label>
-    <label for="confirmPassword">
-        Repeat your password:
-        <input type="password" name="confirmPassword" id="confirmPassword" />
-    </label>
-    <label for="bio">
-        Bio:
-        <input type="text" name="bio" id="bio" />
-    </label>
-    <div>
-        <p>
-            Select your gender:
-        </p>
-        <div class='genre'>
-            <label for='male'>
-                Male
-                <input type="radio" name="gender" id="male" value="male" />
-            </label>
-            <label for='female'>
-                Female
-                <input type="radio" name="gender" id="female" value="female" />
-            </label>
+<form class="register-form" action="/register" method="POST">
+        <h2>
+            Welcome To Members Only!
+        </h2>
+        <h3>
+            Unlock Members-Only Benefits - Register Now!
+        </h3>
+        <div class="field">
+            <div class="input-container">
+                <label for="firstName">
+                    First name
+                </label>
+                <input class="input" type="text" name="firstName" id="firstName" />
+            </div>
+            <div class="input-container">
+                <label for="lastname">
+                    Last name
+                </label>
+                <input class="input" type="text" name="lastname" id="lastname" />
+            </div>
+            <div class="input-container">
+                <label for="username">
+                    Username
+                </label>
+                <input class="input" type="text" name="username" id="username" />
+            </div>
         </div>
-    </div>
-    <div class='profile-pictures-container'>
-        <p>
-            Choose a profile picture:
-        </p>
-        <% if(locals.profilePictures) { %>
-            <% profilePictures.forEach((profilePicture) => { %>
-                <div class="option">
-                    <label for="<%= profilePicture.description %>">
-                        <img style="width: 150px;" src="<%= profilePicture.path %>" alt="<%= profilePicture.description %>" />
+        <div class="field">
+            <div class="input-container">
+                <label for="password">
+                    Password
+                </label>
+                <input class="input" type="password" name="password" id="password" />
+            </div>
+            <div class="input-container">
+                <label for="confirmPassword">
+                    Repeat your password
+                </label>
+                <input class="input" type="password" name="confirmPassword" id="confirmPassword" />
+            </div>
+        </div>
+        <div class="input-container">
+            <label for="bio">
+                Share a small desription about you
+            </label>
+            <input class="input" type="text" name="bio" id="bio" />
+        </div>
+        <div class='gender'>
+            <p>
+                Choose your gender
+            </p>
+            <div class="container">
+                <div class="male">
+                    <label for='male'>
+                        <span class="material-symbols-sharp">
+                            male
+                        </span>
+                        <p>
+                            Male
+                        </p>
                     </label>
-                    <input type="radio" name="profilePicture" id="<%= profilePicture.description %>" value="<%= profilePicture.id %>" <%= profilePicture.id === 1 ? 'checked' : '' %> />
+                    <input type="radio" name="gender" id="male" value="male" />
                 </div>
-            <% }) %>
+                <div class="female">
+                    <label for='female'>
+                        <span class="material-symbols-sharp">
+                            female
+                        </span>
+                        <p>
+                            Female
+                        </p>
+                    </label>
+                    <input type="radio" name="gender" id="female" value="female" />
+                </div>
+            </div>
+        </div>
+        <% if(locals.profilePictures) { %>
+            <div class="profile-pictures-section">
+                <p>
+                    Choose a profile picture
+                </p>
+                <div class="profile-pictures-container">
+                    <% profilePictures.forEach((profilePicture) => { %>
+                        <div class="option">
+                            <label for="<%= profilePicture.description %>">
+                                <img style="width: 150px;" src="<%= profilePicture.path %>" alt="<%= profilePicture.description %>" />
+                            </label>
+                            <input type="radio" name="profilePicture" id="<%= profilePicture.description %>" value="<%= profilePicture.id %>" <%= profilePicture.id === 1 ? 'checked' : '' %> />
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
         <% } %>
-    </div>
-    <button type="submit">
+    <button class="button" type="submit">
         Create user
     </button>
 </form>
