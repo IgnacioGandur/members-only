@@ -12,6 +12,7 @@ main {
     display: flex;
     flex-direction: column;
     padding: 1em;
+    gap: 1em;
 
     .message {
         display: flex;
@@ -20,21 +21,31 @@ main {
         padding: 1em;
         border-radius: 5px;
         background-color: #212529;
+        gap: 0.5em;
+        position: relative;
 
         .header {
+            flex: 1;
             padding: 0.5em;
             display: flex;
             align-items: center;
             gap: 1em;
 
-            img {
-                background-color: white;
+            .profile-picture {
+                display: flex;
+                align-content: center;
+                border: 2px solid white;
+                background-color: black;
                 width: 75px;
                 height: 75px;
                 border-radius: 50%;
                 padding: 0.5em;
-                position: relative;
-                z-index: 0;
+                background-color: black;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
             }
 
             .user-info {
@@ -63,6 +74,7 @@ main {
                 .username-and-gender {
                     display: flex;
                     text-transform: initial;
+                    align-items: center;
 
                     .username {
                         padding: 0.5em 0.5em 0.5em 0;
@@ -72,6 +84,7 @@ main {
 
                     span {
                         font-size: 2rem;
+                        color: white;
                     }
 
                     span.male {
@@ -83,20 +96,75 @@ main {
                 }
             }
         }
+        .separator {
+            width: 100%;
+            height: 1px;
+            background-color: #ffffff55;
+            opacity: 0.3;
+        }
         .message-content {
+            flex: 2;
             display: flex;
             flex-direction: column;
-            gap: 0.5em;
+            gap: 1em;
+            padding: 0.5em;
 
             .title {
                 text-align: start;
                 font-weight: 900;
                 text-transform: capitalize;
+                padding: 0.5em 1em;
+                border-radius: 5px;
+                background-color: var(--color-main);
+                width: fit-content;
+            }
+
+            .body {
+                border-radius: 5px;
+                padding: 1em;
+                border: 1px solid var(--color-main);
+            }
+
+            .body:first-letter {
+                text-transform: capitalize;
             }
         }
 
-        .message-interactions {
-            display: flex;
+        .message-date {
+            opacity: 0.4;
+            padding: 0.5em;
+        }
+
+        .delete-form {
+            position: absolute;
+            top: 1em;
+            right: 1em;
+            transition: all 300ms ease-in-out;
+            opacity: 0.5;
+
+            .delete-button {
+                background-color: var(--color-main);
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                padding: 0.5em;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: none;
+                cursor: pointer;
+
+                span {
+                    color: white;
+                    font-weight: 900;
+                    font-size: 2.25rem;
+                }
+            }
+        }
+
+        .delete-form:hover {
+            transform: scale(1.2);
+            opacity: 1;
         }
     }
 }

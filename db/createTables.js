@@ -42,7 +42,18 @@ const SQL = `
         PRIMARY KEY (id),
         CONSTRAINT fk_profile_picture_id FOREIGN KEY (profile_picture_id) REFERENCES profile_pictures(id) ON DELETE SET NULL,
         CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-    )`;
+    )
+
+    CREATE TABLE IF NOT EXISTS likes (
+        id INTEGER GENERATED ALWAYS AS IDENTITY,
+        message_id INTEGER,
+        user_id INTEGER,
+        PRIMARY KEY (id),
+        CONSTRAINT fk_message_id FOREIGN KEY (message_id) REFERENCES messages(id) ON DELETE CASCADE,
+        CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    );
+
+`;
 
 async function main() {
     console.log("Seeding...");

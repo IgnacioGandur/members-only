@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20,100,0..1,-50" />
     </head>
     <body>
-        <%- include('../partials/navbar.ejs') %>
+        <%- include('../partials/navbar.ejs', {currentPath}) %>
         <main>
             <%- include('../partials/header.ejs', {pageTitle}) %>
             <%- include('../partials/render-message.ejs', {messages}) %>

@@ -40,6 +40,16 @@
         }
     }
 
+    a.active {
+        background-color: white;
+        border: 2px solid white;
+        color: black;
+
+        span {
+            font-variation-settings: "FILL" 1;
+        }
+    }
+
     a:hover,
     a:focus,
     a:focus-visible {

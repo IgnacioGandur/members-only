@@ -16,7 +16,7 @@
     </head>
     <body>
         <div class="background"></div>
-        <%- include('../partials/navbar.ejs') %>
+        <%- include('../partials/navbar.ejs', {currentPath}) %>
         <% if(locals.validationErrors) { %>
             <div class="errors">
                 <ul>

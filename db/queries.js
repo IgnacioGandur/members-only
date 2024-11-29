@@ -1,5 +1,6 @@
 const db = require("./pool");
 const bcrypt = require("bcryptjs");
+const { format } = require("date-fns");
 
 const dbInteractions = {
     async usernameExists(username) {
@@ -160,10 +161,18 @@ const dbInteractions = {
                 profile_pictures.description AS ppf_description
                 FROM messages INNER JOIN users ON messages.author_id = users.id
                 INNER JOIN profilepictures_users ON users.id = profilepictures_users.user_id
-                INNER JOIN profile_pictures ON profilepictures_users.profile_picture_id = profile_pictures.id;
+                INNER JOIN profile_pictures ON profilepictures_users.profile_picture_id = profile_pictures.id ORDER BY messages.created_at;
             `;
 
         const { rows } = await db.query(query);
+
+        // Transform the message date to a more readibly format.
+        for (let i = 0; i < rows.length; i++) {
+            rows[i].message_date = format(
+                rows[i].message_date,
+                "do,  MMMM 'of' yyyy 'at' hh:mm a",
+            );
+        }
 
         return rows;
     },

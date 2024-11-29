@@ -1,5 +1,5 @@
 <nav class="navbar">
-    <a href="/">
+    <a class="<%=  currentPath === '/' ? 'active' : null %>" href="/">
         <span class="material-symbols-sharp">
             home
         </span>
@@ -7,7 +7,7 @@
             Home
         </p>
     </a>
-    <a href="/users">
+    <a class="<%= currentPath === '/users' ? 'active' : null %>"  href="/users">
         <span class="material-symbols-sharp">
             group
         </span>
@@ -15,32 +15,26 @@
             Users
         </p>
     </a>
-    <a href="/register">
-        <span class="material-symbols-sharp">
-            person_add
-        </span>
-        <p class="description">
-            Register
-        </p>
-    </a>
-    <a href="/login">
-        <span class="material-symbols-sharp">
-            login
-        </span>
-        <p class="description">
-            Login
-        </p>
-    </a>
-    <a href="/dashboard">
-        <span class="material-symbols-sharp">
-            dashboard
-        </span>
-        <p class="description">
-            Dashboard
-        </p>
-    </a>
+    <% if(!locals.user) { %>
+        <a class="<%= currentPath === '/register' ? 'active' : null %>" href="/register">
+            <span class="material-symbols-sharp">
+                person_add
+            </span>
+            <p class="description">
+                Register
+            </p>
+        </a>
+        <a class="<%= currentPath  === '/login' ? 'active' : null %>" href="/login">
+            <span class="material-symbols-sharp">
+                login
+            </span>
+            <p class="description">
+                Login
+            </p>
+        </a>
+    <% } %>
     <% if(locals.user) { %>
-        <a href="/new-message">
+        <a class="<%= currentPath  === '/new-message' ? 'active' : null %>" href="/new-message">
             <span class="material-symbols-sharp">
                 send
             </span>
@@ -48,8 +42,16 @@
                 New Message
             </p>
         </a>
+        <a class="<%= currentPath  === '/dashboard' ? 'active' : null %>" href="/dashboard">
+            <span class="material-symbols-sharp">
+                dashboard
+            </span>
+            <p class="description">
+                Dashboard
+            </p>
+        </a>
     <% } %>
-    <a href="/messages">
+    <a class="<%= currentPath === '/messages'  ? 'active' : null %>" href="/messages">
         <span class="material-symbols-sharp">
             chat
         </span>
