@@ -1,7 +1,12 @@
+const dbInteractions = require("../db/queries");
+
 const dashboardController = {
-    dashboardGet: (req, res) => {
+    dashboardGet: async (req, res) => {
+        const profilePictures = await dbInteractions.getProfilePicturesPath();
+
         res.render("pages/dashboard", {
             user: req.user,
+            profilePictures: profilePictures,
         });
     },
 };

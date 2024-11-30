@@ -6,6 +6,11 @@
     border-right: 1px solid var(--color-transparent-border);
     gap: 0.25em;
     padding: 0.5em;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 100;
 
     a {
         width: 50px;

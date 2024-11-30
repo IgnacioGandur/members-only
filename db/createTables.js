@@ -9,6 +9,7 @@ const SQL = `
         username VARCHAR(255) NOT NULL,
         bio VARCHAR(255) NOT NULL,
         password VARCHAR(255) NOT NULL,
+        creation_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         gender VARCHAR(255),
         is_member BOOLEAN NOT NULL DEFAULT false,
         is_admin BOOLEAN NOT NULL DEFAULT false,

@@ -4,7 +4,12 @@
     --color-main: #663399;
     --color-accent: #6f58c9;
     --color-transparent-border: #ffffff33;
+    --color-male: #00b4d8;
+    --color-female: #fb6f92;
+    --color-background: #1e1b18;
     --font-main: "Roboto", serif;
     --font-secondary: "Poiret One", serif;
     --font-logo: "Tangerine", cursive;
+    --box-shadow: rgba(102, 51, 153, 0.4) 0px 3px 6px,
+        rgba(102, 51, 153, 0.47) 0px 3px 6px;
 }

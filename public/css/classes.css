@@ -1,0 +1,36 @@
+.form-input {
+    background-color: transparent;
+    border-bottom: 1px solid white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+    padding: 0.25em;
+}
+
+.form-button {
+    background-image: linear-gradient(
+        45deg,
+        black,
+        black,
+        black,
+        var(--color-main),
+        var(--color-main),
+        var(--color-main)
+    );
+    background-size: 300%;
+    background-position: left bottom;
+    border: 2px solid white;
+    color: white;
+    padding: 0.75em;
+    border-radius: 5px;
+    font-weight: 700;
+    transition: all 500ms ease-in-out;
+}
+
+.form-button:hover {
+    background-position: right top;
+    cursor: pointer;
+}

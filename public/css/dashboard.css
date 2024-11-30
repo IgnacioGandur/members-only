@@ -1,0 +1,278 @@
+body {
+    background-color: black;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+
+    .dashboard {
+        padding: 1em;
+        font-family: var(--font-main);
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: 1em;
+
+        > * {
+            background-color: var(--color-background);
+            border: 1px solid #ffffff33;
+            padding: 1em;
+            border-radius: 10px;
+        }
+
+        .profile-info {
+            grid-column: 1/3;
+            grid-row: 1/2;
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+            border: 1px solid #ffffff33;
+            padding: 1.5em;
+            position: relative;
+
+            .profile-picture {
+                display: flex;
+                gap: 1em;
+                padding: 0.5em;
+
+                .current-profile-picture {
+                    width: 125px;
+                    height: 125px;
+                    background-image: radial-gradient(
+                        transparent,
+                        var(--color-main)
+                    );
+                    background-size: 150%;
+                    background-position: center;
+                    border-radius: 50%;
+                    padding: 1em;
+                    flex-shrink: 0;
+                    box-shadow: var(--box-shadow);
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+
+                .profile-pictures-container {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 1em;
+
+                    .option {
+                        position: relative;
+                        width: 50px;
+                        height: 50px;
+                        background-image: radial-gradient(
+                            transparent,
+                            var(--color-main)
+                        );
+                        background-size: 150%;
+                        background-position: center;
+                        border-radius: 50%;
+                        flex-shrink: 0;
+                        border: 2px solid transparent;
+                        transition: all 300ms ease-in-out;
+                        box-shadow: var(--box-shadow);
+
+                        > * {
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            inset: 50% 50%;
+                            transform: translate(-50%, -50%);
+                        }
+
+                        input[type="radio"] {
+                            z-index: 5;
+                            opacity: 0;
+                        }
+
+                        label {
+                            padding: 0.5em;
+                            z-index: 10;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+
+                            img {
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+                    }
+
+                    .option:has(input[type="radio"]:checked) {
+                        box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+                        animation: ppf-selection 500ms linear;
+                    }
+
+                    .option:not(:has(input[type="radio"]:checked)):hover {
+                        transform: scale(1.2);
+                    }
+                }
+            }
+
+            .username {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5em;
+                justify-content: center;
+
+                .fullname {
+                    font-weight: 900;
+                    font-size: 1.15rem;
+                    text-transform: capitalize;
+                }
+
+                .username {
+                    opacity: 0.75;
+                }
+
+                .gender {
+                    text-transform: capitalize;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.25em;
+                    opacity: 0.5;
+                    width: fit-content;
+
+                    .male {
+                        color: var(--color-male);
+                        font-weight: 900;
+                    }
+
+                    .female {
+                        color: var(--color-female);
+                    }
+                }
+            }
+
+            button.edit-user-info {
+                height: 40px;
+                width: 100px;
+                background-color: transparent;
+                position: absolute;
+                top: 50%;
+                right: 1em;
+                transform: translateY(-50%);
+                border: 2px solid var(--color-main);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1em;
+                border-radius: 25px;
+                color: white;
+                padding: 0.5em;
+                font-weight: 900;
+                transition: all 300ms ease-in-out;
+
+                span:last-of-type {
+                    font-weight: 900;
+                    font-size: 1.25rem;
+                }
+            }
+
+            button.edit-user-info:hover,
+            button.edit-user-info:focus,
+            button.edit-user-info:focus-visible {
+                background-color: var(--color-main);
+                cursor: pointer;
+            }
+        }
+
+        .password {
+            grid-column: 3/4;
+            grid-row: 1/2;
+
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 1em;
+
+                .input-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5em;
+
+                    label {
+                        font-weight: 600;
+                    }
+
+                    .wrapper {
+                        height: 50px;
+                        display: flex;
+                        align-items: center;
+                        border: 2px solid var(--color-main);
+                        border-radius: 10px;
+
+                        span {
+                            flex: 2;
+                            font-size: 2rem;
+                            padding: 0.1em 0.25em;
+                            font-weight: 900;
+                        }
+
+                        input {
+                            flex: 3;
+                            border: none;
+                            font-size: 1rem;
+                            background-color: transparent;
+                            border-left: none;
+                            padding: 0.5em;
+                            color: white;
+                        }
+                    }
+                }
+
+                button {
+                    height: 40px;
+                }
+            }
+        }
+
+        .badges {
+            grid-column: 1/2;
+            grid-row: 2/3;
+        }
+
+        .svg {
+            grid-column: 2/4;
+            grid-row: 2/3;
+        }
+
+        .user-messages {
+            grid-column: 1/-1;
+            grid-row: 3/4;
+        }
+    }
+}
+
+@keyframes ppf-selection {
+    0% {
+        transform: translateY(0) scale(1, 1);
+    }
+    25% {
+        transform: translateY(-10px) scale(1, 1);
+    }
+    35% {
+        transform: translateY(0) scale(1, 1);
+    }
+    50% {
+        transform: translateY(0) scale(1.2, 0.9);
+    }
+    65% {
+        transform: translateY(0) scale(0.95, 1.1);
+    }
+    75% {
+        transform: translateY(0) scale(1.1, 0.95);
+    }
+    100% {
+        transform: translateY(0) scale(1, 1);
+    }
+}
