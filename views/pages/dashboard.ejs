@@ -14,139 +14,162 @@
         <link rel="stylesheet" href="/css/header.css">
         <link rel="stylesheet" href="/css/classes.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20,100,0..1,-50" />
+        <script defer src="/js/dashboard.js"></script>
     </head>
     <body>
         <%- include('../partials/navbar.ejs', {currentPath}) %>
         <main>
             <%- include("../partials/header.ejs", {pageTitle: 'Dashboard'}) %>
+            <% if(locals.validationErrors) { %>
+                <% validationErrors.forEach((error)=>{ %>
+                    <p>
+                        <%= error.msg %>
+                    </p>
+                <% }) %>
+            <% } %>
             <div class="dashboard">
                 <div class="profile-info">
                     <h2>
                         Edit Your Profile Information
                     </h2>
-                    <div class="profile-picture">
-                        <div class="current-profile-picture">
-                            <img src="<%= user.profile_picture %>" alt="<%= user.ppf_description %>" />
+                    <div class="horizontal-separator"></div>
+                    <form action="/update-user-profile" method="POST" class="username">
+                        <div class="profile-picture">
+                            <div class="current-profile-picture">
+                                <p class="field-title">Current Profile Picture</p>
+                                <div class="ppf-wrapper">
+                                    <img src="<%= user.profile_picture %>" alt="<%= user.ppf_description %>" />
+                                </div>
+                            </div>
+                            <div class="vertical-separator"></div>
+                            <% if(locals.profilePictures) { %>
+                                <div class="profile-pictures-container">
+                                    <% profilePictures.forEach((profilePicture) => { %>
+                                        <div class="option">
+                                            <label for="<%= profilePicture.description %>">
+                                                <img src="<%= profilePicture.path %>" alt="<%= profilePicture.description %>" >
+                                            </label>
+                                            <input type="radio" name="updatedProfilePicture" id="<%= profilePicture.description %>" value="<%= profilePicture.id  %>" <%= user.profile_picture === profilePicture.path ? 'checked' : null  %> />
+                                        </div>
+                                    <% }) %>
+                                </div>
+                            <% } %>
                         </div>
-                        <% if(locals.profilePictures) { %>
-                            <form class="profile-pictures-container" action="/updated-profile-picture" method="POST">
-                                <input type="hidden" name="userId" value="<%= user.id %>" >
-                                <% profilePictures.forEach((profilePicture)=>{ %>
-                                    <div class="option">
-                                        <label for="<%= profilePicture.description %>">
-                                            <img style="width: 50px;" src="<%= profilePicture.path %>" alt="<%= profilePicture.description %>" />
-                                        </label>
-                                        <input type="radio" name="newProfilePicture" id="<%= profilePicture.description %>" value="<%= profilePicture.id %>" />
-                                    </div>
-                                <% }) %>
-                                <button type="submit">
-                                    Update Profile Picture
-                                </button>
-                            </form>
-                        <% } %>
-                    </div>
-                    <form action="/update-user-info" method="POST" class="username">
+                        <div class="horizontal-separator"></div>
                         <div class="fullname">
-                            <div class="first-name">
-                                <label for="first-name">
+                            <div class="first-name form-field">
+                                <label class="label" for="firstName">
                                     First Name
                                 </label>
                                 <div class="input-wrapper">
-                                    <span class="material-symbols-sharp">
+                                    <span class="material-symbols-sharp input-icon">
                                         person
                                     </span>
-                                    <input type="text" name="first-name" id="first-name" value="<%= user.first_name %>" />
+                                    <input class="input-field" type="text" name="firstName" id="firstName" value="<%= user.first_name %>" />
                                 </div>
                             </div>
-                            <div class="last-name">
-                                <label for="last-name">
+                            <div class="vertical-separator"></div>
+                            <div class="last-name form-field">
+                                <label class="label" for="lastName">
                                     Last Name
                                 </label>
                                 <div class="input-wrapper">
-                                    <input type="text" name="last-name" id="last-name" value="<%= user.last_name %>" />
+                                    <span class="material-symbols-sharp input-icon">
+                                        person
+                                    </span>
+                                    <input class="input-field" type="text" name="lastName" id="lastName" value="<%= user.last_name %>" />
+                                </div>
+                            </div>
+                            <div class="vertical-separator"></div>
+                            <div class="username form-field">
+                                <label class="label" for="username">
+                                    Username
+                                </label>
+                                <div class="input-wrapper">
+                                    <span class="material-symbols-sharp input-icon">
+                                        alternate_email
+                                    </span>
+                                    <input class="input-field" type="text" name="username" id="username" value="<%= user.username %>">
                                 </div>
                             </div>
                         </div>
-                        <div class="username">
-                            <label for="username">
-                                Username
-                            </label>
-                            <div class="input-wrapper">
-                                <span class="material-symbols-sharp">
-                                    alternate_email
-                                </span>
-                                <input type="text" name="username" id="username" value="<%= user.username %>">
+                        <div class="horizontal-separator"></div>
+                        <div class="gender-and-bio">
+                            <div class="genders form-field">
+                                <p class="field-title">Gender</p>
+                                <div class="gender-options">
+                                    <div class="gender-option male ">
+                                        <label for="male">
+                                            <span class="material-symbols-sharp input-icon">
+                                                male
+                                            </span>
+                                            Male
+                                        </label>
+                                        <input type="radio" name="gender" id="male" value="male" <%= user.gender === 'male'  ? 'checked' : null %>>
+                                    </div>
+                                    <div class="gender-option female ">
+                                        <label for="female">
+                                            <span class="material-symbols-sharp input-icon">
+                                                female
+                                            </span>
+                                            Female
+                                        </label>
+                                        <input type="radio" name="gender" id="female" value="female" <%= user.gender === 'female'  ? 'checked' : null %>>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="gender">
-                            <div class="male">
-                                <label for="male">
-                                    Male
-                                    <span class="material-symbols-sharp">
-                                        male
+                            <div class="vertical-separator"></div>
+                            <div class="bio form-field">
+                                <label class="label" for="bio">Bio</label>
+                                <div class="input-wrapper">
+                                    <span class="material-symbols-sharp input-icon">
+                                        person_book
                                     </span>
-                                </label>
-                                <input type="radio" name="gender" id="male" value="male" <%= user.gender === 'male'  ? 'checked' : null %>>
-                            </div>
-                            <div class="female">
-                                <label for="female">
-                                    Female
-                                    <span class="material-symbols-sharp">
-                                        female
-                                    </span>
-                                </label>
-                                <input type="radio" name="gender" id="female" value="female" <%= user.gender === 'female'  ? 'checked' : null %>>
+                                    <input class="input-field" type="text" name="bio" id="bio" value="<%= user.bio %>">
+                                </div>
                             </div>
                         </div>
-                        <div class="bio">
-                            <label for="bio">Bio</label>
-                            <div class="input-wrapper">
-                                <span class="material-symbols-sharp">
-                                    person_book
-                                </span>
-                                <input type="text" name="bio" id="bio" value="<%= user.bio %>">
-                            </div>
-                        </div>
-                        <button type="submit">Update Profile</button>
+                        <div class="horizontal-separator"></div>
+                        <button class="button" type="submit">Update Profile</button>
                     </form>
                 </div>
                 <div class="password">
                     <h2>Change Your Password</h2>
-                    <form action='/update-password' method"POST">
-                        <div class="input-container">
-                            <label for="originalPassword">
-                                Original Password
+                    <form action='/update-password' method="POST">
+                        <div class="form-field">
+                            <label class="label" for="currentPassword">
+                                Current Password
                             </label>
-                            <div class="wrapper">
-                                <span class="material-symbols-sharp">
+                            <div class="input-wrapper">
+                                <span class="material-symbols-sharp input-icon">
                                     key
                                 </span>
-                                <input type="text" name="originalPassword" id="originalPassword" />
+                                <input class="input-field" type="text" name="currentPassword" id="currentPassword" />
                             </div>
                         </div>
-                        <div class="input-container">
-                            <label for="newPassword">
+                        <div class="form-field">
+                            <label class="label" for="newPassword">
                                 New Password
                             </label>
-                            <div class="wrapper">
-                                <span class="material-symbols-sharp">
+                            <div class="input-wrapper">
+                                <span class="material-symbols-sharp input-icon">
                                     key
                                 </span>
-                                <input type="password" name="newPassword" id="newPassword" />
+                                <input class="input-field" type="password" name="newPassword" id="newPassword" />
                             </div>
                         </div>
-                        <div class="input-container">
-                            <label for="confirmNewPassword">
+                        <div class="form-field">
+                            <label class="label" for="confirmNewPassword">
                                 Confirm New Password
                             </label>
-                            <div class="wrapper">
-                                <span class="material-symbols-sharp">
+                            <div class="input-wrapper">
+                                <span class="material-symbols-sharp input-icon">
                                     key
                                 </span>
-                                <input type="password" name="confirmNewPassword" id="confirmNewPassword" />
+                                <input class="input-field" type="password" name="confirmNewPassword" id="confirmNewPassword" />
                             </div>
                         </div>
-                        <button class="form-button" type="submit">
+                        <button class="button" type="submit">
                             Change Password
                         </button>
                     </form>
@@ -214,15 +237,6 @@
                     <h2>All The Messages You Send</h2>
                     Messages created by the user.
                 </div>
-                <% if(locals.validationErrors) { %>
-                    <div class="validation-errors">
-                        <% validationErrors.forEach((error)=>{ %>
-                            <p>
-                                <%= error.msg %>
-                            </p>
-                        <% }) %>
-                    </div>
-                <% } %>
             </div>
         </main>
     </body>

@@ -22,6 +22,43 @@ const dbInteractions = {
         }
     },
 
+    async checkIfUpdatedUsernameIsValid(userId, updatedUsername) {
+        try {
+            const query = `
+                SELECT username FROM users WHERE id = $1;
+            `;
+            const { rows } = await db.query(query, [userId]);
+
+            const currentUsername = rows[0].username;
+
+            // If the user didn't updated the username.
+            if (currentUsername === updatedUsername) {
+                return;
+            }
+
+            const query2 = `
+                SELECT * FROM users WHERE username = $1;
+            `;
+
+            const { rows: usernameResults } = await db.query(query2, [
+                updatedUsername,
+            ]);
+
+            if (usernameResults.length > 0) {
+                console.log("username not available");
+                return true;
+            } else {
+                console.log("username available");
+                return false;
+            }
+        } catch (error) {
+            console.error("Database error: ", error.message);
+            throw new Error(
+                "Could not check if the username already existed when trying to update the username.",
+            );
+        }
+    },
+
     async getProfilePicturesPath() {
         try {
             const query = `
@@ -183,6 +220,61 @@ const dbInteractions = {
         `;
 
         await db.query(query, [messageId]);
+    },
+
+    async updateUserProfile(
+        userId,
+        updatedProfilePictureId,
+        firstName,
+        lastName,
+        username,
+        gender,
+        bio,
+    ) {
+        try {
+            // Update profile in the 'users' table.
+            const query = `
+                UPDATE users SET first_name = $1, last_name= $2, username = $3, gender = $4, bio = $5 WHERE id = $6;
+            `;
+
+            await db.query(query, [
+                firstName,
+                lastName,
+                username,
+                gender,
+                bio,
+                userId,
+            ]);
+
+            // Update profile picture
+            const query2 = `
+                UPDATE profilePictures_users SET profile_picture_id = $1 WHERE user_id = $2;
+            `;
+
+            await db.query(query2, [updatedProfilePictureId, userId]);
+        } catch (error) {
+            console.error("Database error:", error.message);
+            throw new Error("Error when trying to update the user profile.");
+        }
+    },
+
+    async getUserPassword(userId) {
+        const query = `
+            SELECT password FROM users WHERE id = $1;
+        `;
+
+        const { rows } = await db.query(query, [userId]);
+
+        return rows[0].password;
+    },
+
+    async updateUserPassword(userId, newPassword) {
+        const hashedPass = await bcrypt.hash(newPassword, 10);
+        const query = `
+            UPDATE users SET password = $1 WHERE id = $2;
+        `;
+
+        await db.query(query, [hashedPass, userId]);
     },
 };
 
