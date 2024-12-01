@@ -2,11 +2,17 @@
 
 :root {
     --color-main: #663399;
+    --color-main-transparent: #66339955;
     --color-accent: #6f58c9;
     --color-transparent-border: #ffffff33;
-    --color-male: #00b4d8;
-    --color-female: #fb6f92;
-    --color-background: #1e1b18;
+    /*old*/
+    /*--color-male: #00b4d8;*/
+    --color-male: #0077b6;
+    /*old*/
+    /*--color-female: #fb6f92;*/
+    --color-female: #a53860;
+    /*--color-background: #1e1b18;*/
+    --color-background: #1d0142;
     --font-main: "Roboto", serif;
     --font-secondary: "Poiret One", serif;
     --font-logo: "Tangerine", cursive;

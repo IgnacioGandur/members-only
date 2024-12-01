@@ -34,28 +34,6 @@
                     </h2>
                     <div class="horizontal-separator"></div>
                     <form action="/update-user-profile" method="POST" class="username">
-                        <div class="profile-picture">
-                            <div class="current-profile-picture">
-                                <p class="field-title">Current Profile Picture</p>
-                                <div class="ppf-wrapper">
-                                    <img src="<%= user.profile_picture %>" alt="<%= user.ppf_description %>" />
-                                </div>
-                            </div>
-                            <div class="vertical-separator"></div>
-                            <% if(locals.profilePictures) { %>
-                                <div class="profile-pictures-container">
-                                    <% profilePictures.forEach((profilePicture) => { %>
-                                        <div class="option">
-                                            <label for="<%= profilePicture.description %>">
-                                                <img src="<%= profilePicture.path %>" alt="<%= profilePicture.description %>" >
-                                            </label>
-                                            <input type="radio" name="updatedProfilePicture" id="<%= profilePicture.description %>" value="<%= profilePicture.id  %>" <%= user.profile_picture === profilePicture.path ? 'checked' : null  %> />
-                                        </div>
-                                    <% }) %>
-                                </div>
-                            <% } %>
-                        </div>
-                        <div class="horizontal-separator"></div>
                         <div class="fullname">
                             <div class="first-name form-field">
                                 <label class="label" for="firstName">
@@ -135,6 +113,7 @@
                 </div>
                 <div class="password">
                     <h2>Change Your Password</h2>
+                    <div class="horizontal-separator"></div>
                     <form action='/update-password' method="POST">
                         <div class="form-field">
                             <label class="label" for="currentPassword">
@@ -176,66 +155,146 @@
                 </div>
                 <div class="badges">
                     <h2>Account Privileges</h2>
-                    <% if(user.is_admin) { %>
-                        <span class="material-symbols-sharp">
-                            local_police
-                        </span>
-                    <% } else { %>
-                        <span class="material-symbols-sharp">
-                            block
-                        </span>
-                        <span class="material-symbols-sharp">
-                            local_police
-                        </span>
+                    <div class="horizontal-separator"></div>
+                    <div class="badges-container">
+                        <% if(user.is_admin) { %>
+                            <div class="badge is-admin" title="Admin">
+                                <span class="material-symbols-sharp">
+                                    local_police
+                                </span>
+                                <p class="description">Admin</p>
+                            </div>
+                        <% } else { %>
+                            <div class="badge" title="Not An Admin">
+                                <span class="material-symbols-sharp">
+                                    gpp_bad
+                                </span>
+                                <p>Not An Admin</p>
+                            </div>
+                        <% } %>
+                        <div class="vertical-separator"></div>
+                        <% if(user.is_member) { %>
+                            <div class="badge is-member" title="Member">
+                                <span class="material-symbols-sharp">
+                                    award_star
+                                </span>
+                                <p>Member</p>
+                            </div>
+                        <% } else { %>
+                            <div class="badge is-not-member" title="Not A Member">
+                                <span class="material-symbols-sharp">
+                                    heart_broken
+                                </span>
+                                <p>Not A Member</p>
+                            </div>
+                        <% } %>
+                    </div>
+                    <div class="horizontal-separator"></div>
+                    <% if(!user.is_admin || !user.is_member) { %>
+                        <div class="forms-container">
+                            <% if(!user.is_member){ %>
+                                <form class="form" action="/member-pass" method="POST">
+                                    <label class="label" for="memberPass">
+                                        Member Code
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <span class="material-symbols-sharp input-icon">
+                                            heart_check
+                                        </span>
+                                        <input class="input-field" type="password" name="memberPass" id="memberPass" />
+                                    </div>
+                                    <button class="button" type="submit">
+                                        Enable member status
+                                    </button>
+                                </form>
+                            <% } %>
+                            <% if(!user.is_admin && !user.is_member) { %>
+                                <div class="vertical-separator"></div>
+                            <% } %>
+                            <% if(!user.is_admin) { %>
+                                <form class="form" action="/admin-pass" method="POST">
+                                    <label class="label" for="adminPass">
+                                        Admin Code
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <span class="material-symbols-sharp input-icon">
+                                            security
+                                        </span>
+                                        <input class="input-field" type="password" name="adminPass" id="adminPass" />
+                                    </div>
+                                    <button class="button" type="submit">
+                                        Enable admin status
+                                    </button>
+                                </form>
+                            <% } %>
+                        </div>
                     <% } %>
-                    <% if(user.is_member) { %>
-                        <span class="material-symbols-sharp">
-                            award_star
-                        </span>
-                    <% } else { %>
-                        <span class="material-symbols-sharp">
-                            block
-                        </span>
-                        <span class="material-symbols-sharp">
-                            award_star
-                        </span>
-                    <% } %>
-                    <% if(!user.is_member){ %>
-                        <form action="/member-pass" method="POST">
-                            <label for="memberPass">
-                                Enable member status:
-                                <input type="password" name="memberPass" id="memberPass" />
-                            </label>
-                            <button type="submit">
-                                Enable member status
-                            </button>
-                        </form>
-                    <% } %>
-                    <% if(!user.is_admin) { %>
-                        <form action="/admin-pass" method="POST">
-                            <label for="adminPass">
-                                Enable admin status:
-                                <input type="password" name="adminPass" id="adminPass" />
-                                <button type="submit">
-                                    Enable admin status
-                                </button>
-                            </label>
-                        </form>
-                    <% } %>
-                    <form action="/delete-user" method="POST">
-                        <label for="deleteUserPass">
+                    <form class="delete-user-form" action="/delete-user" method="POST">
+                        <label class="label" for="deleteUserPass">
                             Enter your password to confirm the deletion
-                            <input type="password" name="deleteUserPass" id="deleteUserPass" />
                         </label>
-                        <button type="submit">
+                        <div class="input-wrapper">
+                            <span class="material-symbols-sharp input-icon">account_circle_off</span>
+                            <input class="input-field" type="password" name="deleteUserPass" id="deleteUserPass" />
+                        </div>
+                        <button class="button" type="submit">
                             Delete Your Account
                         </button>
                     </form>
                 </div>
-                <div class="svg"></div>
+                <form action="/update-profile-picture" method="POST" class="profile-picture-section">
+                    <h3>Update Your Profile Picture</h3>
+                    <div class="horizontal-separator"></div>
+                    <div class="profile-picture">
+                        <div class="current-profile-picture">
+                            <p class="field-title">Current Profile Picture</p>
+                            <div class="ppf-wrapper">
+                                <img src="<%= user.profile_picture %>" alt="<%= user.ppf_description %>" />
+                            </div>
+                        </div>
+                        <div class="vertical-separator"></div>
+                        <% if(locals.profilePictures) { %>
+                            <div class="profile-pictures-container">
+                                <% profilePictures.forEach((profilePicture) => { %>
+                                    <div class="option">
+                                        <label for="<%= profilePicture.description %>">
+                                            <img src="<%= profilePicture.path %>" alt="<%= profilePicture.description %>" >
+                                        </label>
+                                        <input type="radio" name="updatedProfilePicture" id="<%= profilePicture.description %>" value="<%= profilePicture.id  %>" <%= user.profile_picture === profilePicture.path ? 'checked' : null  %> />
+                                    </div>
+                                <% }) %>
+                            </div>
+                        <% } %>
+                    </div>
+                    <div class="horizontal-separator"></div>
+                    <button class="button">Update Profile Picture</button>
+                </form>
                 <div class="user-messages">
                     <h2>All The Messages You Send</h2>
-                    Messages created by the user.
+                    <% if(locals.userMessages) { %>
+                        <% userMessages.forEach((message) => { %>
+                            <div class="message">
+                                <p class="title">
+                                    <%= message.title %>
+                                </p>
+                                <p class="content">
+                                    <%= message.content %>
+                                </p>
+                                <span>
+                                    <%= message.created_at %>
+                                </span>
+                                <form action="/delete-user-message" method="POST">
+                                    <input type="hidden" name="messageId" value="<%= message.id %>" />
+                                    <button class="delete-message-button" type="submit">
+                                        <span class="material-symbols-sharp">close</span>
+                                    </button>
+                                </form>
+                            </div>
+                        <% }) %>
+                    <% } %>
+                    <% if(locals.userMessages.length === 0) { %>
+                        <p>You have not sent any messages. write your first one!</p>
+                    <% } %>
                 </div>
             </div>
         </main>

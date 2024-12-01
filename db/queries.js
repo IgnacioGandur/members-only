@@ -133,7 +133,7 @@ const dbInteractions = {
 
     async getUserInfoById(id) {
         const query = `
-            SELECT users.id, users.first_name, users.last_name, users.username, users.bio, users.gender, users.is_member, users.is_admin, profile_pictures.path AS profile_picture, profile_pictures.description AS ppf_description FROM users 
+            SELECT users.id, users.first_name, users.last_name, users.username, users.bio, users.gender, users.is_member, users.is_admin, profile_pictures.path AS profile_picture, profile_pictures.description AS ppf_description, profile_pictures.id AS profile_picture_id FROM users 
             INNER JOIN profilepictures_users ON users.id = profilepictures_users.user_id
             INNER JOIN profile_pictures ON profilepictures_users.profile_picture_id = profile_pictures.id
             WHERE users.id = $1;
@@ -198,7 +198,7 @@ const dbInteractions = {
                 profile_pictures.description AS ppf_description
                 FROM messages INNER JOIN users ON messages.author_id = users.id
                 INNER JOIN profilepictures_users ON users.id = profilepictures_users.user_id
-                INNER JOIN profile_pictures ON profilepictures_users.profile_picture_id = profile_pictures.id ORDER BY messages.created_at;
+                INNER JOIN profile_pictures ON profilepictures_users.profile_picture_id = profile_pictures.id ORDER BY messages.created_at DESC;
             `;
 
         const { rows } = await db.query(query);
@@ -224,7 +224,6 @@ const dbInteractions = {
 
     async updateUserProfile(
         userId,
-        updatedProfilePictureId,
         firstName,
         lastName,
         username,
@@ -245,16 +244,24 @@ const dbInteractions = {
                 bio,
                 userId,
             ]);
-
-            // Update profile picture
-            const query2 = `
-                UPDATE profilePictures_users SET profile_picture_id = $1 WHERE user_id = $2;
-            `;
-
-            await db.query(query2, [updatedProfilePictureId, userId]);
         } catch (error) {
             console.error("Database error:", error.message);
             throw new Error("Error when trying to update the user profile.");
+        }
+    },
+
+    async updateProfilePicture(userId, profilePictureId) {
+        try {
+            const query = `
+            UPDATE profilepictures_users SET profile_picture_id = $1 WHERE user_id = $2;
+        `;
+
+            await db.query(query, [profilePictureId, userId]);
+        } catch (error) {
+            console.error("Database error:", error.message);
+            throw new Error(
+                "Something failed when trying to update the user's profile picture.",
+            );
         }
     },
 
@@ -275,6 +282,59 @@ const dbInteractions = {
         `;
 
         await db.query(query, [hashedPass, userId]);
+    },
+
+    async getUserMessages(userId) {
+        try {
+            const query = `
+                SELECT messages.id, messages.title, messages.content, messages.created_at FROM messages INNER JOIN users ON messages.author_id = users.id WHERE users.id = $1 ORDER BY messages.created_at DESC;
+            `;
+
+            const { rows } = await db.query(query, [userId]);
+
+            return rows;
+        } catch (error) {
+            console.error("Database error: ", error.message);
+            throw new Error(
+                "Something failed when trying to retrieve messages wrote by user.",
+            );
+        }
+    },
+
+    async checkIfMessageExists(userId, messageId) {
+        try {
+            const query = `
+                SELECT messages.id FROM messages INNER JOIN users ON messages.author_id = users.id WHERE users.id = $1 AND messages.id = $2;
+            `;
+
+            const { rows } = await db.query(query, [userId, messageId]);
+
+            if (rows.length > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (error) {
+            console.error("Database error: ", error.message);
+            throw new Error(
+                "Something went wrong when trying to verify if the message exists before deletion.",
+            );
+        }
+    },
+
+    async deleteUserMessage(userId, messageId) {
+        try {
+            const query = `
+                DELETE FROM messages WHERE author_id = $1 AND id = $2;
+            `;
+
+            await db.query(query, [userId, messageId]);
+        } catch (error) {
+            console.error("Database error:", error.message);
+            throw new Error(
+                "Something went wrong when the use was trying to delete one of it's own messages.",
+            );
+        }
     },
 };
 

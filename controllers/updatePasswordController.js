@@ -1,6 +1,5 @@
 const dbInteractions = require("../db/queries");
 const validateUpdatedPassword = require("../validators/updatedPasswordValidator");
-const setActiveLink = require("../middleware/activeLink");
 const checkAuthentication = require("../middleware/checkAuthentication");
 const { validationResult } = require("express-validator");
 
@@ -8,7 +7,6 @@ const updatePasswordController = {
     updatePasswordPost: [
         checkAuthentication,
         validateUpdatedPassword,
-        setActiveLink,
         async (req, res) => {
             const profilePictures =
                 await dbInteractions.getProfilePicturesPath();

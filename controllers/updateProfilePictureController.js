@@ -1,16 +1,16 @@
 const dbInteractions = require("../db/queries");
-const { validationResult } = require("express-validator");
-const validateUserUpdate = require("../validators/updateUserValidator");
+const validateProfilePictureUpdate = require("../validators/validateProfilePictureUpdate");
 const checkAuthentication = require("../middleware/checkAuthentication");
+const { validationResult } = require("express-validator");
 
-const updateUserProfileController = {
-    updateUserProfilePost: [
+const updateProfilePictureController = {
+    updateProfilePicturePost: [
         checkAuthentication,
-        validateUserUpdate,
+        validateProfilePictureUpdate,
         async (req, res) => {
-            const validationErrors = validationResult(req);
             const profilePictures =
                 await dbInteractions.getProfilePicturesPath();
+            const validationErrors = validationResult(req);
 
             if (!validationErrors.isEmpty()) {
                 return res.status(401).render("pages/dashboard", {
@@ -20,22 +20,16 @@ const updateUserProfileController = {
                 });
             }
 
-            const { firstName, lastName, username, gender, bio } = req.body;
-
             const { id: userId } = req.user;
+            const { updatedProfilePicture } = req.body;
 
-            await dbInteractions.updateUserProfile(
+            await dbInteractions.updateProfilePicture(
                 userId,
-                firstName,
-                lastName,
-                username,
-                gender,
-                bio,
+                updatedProfilePicture,
             );
-
             res.redirect("/dashboard");
         },
     ],
 };
 
-module.exports = updateUserProfileController;
+module.exports = updateProfilePictureController;

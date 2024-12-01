@@ -7,6 +7,7 @@ const pool = require("./db/pool");
 const app = express();
 const router = require("./routes/router");
 const passport = require("passport");
+const setActiveLink = require("./middleware/activeLink");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -29,6 +30,7 @@ app.use(passport.session());
 
 require("./authentication/passport");
 
+app.use(setActiveLink);
 app.use(router);
 
 app.listen(8080, () => {

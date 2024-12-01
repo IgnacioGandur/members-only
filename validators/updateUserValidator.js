@@ -2,12 +2,6 @@ const { body } = require("express-validator");
 const dbInteractions = require("../db/queries");
 
 const validateUserUpdate = [
-    body("updatedProfilePicture")
-        .trim()
-        .notEmpty()
-        .withMessage("The new profile picture field can't be empty.")
-        .isInt()
-        .withMessage("The new profile picture field must be an integer."),
     body("firstName")
         .trim()
         .notEmpty()

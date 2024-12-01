@@ -16,6 +16,8 @@ const deleteMessageRouter = require("./deleteMessageRouter");
 const messagesRouter = require("./messagesRouter");
 const updateUserProfileRouter = require("./updateUserProfileRouter");
 const updatePasswordRouter = require("./updatePasswordRouter");
+const updateProfilePictureRouter = require("./updateProfilePictureRouter");
+const deleteUserMessageRouter = require("./deleteUserMessageRouter");
 
 router.use("/", indexRouter);
 router.use("/register", registerRouter);
@@ -31,5 +33,7 @@ router.use("/delete-message", deleteMessageRouter);
 router.use("/messages", messagesRouter);
 router.use("/update-user-profile", updateUserProfileRouter);
 router.use("/update-password", updatePasswordRouter);
+router.use("/update-profile-picture", updateProfilePictureRouter);
+router.use("/delete-user-message", deleteUserMessageRouter);
 
 module.exports = router;

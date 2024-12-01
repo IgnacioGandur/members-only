@@ -1,8 +1,7 @@
 const indexController = require("../controllers/indexController.js");
 const { Router } = require("express");
 const indexRouter = Router();
-const setActiveLink = require("../middleware/activeLink");
 
-indexRouter.get("/", setActiveLink, indexController.indexGet);
+indexRouter.get("/", indexController.indexGet);
 
 module.exports = indexRouter;

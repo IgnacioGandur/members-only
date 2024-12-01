@@ -16,9 +16,10 @@ main {
 
         > * {
             background-color: var(--color-background);
-            border: 1px solid #ffffff33;
+            /*border: 1px solid #ffffff33;*/
             padding: 1em;
             border-radius: 10px;
+            box-shadow: 0 0 5px var(--color-background);
         }
 
         .profile-info {
@@ -30,6 +31,112 @@ main {
             border: 1px solid #ffffff33;
             padding: 1.5em;
             position: relative;
+
+            .username {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5em;
+                justify-content: center;
+
+                .horizontal-separator {
+                    width: 100%;
+                    height: 1px;
+                    background-image: radial-gradient(
+                        circle at center,
+                        #ffffff33,
+                        transparent
+                    );
+                }
+
+                .fullname {
+                    width: 100%;
+                    font-weight: 900;
+                    font-size: 1.15rem;
+                    text-transform: capitalize;
+                    display: flex;
+                    gap: 1em;
+                    padding: 1em 0;
+                }
+
+                .form-field {
+                    .gender-options {
+                        display: flex;
+                        gap: 1em;
+
+                        .male {
+                            color: var(--color-male);
+                        }
+
+                        .female {
+                            color: var(--color-female);
+                        }
+                    }
+                }
+            }
+
+            button.edit-user-info {
+                height: 40px;
+                width: 100px;
+                background-color: transparent;
+                position: absolute;
+                top: 50%;
+                right: 1em;
+                transform: translateY(-50%);
+                border: 2px solid var(--color-main);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1em;
+                border-radius: 25px;
+                color: white;
+                padding: 0.5em;
+                font-weight: 900;
+                transition: all 300ms ease-in-out;
+
+                span:last-of-type {
+                    font-weight: 900;
+                    font-size: 1.25rem;
+                }
+            }
+
+            button.edit-user-info:hover,
+            button.edit-user-info:focus,
+            button.edit-user-info:focus-visible {
+                background-color: var(--color-main);
+                cursor: pointer;
+            }
+        }
+
+        .password {
+            grid-column: 3/4;
+            grid-row: 1/2;
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 1em;
+            }
+        }
+
+        .badges {
+            grid-column: 1/2;
+            grid-row: 2/3;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1em;
+        }
+
+        .profile-picture-section {
+            grid-column: 2/4;
+            grid-row: 2/3;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1em;
 
             .profile-picture {
                 display: flex;
@@ -136,101 +243,6 @@ main {
                     }
                 }
             }
-
-            .username {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5em;
-                justify-content: center;
-
-                .horizontal-separator {
-                    width: 100%;
-                    height: 1px;
-                    background-image: radial-gradient(
-                        circle at center,
-                        #ffffff33,
-                        transparent
-                    );
-                }
-
-                .fullname {
-                    width: 100%;
-                    font-weight: 900;
-                    font-size: 1.15rem;
-                    text-transform: capitalize;
-                    display: flex;
-                    gap: 1em;
-                    padding: 1em 0;
-                }
-
-                .form-field {
-                    .gender-options {
-                        display: flex;
-                        gap: 1em;
-
-                        .male {
-                            color: var(--color-male);
-                        }
-
-                        .female {
-                            color: var(--color-female);
-                        }
-                    }
-                }
-            }
-
-            button.edit-user-info {
-                height: 40px;
-                width: 100px;
-                background-color: transparent;
-                position: absolute;
-                top: 50%;
-                right: 1em;
-                transform: translateY(-50%);
-                border: 2px solid var(--color-main);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: 1em;
-                border-radius: 25px;
-                color: white;
-                padding: 0.5em;
-                font-weight: 900;
-                transition: all 300ms ease-in-out;
-
-                span:last-of-type {
-                    font-weight: 900;
-                    font-size: 1.25rem;
-                }
-            }
-
-            button.edit-user-info:hover,
-            button.edit-user-info:focus,
-            button.edit-user-info:focus-visible {
-                background-color: var(--color-main);
-                cursor: pointer;
-            }
-        }
-
-        .password {
-            grid-column: 3/4;
-            grid-row: 1/2;
-
-            form {
-                display: flex;
-                flex-direction: column;
-                gap: 1em;
-            }
-        }
-
-        .badges {
-            grid-column: 1/2;
-            grid-row: 2/3;
-        }
-
-        .svg {
-            grid-column: 2/4;
-            grid-row: 2/3;
         }
 
         .user-messages {
@@ -267,8 +279,14 @@ main {
 }
 
 .input-wrapper:has(input[type="text"]:hover),
+.input-wrapper:has(input[type="password"]:hover) {
+    background-color: var(--color-main-transparent);
+    border: 2px solid white;
+}
 .input-wrapper:has(input[type="text"]:focus),
-.input-wrapper:has(input[type="text"]:focus-visible) {
+.input-wrapper:has(input[type="text"]:focus-visible),
+.input-wrapper:has(input[type="password"]:focus),
+.input-wrapper:has(input[type="password"]:focus-visible) {
     background-color: var(--color-main);
     border: 2px solid white;
 }
@@ -367,7 +385,9 @@ main {
     transition: all 300ms ease-in-out;
 }
 
-.button:hover {
+.button:hover,
+.button:focus,
+.button:focus-visible {
     background-position: right top;
     cursor: pointer;
 }
@@ -394,6 +414,69 @@ main {
     .bio {
         flex: 1;
     }
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding: 1em;
+    position: relative;
+
+    .title {
+        font-weight: 900;
+        text-transform: capitalize;
+    }
+
+    .content:first-letter {
+        text-transform: capitalize;
+    }
+
+    .delete-message-button {
+        position: absolute;
+        top: 1em;
+        right: 1em;
+    }
+}
+
+.badges-container {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1em;
+}
+
+.badge {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+
+    span {
+        font-size: 6rem;
+    }
+    p {
+        font-weight: 900;
+    }
+}
+
+.delete-user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    flex: 1;
+}
+
+.forms-container {
+    display: flex;
+    gap: 1em;
+    justify-content: space-between;
 }
 
 @keyframes ppf-selection {
