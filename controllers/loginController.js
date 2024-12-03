@@ -12,6 +12,9 @@ const validateLogin = [
         .notEmpty()
         .withMessage("The password field can't be empty.")
         .custom(async (password, { req }) => {
+            if (password === "") {
+                return;
+            }
             const { username } = req.body;
             const user = await dbInteractions.getUserByUsername(username);
 

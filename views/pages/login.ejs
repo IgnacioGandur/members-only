@@ -9,23 +9,65 @@
         <link rel="stylesheet" href="/css/styles.css">
         <link rel="stylesheet" href="/css/variables.css">
         <link rel="stylesheet" href="/css/navbar.css">
+        <link rel="stylesheet" href="/css/login.css">
+        <link rel="stylesheet" href="/css/header.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20,100,0..1,-50" />
+        <script defer src="/js/login.js"></script>
         <title>Login</title>
     </head>
     <body>
         <%- include('../partials/navbar.ejs', {currentPath}) %>
-        <h1>
-            Login page
-        </h1>
-        <%- include('../partials/login-form.ejs') %>
-        <% if(locals.validationErrors) { %>
-            <div class="validation-errors">
-                <% validationErrors.forEach((error)=>{ %>
-                    <p>
-                        <%= error.msg %>
-                    </p>
-                <% }) %>
+        <main>
+            <%- include('../partials/header.ejs', {pageTitle: 'Login'}) %>
+            <% if(locals.validationErrors) { %>
+                <div class="validation-errors">
+                    <% validationErrors.forEach((error)=>{ %>
+                        <p>
+                            <%= error.msg %>
+                        </p>
+                    <% }) %>
+                </div>
+            <% } %>
+            <div class="content">
+                <div class="form-container">
+                    <div class="form-logo">
+                        <img src="/images/skull_crown.svg" alt="Logo">
+                    </div>
+                    <div class="text-container">
+                        <h1 class="welcome">Welcome Back <span>!</span></h1>
+                        <p class="login-message">Please enter your username and password.</p>
+                    </div>
+                    <form class="login-form" action="/login" method="POST" >
+                        <div class="form-field">
+                            <label class="label" for="username">
+                                Username
+                            </label>
+                            <div class="input-wrapper">
+                                <span class="material-symbols-sharp input-icon">alternate_email</span>
+                                <input class="input-field" type="text" name="username" id="username">
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label class="label" for="password">
+                                Password
+                            </label>
+                            <div class="input-wrapper">
+                                <span class="material-symbols-sharp input-icon">lock</span>
+                                <input class="input-field" type="password" name="password" id="password" />
+                                <button data-toggle-pass-visibility class="visibility-button" type="button">
+                                    <span data-visibility-icon class="material-symbols-sharp input-icon">visibility_off</span>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="button" type="submit">
+                            Log in
+                        </button>
+                        <p class="register-message">
+                            You don't have an account yet? <a href="/register">Register</a> 
+                        </p>
+                    </form>
+                </div>
             </div>
-        <% } %>
+        </main>
     </body>
 </html>
