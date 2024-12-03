@@ -1,0 +1,289 @@
+main {
+    padding-left: 5rem;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-main);
+    text-align: center;
+    background-color: transparent;
+}
+
+.content {
+    min-width: 1024px;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    z-index: 5;
+}
+
+.ppf-and-banner {
+    position: relative;
+    margin-bottom: 75px;
+}
+
+.banner {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    z-index: 5;
+    position: relative;
+}
+
+.ppf {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    bottom: -75px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 3px solid white;
+    border-radius: 50%;
+    padding: 1em;
+    background-color: black;
+    background-image: url("/images/banner.svg");
+    background-size: cover;
+    background-position: left bottom;
+    transition: all 300ms ease-in-out;
+    z-index: 10;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .gender {
+        width: 25px;
+        height: 25px;
+        border-radius: 10px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        border: 3px solid white;
+
+        span {
+            font-size: 1.75rem;
+            font-weight: 900;
+        }
+    }
+
+    .gender.male {
+        background-color: var(--color-male);
+    }
+
+    .gender.female {
+        background-color: var(--color-female);
+    }
+}
+
+.ppf:hover {
+    background-position: right top;
+}
+
+.full-name {
+    text-align: center;
+    text-transform: capitalize;
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+}
+
+.tilt {
+    position: absolute;
+    width: 100%;
+    transform: scale(1, -1);
+    left: 0;
+    bottom: 0;
+}
+
+.gender {
+    font-size: 3rem !important;
+    position: relative;
+    color: white;
+    font-weight: 900;
+}
+
+.bio:first-letter {
+    text-transform: capitalize;
+}
+
+.half-opacity {
+    opacity: 0.5;
+}
+
+.account-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.badges-container {
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+}
+
+.wrapper {
+    padding: 1em;
+    border-radius: 15px;
+    background-color: var(--color-background);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+
+    span {
+        font-size: 3rem;
+    }
+
+    p {
+        font-weight: 900;
+        font-size: 0.75rem;
+    }
+}
+
+.vertical-separator {
+    background-image: radial-gradient(
+        circle at center,
+        #ffffff22 70%,
+        transparent
+    );
+    height: 100%;
+    min-width: 1px;
+}
+
+.horizontal-separator {
+    background-image: radial-gradient(
+        circle at center,
+        #ffffff22 70%,
+        transparent
+    );
+    min-height: 1px;
+    width: 100%;
+}
+
+.messages-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 1em;
+    align-items: flex-start;
+    text-align: start;
+}
+
+.message {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    background-color: var(--color-background);
+    padding: 1em;
+    border-radius: 10px;
+
+    .title {
+        font-weight: 900;
+        text-transform: capitalize;
+    }
+
+    .date {
+        opacity: 0.5;
+        font-size: 0.75rem;
+        text-align: center;
+    }
+}
+
+.name-date {
+    display: flex;
+    flex-direction: column;
+    /*gap: 0.25em;*/
+}
+
+.join-date {
+    opacity: 0.5;
+    font-size: 0.75rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+        font-weight: 900;
+    }
+}
+
+.fullname {
+    text-transform: capitalize;
+}
+
+.icon-wrapper {
+    padding: 0.25em;
+    border-radius: 10px;
+    background-color: var(--color-background);
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+
+    span {
+        font-size: 2rem;
+    }
+
+    .text {
+        font-size: 0.75rem;
+    }
+}
+
+.bio-status {
+    display: flex;
+    gap: 1em;
+
+    .bio,
+    .account-badges {
+        flex: 1;
+    }
+}
+
+.bio {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    .bio-content {
+        display: flex;
+
+        p:first-letter {
+            text-transform: capitalize;
+        }
+    }
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    font-weight: 900;
+}
+
+.messages-title-icon {
+    transform: scaleX(-1);
+    font-size: 3rem !important;
+}
+
+.messages-header {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-messages {
+    width: 100%;
+    padding: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

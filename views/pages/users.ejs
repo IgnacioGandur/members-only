@@ -10,34 +10,92 @@
         <link rel="stylesheet" href="/css/variables.css">
         <link rel="stylesheet" href="/css/styles.css">
         <link rel="stylesheet" href="/css/navbar.css">
+        <link rel="stylesheet" href="/css/users.css">
+        <link rel="stylesheet" href="/css/header.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20,100,0..1,-50" />
     </head>
     <body>
         <%- include('../partials/navbar.ejs', {currentPath}) %>
-        <h1>
-            Users page
-        </h1>
-        <% if(locals.users) { %>
-            <% users.forEach((user)=> { %>
-                <div class="user">
-                    <h2>
-                        <%= user.first_name %> <%= user.last_name %>!
-                    </h2>
-                    <p>
-                        <%= user.username %>
-                    </p>
-                    <p>
-                        <%= user.gender %>
-                    </p>
-                    <p>
-                        <%= user.isMember %>
-                    </p>
-                    <p>
-                        <%= user.isAdmin %>
-                    </p>
-                    <img src="<%= user.profile_picture %>" alt="<%= user.ppf_description %>" />
+        <main>
+            <%- include('../partials/header.ejs', {pageTitle: "Users"}) %>
+            <% if(locals.validationErrors) { %>
+                <div class="errors-container">
+                    <% validationErrors.forEach((error)=>{ %>
+                        <p>
+                            <%= error.msg %>
+                        </p>
+                    <% }) %>
                 </div>
-            <% }) %>
-        <% } %>
+            <% } %>
+            <% if(locals.users) { %>
+                <div class="users-container">
+                    <% users.forEach((user, index)=> { %>
+                        <a style="animation-delay: <%= index %>00ms;" class="user" href="/users/<%= user.id %>">
+                            <div class="profile-picture-container">
+                                <div class="wrapper">
+                                    <img class="profile-picture" src="<%= user.profile_picture %>" alt="User profile picture">
+                                </div>
+                            </div>
+                            <h2 class="full-name">
+                                <%= user.first_name %> <%= user.last_name %>
+                            </h2>
+                            <div class="username-and-gender">
+                                <p>
+                                    @<%= user.username %>
+                                </p>
+                                <span class="material-symbols-sharp ">
+                                    <%= user.gender === 'male' ? 'male' : 'female' %>
+                                </span>
+                            </div>
+                            <div class="horizontal-separator"></div>
+                            <div class="icons">
+                                <div class="icon">
+                                    <div class="icon-wrapper">
+                                        <span class="material-symbols-sharp">
+                                            <%= user.is_member ? 'shield_with_heart' : 'heart_broken' %>
+                                        </span>
+                                    </div>
+                                    <p>
+                                        <%= user.is_member ? 'Member' : 'Not a member' %>
+                                    </p>
+                                </div>
+                                <div class="vertical-separator"></div>
+                                <div class="icon">
+                                    <div class="icon-wrapper">
+                                        <span class="material-symbols-sharp">
+                                            <%= user.is_admin ? 'security' : 'gpp_bad' %>
+                                        </span>
+                                    </div>
+                                    <p>
+                                        <%= user.is_admin ? 'Admin' : 'Not an admin' %>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="horizontal-separator"></div>
+                            <div class="messages">
+                                <div class="icon">
+                                    <div class="icon-wrapper">
+                                        <span class="material-symbols-sharp message-icon">
+                                            comic_bubble
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="vertical-separator"></div>
+                                <div class="text">
+                                    <p>Messages</p>
+                                    <p>
+                                        Wrote <%= user.n_messages %> <%= user.n_messages == 1 ? 'message' : 'messages' %>.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="horizontal-separator"></div>
+                            <p class="account-date">
+                                Joined on <%= user.creation_date %>
+                            </p>
+                        </a>
+                    <% }) %>
+                </div>
+            <% } %>
+        </main>
     </body>
 </html>

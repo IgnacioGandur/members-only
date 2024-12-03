@@ -33,7 +33,7 @@
                         Edit Your Profile Information
                     </h2>
                     <div class="horizontal-separator"></div>
-                    <form action="/update-user-profile" method="POST" class="username">
+                    <form action="/update-user-profile" method="POST" class="update-user-info-form">
                         <div class="fullname">
                             <div class="first-name form-field">
                                 <label class="label" for="firstName">
@@ -148,13 +148,14 @@
                                 <input class="input-field" type="password" name="confirmNewPassword" id="confirmNewPassword" />
                             </div>
                         </div>
+                        <div class="horizontal-separator"></div>
                         <button class="button" type="submit">
                             Change Password
                         </button>
                     </form>
                 </div>
                 <div class="badges">
-                    <h2>Account Privileges</h2>
+                    <h2>Account Status</h2>
                     <div class="horizontal-separator"></div>
                     <div class="badges-container">
                         <% if(user.is_admin) { %>
@@ -229,48 +230,42 @@
                             <% } %>
                         </div>
                     <% } %>
-                    <form class="delete-user-form" action="/delete-user" method="POST">
-                        <label class="label" for="deleteUserPass">
-                            Enter your password to confirm the deletion
-                        </label>
-                        <div class="input-wrapper">
-                            <span class="material-symbols-sharp input-icon">account_circle_off</span>
-                            <input class="input-field" type="password" name="deleteUserPass" id="deleteUserPass" />
-                        </div>
-                        <button class="button" type="submit">
-                            Delete Your Account
-                        </button>
-                    </form>
                 </div>
                 <form action="/update-profile-picture" method="POST" class="profile-picture-section">
-                    <h3>Update Your Profile Picture</h3>
+                    <h2>Update Your Profile Picture</h2>
                     <div class="horizontal-separator"></div>
                     <div class="profile-picture">
                         <div class="current-profile-picture">
                             <p class="field-title">Current Profile Picture</p>
+                            <div class="horizontal-separator"></div>
                             <div class="ppf-wrapper">
                                 <img src="<%= user.profile_picture %>" alt="<%= user.ppf_description %>" />
                             </div>
                         </div>
                         <div class="vertical-separator"></div>
-                        <% if(locals.profilePictures) { %>
-                            <div class="profile-pictures-container">
-                                <% profilePictures.forEach((profilePicture) => { %>
-                                    <div class="option">
-                                        <label for="<%= profilePicture.description %>">
-                                            <img src="<%= profilePicture.path %>" alt="<%= profilePicture.description %>" >
-                                        </label>
-                                        <input type="radio" name="updatedProfilePicture" id="<%= profilePicture.description %>" value="<%= profilePicture.id  %>" <%= user.profile_picture === profilePicture.path ? 'checked' : null  %> />
+                        <div class="change-profile-picture">
+                            <% if(locals.profilePictures) { %>
+                                    <p class="field-title">Select A New Profile Picture</p>
+                                    <div class="horizontal-separator"></div>
+                                    <div class="profile-pictures-container">
+                                        <% profilePictures.forEach((profilePicture) => { %>
+                                            <div class="option">
+                                                <label clas for="<%= profilePicture.description %>">
+                                                    <img src="<%= profilePicture.path %>" alt="<%= profilePicture.description %>" >
+                                                </label>
+                                                <input type="radio" name="updatedProfilePicture" id="<%= profilePicture.description %>" value="<%= profilePicture.id  %>" <%= user.profile_picture === profilePicture.path ? 'checked' : null  %> />
+                                            </div>
+                                        <% }) %>
                                     </div>
-                                <% }) %>
-                            </div>
-                        <% } %>
+                            <% } %>
+                        </div>
                     </div>
                     <div class="horizontal-separator"></div>
                     <button class="button">Update Profile Picture</button>
                 </form>
                 <div class="user-messages">
                     <h2>All The Messages You Send</h2>
+                    <div class="horizontal-separator"></div>
                     <% if(locals.userMessages) { %>
                         <% userMessages.forEach((message) => { %>
                             <div class="message">
@@ -296,6 +291,22 @@
                         <p>You have not sent any messages. write your first one!</p>
                     <% } %>
                 </div>
+                <form class="delete-user-form" action="/delete-user" method="POST">
+                    <h2>
+                        Delete Your Account
+                    </h2>
+                    <div class="horizontal-separator"></div>
+                    <label class="label" for="deleteUserPass">
+                        Enter your password to confirm the deletion
+                    </label>
+                    <div class="input-wrapper">
+                        <span class="material-symbols-sharp input-icon">account_circle_off</span>
+                        <input class="input-field" type="password" name="deleteUserPass" id="deleteUserPass" />
+                    </div>
+                    <button class="button" type="submit">
+                        Delete Your Account
+                    </button>
+                </form>
             </div>
         </main>
     </body>

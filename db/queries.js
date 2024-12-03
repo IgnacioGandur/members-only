@@ -113,11 +113,27 @@ const dbInteractions = {
 
     async getAllUsers() {
         const query = `
-            SELECT users.first_name, users.last_name, users.username, users.bio, users.gender, users.is_member, users.is_admin, profile_pictures.path AS profile_picture, profile_pictures.description AS ppf_description FROM users
-            INNER JOIN profilepictures_users ON users.id = profilepictures_users.user_id
-            INNER JOIN profile_pictures ON profilepictures_users.profile_picture_id = profile_pictures.id;
+            SELECT users.id,
+                users.first_name, 
+                users.last_name,
+                users.username,
+                users.gender,
+                users.is_member,
+                users.is_admin,
+                users.creation_date,
+                profile_pictures.path AS profile_picture,
+                (SELECT COUNT(*) FROM messages WHERE messages.author_id = users.id) AS n_messages FROM users
+                INNER JOIN profilepictures_users ON users.id = profilepictures_users.user_id
+                INNER JOIN profile_pictures ON profilepictures_users.profile_picture_id = profile_pictures.id;
         `;
         const { rows } = await db.query(query);
+
+        for (let i = 0; i < rows.length; i++) {
+            rows[i].creation_date = format(
+                rows[i].creation_date,
+                "do,  MMMM 'of' yyyy",
+            );
+        }
 
         return rows;
     },
@@ -336,6 +352,68 @@ const dbInteractions = {
             );
         }
     },
+
+    async getUserProfile(userId) {
+        try {
+            const query = `
+                SELECT users.first_name,
+                    users.last_name,
+                    users.username,
+                    users.gender,
+                    users.is_admin,
+                    users.is_member,
+                    users.bio,
+                    users.creation_date,
+                    profile_pictures.path AS profile_picture FROM users
+                                INNER JOIN profilepictures_users ON users.id = profilepictures_users.user_id
+                                INNER JOIN profile_pictures ON profilepictures_users.profile_picture_id = profile_pictures.id WHERE users.id = $1;
+            `;
+
+            const { rows } = await db.query(query, [userId]);
+
+            rows[0].creation_date = format(
+                rows[0].creation_date,
+                "do,  MMMM 'of' yyyy",
+            );
+
+            const query2 = `
+                SELECT * FROM messages WHERE author_id = $1;
+            `;
+
+            const { rows: messages } = await db.query(query2, [userId]);
+
+            for (let i = 0; i < messages.length; i++) {
+                messages[i].created_at = format(
+                    messages[i].created_at,
+
+                    "do,  MMMM 'of' yyyy 'at' hh:mm a",
+                );
+            }
+
+            rows[0].messages = messages;
+
+            return rows[0];
+        } catch (error) {
+            console.error("Database error:", error.message);
+            throw new Error("Something went wrong when getting user profile.");
+        }
+    },
+
+    async checkIfUserExistsById(userId) {
+        const query = `
+            SELECT id FROM users WHERE id = $1;
+        `;
+
+        const { rows } = await db.query(query, [userId]);
+
+        if (rows.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    },
 };
+
+// PERF: Instead of exporting the whole object, separate the object methods into their own function so each file can import only the funtcion they need.
 
 module.exports = dbInteractions;

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="/css/variables.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/navbar.css">
+        <link rel="stylesheet" href="/css/userProfile.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20,100,0..1,-50" />
+        <link rel="stylesheet" href="/css/bg.css">
+        <title>
+            @<%= profileInfo.username %> profile | On Members Only 
+        </title>
+    </head>
+    <body>
+        <%- include('../partials/bg.ejs') %>
+        <%- include('../partials/navbar.ejs') %>
+        <main>
+            <% const pageTitle = `@${locals.profileInfo.username}`; %>
+            <%- include('../partials/header.ejs', {pageTitle: pageTitle}) %>
+            <div class="content">
+                <div class="ppf-and-banner">
+                    <img class="banner" src="/images/banner.svg" alt="Banner">
+                    <div class="ppf">
+                        <img src="<%= profileInfo.profile_picture %>" alt="Profile Picture">
+                        <div class="gender <%= profileInfo.gender %>">
+                            <span class="material-symbols-sharp">
+                                <%= profileInfo.gender %>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="name-date">
+                    <h1 class="fullname">
+                        <%= profileInfo.first_name + ' ' + profileInfo.last_name %>
+                    </h1>
+                    <p class="join-date">
+                        <span class="material-symbols-sharp">schedule</span>
+                        Joined on <%= profileInfo.creation_date %>
+                    </p>
+                </div>
+                <div class="horizontal-separator"></div>
+                <div class="bio-status">
+                    <div class="bio">
+                        <p class="half-opacity section-title">
+                            <span class="material-symbols-sharp">
+                                person_book
+                            </span>
+                            Bio
+                        </p>
+                        <div class="horizontal-separator"></div>
+                        <div class="bio-content">
+                            <p>
+                                <%= profileInfo.bio  %>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="vertical-separator"></div>
+                    <div class="account-badges">
+                        <p class="half-opacity section-title">
+                            <span class="material-symbols-sharp">badge</span>
+                            Account status
+                        </p>
+                        <div class="horizontal-separator"></div>
+                        <div class="badges-container">
+                            <div class="badge">
+                                <div class="wrapper">
+                                    <span class="material-symbols-sharp">
+                                        <%= profileInfo.is_member ? 'shield_with_heart' : 'heart_broken' %>
+                                    </span>
+                                    <p>
+                                        <%= profileInfo.is_member ? 'Member' : 'Not member' %>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="vertical-separator"></div>
+                            <div class="badge">
+                                <div class="wrapper">
+                                    <span class="material-symbols-sharp">
+                                        <%= profileInfo.is_admin ? 'security' : 'remove_moderator' %>
+                                    </span>
+                                    <p>
+                                        <%= profileInfo.is_admin ? 'Admin' : 'Not an admin' %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="horizontal-separator"></div>
+                <div class="messages-header">
+                    <span class="material-symbols-sharp messages-title-icon">comic_bubble</span>
+                    <h2>
+                        Messages Written By This User
+                    </h2>
+                </div>
+                <div class="horizontal-separator"></div>
+                <% if(locals.profileInfo.messages) { %>
+                    <div class="messages-container">
+                        <% profileInfo.messages.forEach((message)=>{ %>
+                            <div class="message">
+                                <p class="title">
+                                    <%= message.title %>
+                                </p>
+                                <p class="message-content">
+                                    <%= message.content %>
+                                </p>
+                                <p class="date">
+                                    <%= message.created_at %>
+                                </p>
+                            </div>
+                        <% }) %>
+                        <% if(locals.profileInfo.messages.length === 0) { %>
+                            <div class="no-messages">
+                                <p class="">
+                                    This user has not sent any messages.
+                                </p>
+                            </div>
+                        <% } %>
+                    </div>
+                <% } %>
+            </div>
+        </main>
+    </body>
+</html>

@@ -19,13 +19,18 @@ const adminController = {
     adminPost: [
         validateAdminPass,
         async (req, res) => {
-            const validationErrors = validationResult(req);
             const { id } = req.user;
+            const validationErrors = validationResult(req);
+            const userMessages = await dbInteractions.getUserMessages(id);
+            const profilePictures =
+                await dbInteractions.getProfilePicturesPath();
 
             if (!validationErrors.isEmpty()) {
                 return res.status(401).render("pages/dashboard", {
-                    validationErrors: validationErrors.array(),
                     user: req.user,
+                    validationErrors: validationErrors.array(),
+                    profilePictures: profilePictures,
+                    userMessages: userMessages,
                 });
             }
 

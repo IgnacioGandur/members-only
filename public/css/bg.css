@@ -1,0 +1,55 @@
+svg {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+#tr-1,
+#tr-2,
+#tr-3,
+#tr-4,
+#tr-5,
+#cl-1,
+#cl-2,
+#cl-3,
+#cl-4,
+#cl-5 {
+    animation: appearBgPart 2s linear forwards;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+#tr-2,
+#cl-2 {
+    animation-delay: 200ms;
+}
+#tr-3,
+#cl-3 {
+    animation-delay: 400ms;
+}
+#tr-4,
+#cl-4 {
+    animation-delay: 600ms;
+}
+#tr-5,
+#cl-5 {
+    animation-delay: 800ms;
+}
+
+@keyframes appearBgPart {
+    0% {
+        opacity: 0;
+        transform: scale(3);
+        filter: blur(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: none;
+    }
+}

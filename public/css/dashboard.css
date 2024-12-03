@@ -11,7 +11,7 @@ main {
         font-family: var(--font-main);
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
+        grid-auto-rows: auto;
         gap: 1em;
 
         > * {
@@ -27,15 +27,14 @@ main {
             grid-row: 1/2;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
             gap: 1em;
-            border: 1px solid #ffffff33;
-            padding: 1.5em;
-            position: relative;
+            padding: 1em;
 
-            .username {
+            .update-user-info-form {
                 display: flex;
                 flex-direction: column;
-                gap: 0.5em;
+                gap: 1em;
                 justify-content: center;
 
                 .horizontal-separator {
@@ -112,6 +111,7 @@ main {
             grid-row: 1/2;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
             gap: 1em;
 
             form {
@@ -173,6 +173,13 @@ main {
                             height: 100%;
                         }
                     }
+                }
+
+                .change-profile-picture {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 1em;
                 }
 
                 .profile-pictures-container {
@@ -249,6 +256,10 @@ main {
             grid-column: 1/-1;
             grid-row: 3/4;
         }
+
+        .delete-user-form {
+            grid-column: 1 / -1;
+        }
     }
 }
 
@@ -256,7 +267,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 0.5em;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     flex: 1;
 }
 
@@ -382,7 +393,7 @@ main {
 
     background-size: 300%;
     background-position: left bottom;
-    transition: all 300ms ease-in-out;
+    transition: all 450ms linear;
 }
 
 .button:hover,

@@ -21,11 +21,16 @@ const memberController = {
         async (req, res) => {
             const { id } = req.user;
             const validationErrors = validationResult(req);
+            const userMessages = await dbInteractions.getUserMessages(id);
+            const profilePictures =
+                await dbInteractions.getProfilePicturesPath();
 
             if (!validationErrors.isEmpty()) {
                 return res.status(401).render("pages/dashboard", {
                     validationErrors: validationErrors.array(),
                     user: req.user,
+                    userMessages: userMessages,
+                    profilePictures: profilePictures,
                 });
             }
 
