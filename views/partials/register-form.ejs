@@ -1,82 +1,126 @@
 <form class="register-form" action="/register" method="POST">
-        <h2>
-            Welcome To Members Only!
-        </h2>
-        <h3>
-            Unlock Members-Only Benefits - Register Now!
-        </h3>
-        <div class="field">
-            <div class="input-container">
-                <label for="firstName">
+        <div class="title-wrapper">
+            <h1 class="title">
+                Welcome To Members Only<span>!</span>
+            </h1>
+            <p class="sub-title">
+                Unlock Members-Only Benefits - Register Now!
+            </p>
+        </div>
+        <div class="three-fields-section">
+            <div class="form-field">
+                <label class="label" for="firstName">
                     First name
                 </label>
-                <input class="input" type="text" name="firstName" id="firstName" />
+                <div class="input-wrapper">
+                    <span class="material-symbols-sharp input-icon">
+                        person
+                    </span>
+                    <input class="input-field" type="text" name="firstName" id="firstName" />
+                </div>
             </div>
-            <div class="input-container">
-                <label for="lastname">
+            <div class="form-field">
+                <label class="label" for="lastname">
                     Last name
                 </label>
-                <input class="input" type="text" name="lastName" id="lastname" />
+                <div class="input-wrapper">
+                    <span class="material-symbols-sharp input-icon">
+                        person
+                    </span>
+                    <input class="input-field" type="text" name="lastName" id="lastname" />
+                </div>
             </div>
-            <div class="input-container">
-                <label for="username">
+            <div class="form-field">
+                <label class="label" for="username">
                     Username
                 </label>
-                <input class="input" type="text" name="username" id="username" />
+                <div class="input-wrapper">
+                    <span class="material-symbols-sharp input-icon">
+                        alternate_email
+                    </span>
+                    <input class="input-field" type="text" name="username" id="username" />
+                </div>
             </div>
         </div>
-        <div class="field">
-            <div class="input-container">
-                <label for="password">
+        <div class="password-fields">
+            <div class="form-field">
+                <label class="label" for="password">
                     Password
                 </label>
-                <input class="input" type="password" name="password" id="password" />
+                <div class="input-wrapper">
+                    <span class="material-symbols-sharp input-icon">
+                        password
+                    </span>
+                    <input data-password-field class="input-field" type="password" name="password" id="password" />
+                    <button data-toggle-pass-visibility class="pass-visibility-button" type="button">
+                        <span data-show-pass-icon class="material-symbols-sharp input-icon">
+                            visibility
+                        </span>
+                    </button>
+                </div>
             </div>
-            <div class="input-container">
-                <label for="confirmPassword">
+            <div class="form-field">
+                <label class="label" for="confirmPassword">
                     Repeat your password
                 </label>
-                <input class="input" type="password" name="confirmPassword" id="confirmPassword" />
+                <div class="input-wrapper">
+                    <span class="material-symbols-sharp input-icon">
+                        password
+                    </span>
+                    <input data-repeat-password-field class="input-field" type="password" name="confirmPassword" id="confirmPassword" />
+                    <button data-toggle-repeat-pass-visibility class="pass-visibility-button" type="button">
+                        <span data-repeat-pass-icon class="material-symbols-sharp input-icon">
+                            visibility
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="input-container">
-            <label for="bio">
-                Share a small desription about you
-            </label>
-            <input class="input" type="text" name="bio" id="bio" />
-        </div>
-        <div class='gender'>
-            <p>
-                Choose your gender
-            </p>
-            <div class="container">
-                <div class="male">
-                    <label for='male'>
-                        <span class="material-symbols-sharp">
-                            male
-                        </span>
-                        <p>
-                            Male
-                        </p>
-                    </label>
-                    <input type="radio" name="gender" id="male" value="male" />
+        <div class="gender-and-bio">
+            <div class='gender'>
+                <p class="field-title">
+                    Gender
+                </p>
+                <div class="gender-options">
+                    <div class=" gender-option male">
+                        <label for='male'>
+                            <span class="material-symbols-sharp input-icon">
+                                male
+                            </span>
+                            <p>
+                                Male
+                            </p>
+                        </label>
+                        <input type="radio" name="gender" id="male" value="male" checked/>
+                    </div>
+                    <div class="gender-option female">
+                        <label for='female'>
+                            <span class="material-symbols-sharp input-icon">
+                                female
+                            </span>
+                            <p>
+                                Female
+                            </p>
+                        </label>
+                        <input type="radio" name="gender" id="female" value="female" />
+                    </div>
                 </div>
-                <div class="female">
-                    <label for='female'>
-                        <span class="material-symbols-sharp">
-                            female
-                        </span>
-                        <p>
-                            Female
-                        </p>
-                    </label>
-                    <input type="radio" name="gender" id="female" value="female" />
+            </div>
+            <div class="bio">
+                <label class="label" for="bio">
+                    Share a small desription about you
+                </label>
+                <div class="input-wrapper">
+                    <span class="material-symbols-sharp input-icon">
+                        person_book
+                    </span>
+                    <input class="input-field" type="text" name="bio" id="bio" />
                 </div>
             </div>
         </div>
         <% if(locals.profilePictures) { %>
-            <div class="profile-pictures-section">
-                <p>
+            <div class="profile-picture-section">
+                <p class="field-title">
                     Choose a profile picture
                 </p>
                 <div class="profile-pictures-container">

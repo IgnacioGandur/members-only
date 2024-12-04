@@ -13,7 +13,7 @@ main {
     align-items: flex-start;
     position: relative;
     z-index: 1;
-    width: 80%;
+    width: 90%;
     height: 85%;
     border-radius: 10px;
     position: relative;
@@ -23,10 +23,11 @@ main {
     background-image: radial-gradient(
             circle at 100% 0%,
             transparent 0,
-            /*rgba(0, 0, 0, 0.9) 40%*/ #19212e 40%
+            #19212e 40%
         ),
         url("/images/login-background.jpg");
     background-size: cover;
+    overflow: hidden;
 }
 
 .form-container {
@@ -38,6 +39,8 @@ main {
     gap: 2em;
     text-align: center;
     padding: 3em;
+    opacity: 0;
+    animation: appearForm 1s ease-in-out forwards;
 }
 
 .login-form {
@@ -167,8 +170,8 @@ main {
 
 .form-logo {
     align-self: center;
-    width: 125px;
-    height: 125px;
+    width: 150px;
+    height: 150px;
     background-image: linear-gradient(
         45deg,
         var(--color-main),
@@ -203,5 +206,18 @@ main {
     }
     100% {
         background-position: right top;
+    }
+}
+
+@keyframes appearForm {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    40% {
+        transform: translateX(0%);
+    }
+    100% {
+        opacity: 1;
     }
 }
