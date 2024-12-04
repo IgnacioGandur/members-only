@@ -7,14 +7,16 @@
             Home
         </p>
     </a>
-    <a class="<%= currentPath === '/users' ? 'active' : null %>"  href="/users">
-        <span class="material-symbols-sharp">
-            group
-        </span>
-        <p class="description">
-            Users
-        </p>
-    </a>
+    <% if(locals.user) { %>
+        <a class="<%= currentPath === '/users' ? 'active' : null %>"  href="/users">
+            <span class="material-symbols-sharp">
+                group
+            </span>
+            <p class="description">
+                Users
+            </p>
+        </a>
+    <% } %>
     <% if(!locals.user) { %>
         <a class="<%= currentPath === '/register' ? 'active' : null %>" href="/register">
             <span class="material-symbols-sharp">
@@ -51,14 +53,6 @@
             </p>
         </a>
     <% } %>
-    <a class="<%= currentPath === '/messages'  ? 'active' : null %>" href="/messages">
-        <span class="material-symbols-sharp">
-            chat
-        </span>
-        <p class="description">
-            Messages
-        </p>
-    </a>
     <% if(locals.user) { %>
         <a class="logout" href="/logout">
             <span class="material-symbols-sharp">

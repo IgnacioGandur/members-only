@@ -28,6 +28,11 @@
                     <% }) %>
                 </div>
             <% } %>
+            <% if(locals.authError) { %>
+                <p>
+                    <%= authError %>
+                </p>
+            <% } %>
             <div class="content">
                 <div class="form-container">
                     <div class="form-logo">

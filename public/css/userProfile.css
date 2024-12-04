@@ -15,11 +15,14 @@ main {
     flex-direction: column;
     gap: 1em;
     z-index: 5;
+    border-left: 1px solid #ffffff22;
+    border-right: 1px solid #ffffff22;
 }
 
 .ppf-and-banner {
     position: relative;
     margin-bottom: 75px;
+    z-index: 10;
 }
 
 .banner {
@@ -253,6 +256,7 @@ main {
 
     .bio-content {
         display: flex;
+        padding: 0 1em;
 
         p:first-letter {
             text-transform: capitalize;

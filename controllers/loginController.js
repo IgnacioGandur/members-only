@@ -35,7 +35,10 @@ const validateLogin = [
 
 const loginController = {
     loginGet(req, res) {
-        res.render("pages/login");
+        const { error } = req.query;
+        res.render("pages/login", {
+            authError: error,
+        });
     },
     loginPost: [
         validateLogin,

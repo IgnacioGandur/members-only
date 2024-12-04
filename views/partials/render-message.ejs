@@ -1,7 +1,14 @@
 <% if(locals.messages) { %>
     <div class="messages-container">
-        <% messages.forEach((message)=>{ %>
-            <article class="message">
+        <% if(!locals.user) { %>
+            <div class="not-logged-message">
+                <p>
+                    You must be logged in to view the user's names and message's dates.
+                </p>
+            </div>
+        <% } %>
+        <% messages.forEach((message, index)=>{ %>
+            <article style="animation-delay: <%= index  %>75ms;" class="message">
                 <div class="header">
                     <div class="profile-picture">
                         <img src="<%= message.profile_picture %>" alt="User Profile Picture 1" />
@@ -10,9 +17,9 @@
                         <div class="full-name">
                             <% if(locals.user) { %>
                                 <% if(locals.user.is_member) { %>
-                                    <span>
+                                    <a href="/users/<%= message.message_author %>">
                                         <%= message.first_name %> <%= message.last_name %>
-                                    </span>
+                                    </a>
                                 <% } else { %>
                                     <span>
                                         Anonymous

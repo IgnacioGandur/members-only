@@ -9,7 +9,7 @@ loginRouter.post(
     "/",
     loginController.loginPost,
     passport.authenticate("local", {
-        successRedirect: "/dashboard",
+        successRedirect: "/",
         failureRedirect: "/login",
     }),
 );

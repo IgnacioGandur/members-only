@@ -36,6 +36,7 @@ main {
     flex-direction: column;
     gap: 2em;
     align-items: center;
+    animation: appearForm 1s ease-in-out forwards;
 }
 
 .title-wrapper {
@@ -209,5 +210,18 @@ main {
     }
     100% {
         transform: translateY(0) scale(1, 1);
+    }
+}
+
+@keyframes appearForm {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    40% {
+        transform: translateX(0%);
+    }
+    100% {
+        opacity: 1;
     }
 }

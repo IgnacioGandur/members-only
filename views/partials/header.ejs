@@ -1,8 +1,24 @@
 <header>
     <div class="logo">
-        Only Members
+        <img src="/images/skull_crown.svg" alt="Logo">
     </div>
     <h1>
         <%= pageTitle %>
     </h1>
+    <% if(locals.user) { %>
+        <div class="logged-user">
+            <a href="/dashboard">
+                @<%= locals.user.username %>
+            </a>
+            <div class="logged-ppf">
+                <img src='<%= user.profile_picture %>' alt='Logged user profile picture.' />
+            </div>
+        </div>
+    <% } else { %>
+        <div class="logged-user">
+            <p>
+                <a href="/login">Log in </a>
+            </p>
+        </div>
+    <% } %>
 </header>

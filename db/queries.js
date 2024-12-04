@@ -207,6 +207,7 @@ const dbInteractions = {
                 users.is_member,
                 users.is_admin,
                 messages.id AS message_id,
+                messages.author_id AS message_author,
                 messages.title AS message_title,
                 messages.content AS message_content,
                 messages.created_at AS message_date,
