@@ -1,0 +1,77 @@
+<form action="/update-user-profile" method="POST" class="update-user-info-form">
+    <div class="fullname">
+        <div class="first-name form-field">
+            <label class="label" for="firstName">
+                First Name
+            </label>
+            <div class="input-wrapper">
+                <span class="material-symbols-sharp input-icon">
+                    person
+                </span>
+                <input class="input-field" type="text" name="firstName" id="firstName" value="<%= user.first_name %>" />
+            </div>
+        </div>
+        <div class="vertical-separator"></div>
+        <div class="last-name form-field">
+            <label class="label" for="lastName">
+                Last Name
+            </label>
+            <div class="input-wrapper">
+                <span class="material-symbols-sharp input-icon">
+                    person
+                </span>
+                <input class="input-field" type="text" name="lastName" id="lastName" value="<%= user.last_name %>" />
+            </div>
+        </div>
+        <div class="vertical-separator"></div>
+        <div class="username form-field">
+            <label class="label" for="username">
+                Username
+            </label>
+            <div class="input-wrapper">
+                <span class="material-symbols-sharp input-icon">
+                    alternate_email
+                </span>
+                <input class="input-field" type="text" name="username" id="username" value="<%= user.username %>">
+            </div>
+        </div>
+    </div>
+    <div class="horizontal-separator"></div>
+    <div class="gender-and-bio">
+        <div class="genders form-field">
+            <p class="field-title">Gender</p>
+            <div class="gender-options">
+                <div class="gender-option male ">
+                    <label for="male">
+                        <span class="material-symbols-sharp input-icon">
+                            male
+                        </span>
+                        Male
+                    </label>
+                    <input type="radio" name="gender" id="male" value="male" <%= user.gender === 'male'  ? 'checked' : null %>>
+                </div>
+                <div class="gender-option female ">
+                    <label for="female">
+                        <span class="material-symbols-sharp input-icon">
+                            female
+                        </span>
+                        Female
+                    </label>
+                    <input type="radio" name="gender" id="female" value="female" <%= user.gender === 'female'  ? 'checked' : null %>>
+                </div>
+            </div>
+        </div>
+        <div class="vertical-separator"></div>
+        <div class="bio form-field">
+            <label class="label" for="bio">Bio</label>
+            <div class="input-wrapper">
+                <span class="material-symbols-sharp input-icon">
+                    person_book
+                </span>
+                <input class="input-field" type="text" name="bio" id="bio" value="<%= user.bio %>">
+            </div>
+        </div>
+    </div>
+    <div class="horizontal-separator"></div>
+    <button class="button" type="submit">Update Profile</button>
+</form>

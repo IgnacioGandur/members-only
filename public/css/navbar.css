@@ -4,7 +4,7 @@
     justify-content: center;
     flex-direction: column;
     border-right: 1px solid var(--color-transparent-border);
-    gap: 0.25em;
+    gap: 0.5em;
     padding: 0.5em;
     position: fixed;
     left: 0;
@@ -23,6 +23,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-direction: column;
+        font-family: var(--font-main);
 
         span {
             font-size: 2.5rem;
@@ -43,12 +45,17 @@
             transition: all 300ms ease-in-out;
             z-index: 100;
         }
+
+        .text {
+            /*font-weight: 900;*/
+            font-size: 0.75rem;
+        }
     }
 
     a.active {
-        background-color: white;
+        background-color: var(--color-main);
         border: 2px solid white;
-        color: black;
+        color: white;
 
         span {
             font-variation-settings: "FILL" 1;

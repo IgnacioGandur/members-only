@@ -2,18 +2,81 @@ const dbInteractions = require("../db/queries");
 const checkAuthentication = require("../middleware/checkAuthentication");
 
 const dashboardController = {
+    activeSidebarLink: (req, res, next) => {
+        const { originalUrl } = req;
+
+        console.log("og url", originalUrl);
+        res.locals.activeSidebarLink = originalUrl;
+
+        next();
+    },
+
     dashboardGet: [
         checkAuthentication,
         async (req, res) => {
-            const { id: userId } = req.user;
+            res.redirect("/dashboard/profile-info");
+        },
+    ],
+
+    profileInfoGet: [
+        async (req, res) => {
+            res.render("pages/dashboard", {
+                dashboardSection: "profile-info",
+                userMessages: [],
+                user: req.user,
+            });
+        },
+    ],
+
+    profilePictureGet: [
+        async (req, res) => {
             const profilePictures =
                 await dbInteractions.getProfilePicturesPath();
-            const userMessages = await dbInteractions.getUserMessages(userId);
-
-            res.render("pages/dashboard", {
+            res.render("pages/dashboard.ejs", {
+                dashboardSection: "profile-picture",
                 user: req.user,
+                userMessages: [],
                 profilePictures: profilePictures,
-                userMessages: userMessages,
+            });
+        },
+    ],
+
+    accountStatusGet: [
+        async (req, res) => {
+            res.render("pages/dashboard", {
+                dashboardSection: "account-status",
+                user: req.user,
+                userMessages: [],
+            });
+        },
+    ],
+
+    updatePasswordGet: [
+        async (req, res) => {
+            res.render("pages/dashboard", {
+                dashboardSection: "update-password",
+                user: req.user,
+                userMessages: [],
+            });
+        },
+    ],
+
+    deleteAccountGet: [
+        async (req, res) => {
+            res.render("pages/dashboard", {
+                dashboardSection: "delete-account",
+                user: req.user,
+                userMessages: [],
+            });
+        },
+    ],
+
+    userMessagesGet: [
+        async (req, res) => {
+            res.render("pages/dashboard", {
+                dashboardSection: "user-messages",
+                user: req.user,
+                userMessages: [],
             });
         },
     ],

@@ -127,13 +127,14 @@
     border-radius: 5px;
     padding: 0.5em;
     transition: all 300ms ease-in-out;
-    border: 2px solid transparent;
+    border: 2px solid var(--color-main);
 
     label {
         display: flex;
         flex-direction: column;
         gap: 0.5em;
         text-align: center;
+        color: white;
     }
 
     input[type="radio"] {

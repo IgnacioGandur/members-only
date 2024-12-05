@@ -1,0 +1,28 @@
+<div class="user-messages">
+    <h2>All The Messages You Send</h2>
+    <div class="horizontal-separator"></div>
+    <% if(locals.userMessages) { %>
+        <% userMessages.forEach((message) => { %>
+            <div class="message">
+                <p class="title">
+                    <%= message.title %>
+                </p>
+                <p class="content">
+                    <%= message.content %>
+                </p>
+                <span>
+                    <%= message.created_at %>
+                </span>
+                <form action="/delete-user-message" method="POST">
+                    <input type="hidden" name="messageId" value="<%= message.id %>" />
+                    <button class="delete-message-button" type="submit">
+                        <span class="material-symbols-sharp">close</span>
+                    </button>
+                </form>
+            </div>
+        <% }) %>
+    <% } %>
+    <% if(locals.userMessages.length === 0) { %>
+        <p>You have not sent any messages. write your first one!</p>
+    <% } %>
+</div>

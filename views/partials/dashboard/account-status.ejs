@@ -1,0 +1,77 @@
+<div class="badges">
+    <h2>Account Status</h2>
+    <div class="horizontal-separator"></div>
+    <div class="badges-container">
+        <% if(user.is_admin) { %>
+            <div class="badge is-admin" title="Admin">
+                <span class="material-symbols-sharp">
+                    security
+                </span>
+                <p class="description">Admin</p>
+            </div>
+        <% } else { %>
+            <div class="badge" title="Not An Admin">
+                <span class="material-symbols-sharp">
+                    gpp_bad
+                </span>
+                <p>Not An Admin</p>
+            </div>
+        <% } %>
+        <div class="vertical-separator"></div>
+        <% if(user.is_member) { %>
+            <div class="badge is-member" title="Member">
+                <span class="material-symbols-sharp">
+                    shield_with_heart
+                </span>
+                <p>Member</p>
+            </div>
+        <% } else { %>
+            <div class="badge is-not-member" title="Not A Member">
+                <span class="material-symbols-sharp">
+                    heart_broken
+                </span>
+                <p>Not A Member</p>
+            </div>
+        <% } %>
+    </div>
+    <div class="horizontal-separator"></div>
+    <% if(!user.is_admin || !user.is_member) { %>
+        <div class="forms-container">
+            <% if(!user.is_member){ %>
+                <form class="form" action="/member-pass" method="POST">
+                    <label class="label" for="memberPass">
+                        Member Code
+                    </label>
+                    <div class="input-wrapper">
+                        <span class="material-symbols-sharp input-icon">
+                            heart_check
+                        </span>
+                        <input class="input-field" type="password" name="memberPass" id="memberPass" />
+                    </div>
+                    <button class="button" type="submit">
+                        Enable member status
+                    </button>
+                </form>
+            <% } %>
+            <% if(!user.is_admin && !user.is_member) { %>
+                <div class="vertical-separator"></div>
+            <% } %>
+            <% if(!user.is_admin) { %>
+                <form class="form" action="/admin-pass" method="POST">
+                    <label class="label" for="adminPass">
+                        Admin Code
+                    </label>
+                    <div class="input-wrapper">
+                        <span class="material-symbols-sharp input-icon">
+                            security
+                        </span>
+                        <input class="input-field" type="password" name="adminPass" id="adminPass" />
+                    </div>
+                    <button class="button" type="submit">
+                        Enable admin status
+                    </button>
+                </form>
+            <% } %>
+        </div>
+    <% } %>
+</div>

@@ -1,0 +1,50 @@
+<% const links = [
+    {
+        href: 'profile-info',
+        text: 'Profile Info',
+        icon: 'account_circle'
+    },
+    {
+        href: 'profile-picture',
+        text: 'Profile Picture',
+        icon: 'face'
+    },
+    {
+        href: 'account-status',
+        text: 'Account Status',
+        icon: 'badge'
+    },
+    {
+        href: 'update-password',
+        text: 'Password Settings',
+        icon: 'lock'
+    },
+    {
+        href: 'delete-account',
+        text: 'Delete Account',
+        icon: 'person_remove'
+    },
+    {
+        href: 'user-messages',
+        text: 'Messages You Sent',
+        icon: 'outgoing_mail'
+    }
+]  %>
+
+<div class="settings-sidebar">
+    <% links.forEach((link)=>{ %>
+        <a 
+            class="<%= locals.activeSidebarLink.includes(link.href) ? 'active' : null %>" 
+            href="/dashboard/<%= link.href %>"
+        >
+            <div class="icon-wrapper">
+                <span class="material-symbols-sharp">
+                    <%= link.icon %>
+                </span>
+            </div>
+            <div class="text">
+                <%= link.text %>
+            </div>
+        </a>
+    <% }) %>
+</div>
