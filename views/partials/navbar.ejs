@@ -1,66 +1,61 @@
+<%
+const navbarLinks = locals.user ? [
+    {
+        href: '/',
+        text: 'Homepage',
+        icon: 'home'
+    },
+    {
+        href: '/users',
+        text: 'Users',
+        icon: 'group'
+    },
+    {
+        href: '/new-message',
+        text: 'New Message',
+        icon: 'send'
+    },
+    {
+        href: '/dashboard',
+        text: 'Dashboard',
+        icon: 'dashboard'
+    },
+    {
+        href: '/logout',
+        text: 'Logout',
+        icon: 'logout'
+    },
+] : [
+    {
+        href: '/',
+        text: 'Homepage',
+        icon: 'home'
+    },
+    {
+        href: '/register',
+        text: 'Register',
+        icon: 'group_add'
+    },
+    {
+        href: '/login',
+        text: 'Login',
+        icon: 'login'
+    },
+]
+%>
+
 <nav class="navbar">
-    <a class="<%=  currentPath === '/' ? 'active' : null %> link" href="/">
-        <span class="material-symbols-sharp">
-            home
-        </span>
-        <p class="description">
-            Home
-        </p>
-    </a>
-    <% if(locals.user) { %>
-        <a class="<%= currentPath === '/users' ? 'active' : null %>"  href="/users">
-            <span class="material-symbols-sharp">
-                group
-            </span>
-            <p class="description">
-                Users
-            </p>
-        </a>
-    <% } %>
-    <% if(!locals.user) { %>
-        <a class="<%= currentPath === '/register' ? 'active' : null %>" href="/register">
-            <span class="material-symbols-sharp">
-                person_add
-            </span>
-            <p class="description">
-                Register
-            </p>
-        </a>
-        <a class="<%= currentPath  === '/login' ? 'active' : null %>" href="/login">
-            <span class="material-symbols-sharp">
-                login
-            </span>
-            <p class="description">
-                Login
-            </p>
-        </a>
-    <% } %>
-    <% if(locals.user) { %>
-        <a class="<%= currentPath  === '/new-message' ? 'active' : null %>" href="/new-message">
-            <span class="material-symbols-sharp">
-                send
-            </span>
-            <p class="description">
-                New Message
-            </p>
-        </a>
-        <a class="<%= currentPath  === '/dashboard' ? 'active' : null %>" href="/dashboard/profile-info">
-            <span class="material-symbols-sharp">
-                dashboard
-            </span>
-            <p class="description">
-                Dashboard
-            </p>
-        </a>
-    <% } %>
-    <% if(locals.user) { %>
-        <a class="logout" href="/logout">
-            <span class="material-symbols-sharp">
-                logout
-            </span>
-            <p class="description">
-                Logout
-            </p>
-        </a>
-    <% } %>
+    <% navbarLinks.forEach((link)=> { 
+        const isActive = locals.currentPath === link.href ||
+        (link.href !== '/' && locals.currentPath.startsWith(link.href));
+    %>
+            <a class="<%= isActive ? 'active' : null %>" href="<%= link.href %>">
+                <span class="material-symbols-sharp">
+                    <%= link.icon %>
+                </span>
+                <p class="description">
+                    <%= link.text %>
+                </p>
+            </a>
+    <% }) %>
 </nav>

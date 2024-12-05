@@ -4,10 +4,7 @@ const checkAuthentication = require("../middleware/checkAuthentication");
 const dashboardController = {
     activeSidebarLink: (req, res, next) => {
         const { originalUrl } = req;
-
-        console.log("og url", originalUrl);
         res.locals.activeSidebarLink = originalUrl;
-
         next();
     },
 
