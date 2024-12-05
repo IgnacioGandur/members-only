@@ -50,7 +50,7 @@ header {
         font-family: var(--font-main);
         font-weight: 900;
         display: flex;
-        gap: 0.5em;
+        gap: 1em;
         align-items: center;
         border-radius: 10px;
 

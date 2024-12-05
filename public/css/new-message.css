@@ -1,0 +1,153 @@
+body,
+main {
+    background: transparent;
+}
+
+main {
+    padding-left: 5em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.form-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.message-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1em;
+    height: 75%;
+    width: 25%;
+    border-radius: 15px 50px 15px 50px;
+    /*border-radius: 15px;*/
+    padding: 2em;
+    background-color: transparent;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0px 0px 50px 1px rgba(0, 0, 0, 0.75);
+    animation: appearMessageForm 1s ease-in-out forwards 2s;
+    opacity: 0;
+    font-family: var(--font-main);
+}
+
+.form-field {
+    flex: initial !important;
+}
+
+.input-icon {
+    transform: scaleX(-1);
+}
+
+.input-wrapper,
+.button {
+    box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.5);
+}
+
+.button {
+    margin-top: auto;
+}
+
+#form-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#top_blob,
+#bottom_blob {
+    transform-box: fill-box;
+    opacity: 0;
+    transform-origin: center;
+}
+
+#top_blob {
+    animation: appearTopBlob 2s linear forwards 2s;
+}
+
+#bottom_blob {
+    animation: appearBottomBlob 2s linear forwards 2s;
+}
+
+@keyframes appearMessageForm {
+    0% {
+        transform: scale(1.25);
+    }
+    60% {
+        transform: scale(0.95);
+    }
+    80% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes appearBottomBlob {
+    0% {
+        transform: translate(-100%, 100%);
+    }
+    100% {
+        transform: translate(-25%, 25%);
+        opacity: 1;
+    }
+}
+
+@keyframes appearTopBlob {
+    0% {
+        transform: translate(100%, -100%);
+    }
+    100% {
+        transform: translate(25%, -25%);
+        opacity: 1;
+    }
+}
+
+#layered-waves {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#first_wave,
+#second_wave,
+#third_wave,
+#fourth_wave,
+#fifth_wave,
+#sixth_wave {
+    opacity: 0;
+    transform: translateY(100%);
+    animation: appearWave 1550ms ease-out forwards;
+}
+
+@keyframes appearWave {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    60% {
+        transform: translateY(-5%);
+    }
+    80% {
+        transform: translateY(2%);
+    }
+    100% {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}

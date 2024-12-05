@@ -1,0 +1,15 @@
+<svg id="form-bg" preserveAspectRatio="none" viewBox="0 0 600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="new-message-form 1" clip-path="url(#clip0_1_2)">
+    <g id="top_blob">
+    <path id="Vector" d="M600 486.7C547.6 455.1 495.2 423.5 432 405.6C368.8 387.6 294.9 383.3 255.8 344.2C216.7 305.1 212.4 231.2 194.4 168C176.5 104.8 144.9 52.4 113.3 0H600V486.7Z" fill="#663399"/>
+    </g>
+    <g id="bottom_blob">
+    <path id="Vector_2" d="M0 413.3C48.8 454.9 97.7 496.6 160 513.8C222.2 531 298 523.7 344.2 555.8C390.4 588 407.1 659.6 425.9 723.6C444.7 787.5 465.7 843.8 486.7 900H0V413.3Z" fill="#663399"/>
+    </g>
+    </g>
+    <defs>
+    <clipPath id="clip0_1_2">
+    <rect width="600" height="900" fill="white"/>
+    </clipPath>
+    </defs>
+</svg>

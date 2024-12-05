@@ -12,25 +12,46 @@
         <link rel="stylesheet" href="/css/styles.css">
         <link rel="stylesheet" href="/css/variables.css">
         <link rel="stylesheet" href="/css/navbar.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/new-message.css">
+        <link rel="stylesheet" href="/css/classes.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20,100,0..1,-50" />
     </head>
     <body>
         <%- include('../partials/navbar.ejs', { currentPath }) %>
-        <h1>
-            Create a new message!
-        </h1>
-        <form action="/new-message" method="POST">
-            <label for="title">
-                Message title:
-                <input type="text" name="title" id="title" />
-            </label>
-            <label for="content">
-                Message content:
-                <input type="text" name="content" id="content" />
-            </label>
-            <button type="submit">
-                Create message!
-            </button>
-        </form>
+        <%- include('../partials/layered-waves.svg') %>
+        <main>
+            <%- include('../partials/header.ejs', {pageTitle: "Send A New Message"}) %>
+            <div class="form-container">
+                <form class="message-form" action="/new-message" method="POST">
+                    <%- include('../partials/new-message-form.svg') %>
+                    <div class="form-field">
+                        <label class="label" for="title">
+                            Title
+                        </label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-sharp input-icon">
+                                comic_bubble
+                            </span>
+                            <input class="input-field" type="text" name="title" id="title" />
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="label" for="content">
+                            Content
+                        </label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-sharp input-icon">
+                                list_alt
+                            </span>
+                            <input class="input-field" id="content" type="text" name="content" >
+                        </div>
+                    </div>
+                    <button class="button" type="submit">
+                        Create message!
+                    </button>
+                </form>
+            </div>
+        </main>
     </body>
 </html>
