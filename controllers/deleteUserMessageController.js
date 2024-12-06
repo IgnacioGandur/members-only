@@ -26,7 +26,7 @@ const deleteUserMessageController = {
 
             console.log(req.body);
             await dbInteractions.deleteUserMessage(userId, messageId);
-            res.redirect("/dashboard");
+            res.redirect("/dashboard/user-messages");
         },
     ],
 };

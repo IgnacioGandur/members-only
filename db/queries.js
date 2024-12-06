@@ -309,6 +309,13 @@ const dbInteractions = {
 
             const { rows } = await db.query(query, [userId]);
 
+            for (let i = 0; i < rows.length; i++) {
+                rows[i].created_at = format(
+                    rows[i].created_at,
+                    "do,  MMMM 'of' yyyy 'at' hh:mm a",
+                );
+            }
+
             return rows;
         } catch (error) {
             console.error("Database error: ", error.message);

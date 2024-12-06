@@ -3,3 +3,5 @@
 // FIX: Re-format the navbar so it works like the settings sidebar in dashboard.
 // TODO: Separate the 'dbInteractions' object into separate function so each file that needs a db function doesn't have to import the whole object.
 // TODO: Separate the 'dashboard.css' file into small files for each dashboard section.
+//
+// FIX: Move the member and admin password post controller to the dashboard section.

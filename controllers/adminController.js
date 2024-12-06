@@ -28,6 +28,7 @@ const adminController = {
             if (!validationErrors.isEmpty()) {
                 return res.status(401).render("pages/dashboard", {
                     user: req.user,
+                    dashboardSection: 'account-status',
                     validationErrors: validationErrors.array(),
                     profilePictures: profilePictures,
                     userMessages: userMessages,

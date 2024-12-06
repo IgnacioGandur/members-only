@@ -7,7 +7,10 @@
                 <span class="material-symbols-sharp">
                     security
                 </span>
-                <p class="description">Admin</p>
+                <p class="title">Admin</p>
+                <p class="description">
+                    You can delete user messages
+                </p>
             </div>
         <% } else { %>
             <div class="badge" title="Not An Admin">
@@ -23,7 +26,10 @@
                 <span class="material-symbols-sharp">
                     shield_with_heart
                 </span>
-                <p>Member</p>
+                <p class="title">Member</p>
+                <p class="description">
+                    You can send messages, see usernames in messages and visit user profiles
+                </p>
             </div>
         <% } else { %>
             <div class="badge is-not-member" title="Not A Member">
@@ -37,27 +43,8 @@
     <div class="horizontal-separator"></div>
     <% if(!user.is_admin || !user.is_member) { %>
         <div class="forms-container">
-            <% if(!user.is_member){ %>
-                <form class="form" action="/member-pass" method="POST">
-                    <label class="label" for="memberPass">
-                        Member Code
-                    </label>
-                    <div class="input-wrapper">
-                        <span class="material-symbols-sharp input-icon">
-                            heart_check
-                        </span>
-                        <input class="input-field" type="password" name="memberPass" id="memberPass" />
-                    </div>
-                    <button class="button" type="submit">
-                        Enable member status
-                    </button>
-                </form>
-            <% } %>
-            <% if(!user.is_admin && !user.is_member) { %>
-                <div class="vertical-separator"></div>
-            <% } %>
             <% if(!user.is_admin) { %>
-                <form class="form" action="/admin-pass" method="POST">
+                <form class="form" action="/dashboard/account-status/admin-pass" method="POST">
                     <label class="label" for="adminPass">
                         Admin Code
                     </label>
@@ -69,6 +56,25 @@
                     </div>
                     <button class="button" type="submit">
                         Enable admin status
+                    </button>
+                </form>
+            <% } %>
+            <% if(!user.is_admin && !user.is_member) { %>
+                <div class="vertical-separator"></div>
+            <% } %>
+            <% if(!user.is_member){ %>
+                <form class="form" action="/dashboard/account-status/member-pass" method="POST">
+                    <label class="label" for="memberPass">
+                        Member Code
+                    </label>
+                    <div class="input-wrapper">
+                        <span class="material-symbols-sharp input-icon">
+                            heart_check
+                        </span>
+                        <input class="input-field" type="password" name="memberPass" id="memberPass" />
+                    </div>
+                    <button class="button" type="submit">
+                        Enable member status
                     </button>
                 </form>
             <% } %>

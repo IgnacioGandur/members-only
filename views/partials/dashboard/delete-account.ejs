@@ -1,4 +1,4 @@
-<form class="delete-user-form" action="/delete-user" method="POST">
+<form class="delete-user-form" action="/dashboard/delete-account" method="POST">
     <h2>
         Delete Your Account
     </h2>
@@ -8,7 +8,12 @@
     </label>
     <div class="input-wrapper">
         <span class="material-symbols-sharp input-icon">account_circle_off</span>
-        <input class="input-field" type="password" name="deleteUserPass" id="deleteUserPass" />
+        <input data-pass-field class="input-field" type="password" name="deleteUserPass" id="deleteUserPass" />
+        <button data-toggle-pass-visibility  type="button">
+            <span class="material-symbols-sharp input-icon">
+                visibility
+            </span>
+        </button>
     </div>
     <button class="button" type="submit">
         Delete Your Account

@@ -102,7 +102,7 @@ const registerController = {
                 profilePicture,
             );
 
-            res.redirect("/");
+            res.redirect("/login");
         },
     ],
 };

@@ -10,7 +10,7 @@
                 <p class="content">
                     <%= message.content %>
                 </p>
-                <span>
+                <span class="message-date">
                     <%= message.created_at %>
                 </span>
                 <form action="/delete-user-message" method="POST">
@@ -23,6 +23,8 @@
         <% }) %>
     <% } %>
     <% if(locals.userMessages.length === 0) { %>
-        <p>You have not sent any messages. write your first one!</p>
+        <div class="no-messages">
+            <p>You have not sent any messages. Send your first message <a class="link" href="/new-message">here</a>!</p>
+        </div>
     <% } %>
 </div>

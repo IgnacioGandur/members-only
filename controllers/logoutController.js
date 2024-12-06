@@ -5,7 +5,7 @@ const logoutController = {
                 return next(error);
             }
 
-            return res.redirect("/");
+            return res.redirect("/login");
         });
     },
 };

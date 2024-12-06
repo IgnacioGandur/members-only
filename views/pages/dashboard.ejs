@@ -30,9 +30,11 @@
             <% } %>
             <div class="dashboard">
                 <%- include("../partials/dashboard/settings-sidebar.ejs") %>
-                <div class="section">
-                    <%- include(`../partials/dashboard/${locals.dashboardSection}.ejs`) %>
-                </div>
+                <% if(locals.dashboardSection) { %>
+                    <div class="section">
+                        <%- include(`../partials/dashboard/${locals.dashboardSection}.ejs`) %>
+                    </div>
+                <% } %>
             </div>
         </main>
     </body>

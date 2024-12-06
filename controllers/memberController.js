@@ -29,11 +29,13 @@ const memberController = {
                 return res.status(401).render("pages/dashboard", {
                     validationErrors: validationErrors.array(),
                     user: req.user,
-                    userMessages: userMessages,
+                    userMessages: [],
                     profilePictures: profilePictures,
+                    dashboardSection: "account-status",
                 });
             }
 
+            console.log("blablabla");
             await dbInteractions.grantMemberPrivileges(id);
             res.redirect("/dashboard");
         },

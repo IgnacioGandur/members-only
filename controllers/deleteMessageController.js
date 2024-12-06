@@ -33,7 +33,7 @@ const deleteMessageController = {
             const { messageId } = req.body;
             await dbInteractions.deleteMessage(messageId);
 
-            return res.redirect("/messages");
+            return res.redirect("/");
         },
     ],
 };
