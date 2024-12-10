@@ -5,3 +5,6 @@
 // TODO: Separate the 'dashboard.css' file into small files for each dashboard section.
 //
 // FIX: Move the member and admin password post controller to the dashboard section.
+//
+// TODO: stye the messages like the users.
+// TODO: Add 404 page.

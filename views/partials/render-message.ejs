@@ -7,6 +7,15 @@
                 </p>
             </div>
         <% } %>
+        <% if(locals.user) { %>
+            <% if(!locals.user.is_member) { %>
+                <div class="not-logged-message">
+                    <p>
+                        You need to be a member to see the messages authors and dates. Become a member <a href="/dashboard/account-status">here</a>!
+                    </p>
+                </div>
+            <% } %>
+        <% } %>
         <% messages.forEach((message, index)=>{ %>
             <article style="animation-delay: <%= index  %>75ms;" class="message">
                 <div class="header">
@@ -30,22 +39,43 @@
                                     Anonymous
                                 </span>
                             <% } %>
-                            <div class="badges">
-                                <span title="Admin" class="material-symbols-sharp">
-                                    <%= message.is_admin ? 'local_police' : '' %>
-                                </span>
-                                <span title="Member" class="material-symbols-sharp">
-                                    <%= message.is_member ? 'award_star' : '' %>
-                                </span>
-                            </div>
+                            <% if(message.is_admin || message.is_member) { %>
+                                <div class="badges">
+                                    <% if(message.is_admin) { %>
+                                        <div class="icon-wrapper">
+                                            <span title="Admin" class="material-symbols-sharp">
+                                                <%= message.is_admin ? 'shield_with_heart' : '' %>
+                                            </span>
+                                        </div>
+                                    <% } %>
+                                    <% if(message.is_member) { %>
+                                        <div class="icon-wrapper">
+                                            <span title="Member" class="material-symbols-sharp">
+                                                <%= message.is_member ? 'security' : '' %>
+                                            </span>
+                                        </div>
+                                    <% } %>
+                                </div>
+                            <% } %>
                         </div>
                         <div class="username-and-gender">
                             <p class="username">
-                                @<%= message.username %>
+                                @
+                                <% if(locals.user) { %>
+                                    <% if(locals.user.is_member) { %>
+                                        <%= message.username %>
+                                    <% } else { %>
+                                        Anonymous
+                                    <% } %>
+                                <% } else { %>
+                                    Anonymous
+                                <% } %>
                             </p>
-                            <span class="material-symbols-sharp <%= message.gender === 'male' ? 'male' : 'female' %>">
-                                <%= message.gender %>
-                            </span>
+                            <div class="gender-icon-wrapper">
+                                <span class="material-symbols-sharp <%= message.gender === 'male' ? 'male' : 'female' %>">
+                                    <%= message.gender %>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -61,7 +91,9 @@
                 <div class="separator"></div>
                 <p class="message-date">
                     <%if(locals.user) {  %>
-                        <%= message.message_date %>
+                        <% if(user.is_member) { %>
+                            <%= message.message_date %>
+                        <% } %>
                     <% } else { %>
                         "Message Date."
                     <% } %>
@@ -72,7 +104,7 @@
                             <input type="hidden" name="messageId" value="<%= message.message_id %>" />
                             <button class="delete-button" type="submit">
                                 <span class="material-symbols-sharp">
-                                    remove
+                                    close
                                 </span>
                             </button>
                         </form>
@@ -80,5 +112,16 @@
                 <% } %>
             </article>
         <% }) %>
+        <% if(locals.messages.length === 0) { %>
+            <div class="no-messages">
+                <%- include('../partials/messages-bg.ejs') %>
+                <h2>
+                    There are no messages <span class="material-symbols-sharp">heart_broken</span>
+                </h2>
+                <p>
+                    Be the first one to write a message <a href="/new-message">here</a>!
+                </p>
+            </div>
+        <% } %>
     </div>
 <% } %>

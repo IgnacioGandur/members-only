@@ -2,116 +2,146 @@ const db = require("./pool");
 const bcrypt = require("bcryptjs");
 const { format } = require("date-fns");
 
-const dbInteractions = {
-    async usernameExists(username) {
-        try {
-            const query = `
+async function checkIfUserExistsByUsername(username) {
+    const query = `
+        SELECT id FROM users WHERE username = $1;
+        `;
+    const { rows } = await db.query(query, [username]);
+
+    if (rows.length > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+async function checkIfProfilePictureExists(id) {
+    try {
+        const query = `
+            SELECT id FROM profile_pictures WHERE id = $1;
+        `;
+
+        const { rows } = await db.query(query, [id]);
+
+        if (rows.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        console.error("Database error:", error.message);
+        throw new Error("Could not check if the profile picture exists.");
+    }
+}
+
+async function usernameExists(username) {
+    try {
+        const query = `
             SELECT * FROM users WHERE username = $1;
         `;
-            const { rows } = await db.query(query, [username]);
+        const { rows } = await db.query(query, [username]);
 
-            if (rows.length > 0) {
-                //If the result is not empty, the username already is in the db.
-                return true;
-            } else {
-                return false;
-            }
-        } catch (error) {
-            console.error("Database error:", error.message);
-            throw new Error("Could not check if user exists.");
+        if (rows.length > 0) {
+            //If the result is not empty, the username already is in the db.
+            return true;
+        } else {
+            return false;
         }
-    },
+    } catch (error) {
+        console.error("Database error:", error.message);
+        throw new Error("Could not check if user exists.");
+    }
+}
 
-    async checkIfUpdatedUsernameIsValid(userId, updatedUsername) {
-        try {
-            const query = `
+async function checkIfUpdatedUsernameIsValid(userId, updatedUsername) {
+    try {
+        const query = `
                 SELECT username FROM users WHERE id = $1;
             `;
-            const { rows } = await db.query(query, [userId]);
+        const { rows } = await db.query(query, [userId]);
 
-            const currentUsername = rows[0].username;
+        const currentUsername = rows[0].username;
 
-            // If the user didn't updated the username.
-            if (currentUsername === updatedUsername) {
-                return;
-            }
+        // If the user didn't updated the username.
+        if (currentUsername === updatedUsername) {
+            return;
+        }
 
-            const query2 = `
+        const query2 = `
                 SELECT * FROM users WHERE username = $1;
             `;
 
-            const { rows: usernameResults } = await db.query(query2, [
-                updatedUsername,
-            ]);
+        const { rows: usernameResults } = await db.query(query2, [
+            updatedUsername,
+        ]);
 
-            if (usernameResults.length > 0) {
-                console.log("username not available");
-                return true;
-            } else {
-                console.log("username available");
-                return false;
-            }
-        } catch (error) {
-            console.error("Database error: ", error.message);
-            throw new Error(
-                "Could not check if the username already existed when trying to update the username.",
-            );
+        if (usernameResults.length > 0) {
+            return true;
+        } else {
+            return false;
         }
-    },
+    } catch (error) {
+        console.error("Database error: ", error.message);
+        throw new Error(
+            "Could not check if the username already existed when trying to update the username.",
+        );
+    }
+}
 
-    async getProfilePicturesPath() {
-        try {
-            const query = `
+async function getProfilePicturesPath() {
+    try {
+        const query = `
                 SELECT * FROM profile_pictures;
             `;
-            const { rows } = await db.query(query);
+        const { rows } = await db.query(query);
 
-            return rows;
-        } catch (error) {
-            console.error("Database error: ", error.message);
-            throw new Error("Could not get profile pictures.");
-        }
-    },
+        return rows;
+    } catch (error) {
+        console.error("Database error: ", error.message);
+        throw new Error("Could not get profile pictures.");
+    }
+}
 
-    async insertUser(
-        firstName,
-        lastName,
-        username,
-        bio,
-        password,
-        gender,
-        profilePictureId,
-    ) {
-        const hashedPass = await bcrypt.hash(password, 10);
+async function insertUser(
+    firstName,
+    lastName,
+    username,
+    bio,
+    password,
+    gender,
+    profilePictureId,
+) {
+    const hashedPass = await bcrypt.hash(password, 10);
 
-        try {
-            const query = `
+    try {
+        const query = `
             INSERT INTO users (first_name, last_name, username, bio, password, gender) VALUES ($1, $2, $3, $4, $5, $6 ) RETURNING id;
             `;
 
-            const { rows } = await db.query(query, [
-                firstName,
-                lastName,
-                username,
-                bio,
-                hashedPass,
-                gender,
-            ]);
+        const { rows } = await db.query(query, [
+            firstName,
+            lastName,
+            username,
+            bio,
+            hashedPass,
+            gender,
+        ]);
 
-            const userId = rows[0].id;
+        const userId = rows[0].id;
 
-            const query2 = `
+        const query2 = `
                     INSERT INTO profilepictures_users (profile_picture_id, user_id) VALUES ($1, $2);
             `;
 
-            await db.query(query2, [Number(profilePictureId), userId]);
-        } catch (error) {
-            console.error("Database error:", error.message);
-            throw new Error("Could not insert user into database.");
-        }
-    },
+        await db.query(query2, [Number(profilePictureId), userId]);
+    } catch (error) {
+        console.error("Database error:", error.message);
+        throw new Error("Could not insert user into database.");
+    }
+}
 
-    async getAllUsers() {
+async function getAllUsers() {
+    try {
         const query = `
             SELECT users.id,
                 users.first_name, 
@@ -136,18 +166,28 @@ const dbInteractions = {
         }
 
         return rows;
-    },
+    } catch (error) {
+        console.error("Database error: ", error.message);
+        throw new Error("Could not get all users");
+    }
+}
 
-    async getUserByUsername(username) {
+async function getUserByUsername(username) {
+    try {
         const query = `
             SELECT * FROM users WHERE username = $1;
         `;
         const { rows } = await db.query(query, [username]);
 
         return rows[0];
-    },
+    } catch (error) {
+        console.error("Database error: ", error.message);
+        throw new Error("Could not get the user by username.");
+    }
+}
 
-    async getUserInfoById(id) {
+async function getUserInfoById(id) {
+    try {
         const query = `
             SELECT users.id, users.first_name, users.last_name, users.username, users.bio, users.gender, users.is_member, users.is_admin, profile_pictures.path AS profile_picture, profile_pictures.description AS ppf_description, profile_pictures.id AS profile_picture_id FROM users 
             INNER JOIN profilepictures_users ON users.id = profilepictures_users.user_id
@@ -158,24 +198,40 @@ const dbInteractions = {
         const { rows } = await db.query(query, [id]);
 
         return rows[0];
-    },
+    } catch (error) {
+        console.error("Database error: ", error.message);
+        throw new Error("Could not get the user information by it's id.");
+    }
+}
 
-    async grantAdminPrivileges(userId) {
+async function grantAdminPrivileges(userId) {
+    try {
         const query = `
             UPDATE users SET is_admin = true WHERE id = $1;
         `;
 
         await db.query(query, [userId]);
-    },
+    } catch (error) {
+        console.error("Database error: ", error.message);
+        throw new Error("Could not grant admin privileges to the user.");
+    }
+}
 
-    async grantMemberPrivileges(userId) {
+async function grantMemberPrivileges(userId) {
+    try {
         const query = `
             UPDATE users SET is_member = true WHERE id = $1;
         `;
 
         await db.query(query, [userId]);
-    },
-    async getUserPassword(userId) {
+    } catch (error) {
+        console.error("Database error: ", error.message);
+        throw new Error("Could not grant member privileges to the user.");
+    }
+}
+
+async function getUserPassword(userId) {
+    try {
         const query = `
             SELECT password FROM users WHERE id = $1;
         `;
@@ -183,22 +239,40 @@ const dbInteractions = {
         const { rows } = await db.query(query, [userId]);
 
         return rows[0].password;
-    },
-    async deleteUser(id) {
+    } catch (error) {
+        console.error("Database error: ", error.message);
+        throw new Error("Could not get the user password.");
+    }
+}
+
+async function deleteUser(id) {
+    try {
         const query = `
             DELETE FROM users WHERE id = $1;
         `;
 
         await db.query(query, [id]);
-    },
-    async insertNewMessage(userId, title, content) {
+    } catch (error) {
+        console.error("Database error: ", error.message);
+        throw new Error("Could not delete the user.");
+    }
+}
+
+async function insertNewMessage(userId, title, content) {
+    try {
         const query = `
             INSERT INTO messages (author_id, title, content) VALUES ($1, $2, $3);
         `;
 
         await db.query(query, [userId, title, content]);
-    },
-    async getAllMessages() {
+    } catch (error) {
+        console.error("Database error: ", error.message);
+        throw new Error("Could not insert the messagege in the database.");
+    }
+}
+
+async function getAllMessages() {
+    try {
         const query = `
             SELECT users.first_name,
                 users.last_name,
@@ -229,60 +303,70 @@ const dbInteractions = {
         }
 
         return rows;
-    },
+    } catch (error) {
+        console.error("Database error: ", error.message);
+        throw new Error("Could not get all the messages.");
+    }
+}
 
-    async deleteMessage(messageId) {
+async function deleteMessage(messageId) {
+    try {
         const query = `
             DELETE FROM messages WHERE id = $1;
         `;
 
         await db.query(query, [messageId]);
-    },
+    } catch (error) {
+        console.error("Database error: ", error.message);
+        throw new Error("Could not delete the message.");
+    }
+}
 
-    async updateUserProfile(
-        userId,
-        firstName,
-        lastName,
-        username,
-        gender,
-        bio,
-    ) {
-        try {
-            // Update profile in the 'users' table.
-            const query = `
+async function updateUserProfile(
+    userId,
+    firstName,
+    lastName,
+    username,
+    gender,
+    bio,
+) {
+    try {
+        // Update profile in the 'users' table.
+        const query = `
                 UPDATE users SET first_name = $1, last_name= $2, username = $3, gender = $4, bio = $5 WHERE id = $6;
             `;
 
-            await db.query(query, [
-                firstName,
-                lastName,
-                username,
-                gender,
-                bio,
-                userId,
-            ]);
-        } catch (error) {
-            console.error("Database error:", error.message);
-            throw new Error("Error when trying to update the user profile.");
-        }
-    },
+        await db.query(query, [
+            firstName,
+            lastName,
+            username,
+            gender,
+            bio,
+            userId,
+        ]);
+    } catch (error) {
+        console.error("Database error:", error.message);
+        throw new Error("Error when trying to update the user profile.");
+    }
+}
 
-    async updateProfilePicture(userId, profilePictureId) {
-        try {
-            const query = `
+async function updateProfilePicture(userId, profilePictureId) {
+    try {
+        const query = `
             UPDATE profilepictures_users SET profile_picture_id = $1 WHERE user_id = $2;
         `;
 
-            await db.query(query, [profilePictureId, userId]);
-        } catch (error) {
-            console.error("Database error:", error.message);
-            throw new Error(
-                "Something failed when trying to update the user's profile picture.",
-            );
-        }
-    },
+        await db.query(query, [profilePictureId, userId]);
+    } catch (error) {
+        console.error("Database error:", error.message);
+        throw new Error(
+            "Something failed when trying to update the user's profile picture.",
+        );
+    }
+}
 
-    async getUserPassword(userId) {
+async function getUserPassword(userId) {
+    try {
         const query = `
             SELECT password FROM users WHERE id = $1;
         `;
@@ -290,80 +374,101 @@ const dbInteractions = {
         const { rows } = await db.query(query, [userId]);
 
         return rows[0].password;
-    },
+    } catch (error) {
+        console.error("Database error:", error.message);
+        throw new Error("Could not the user password.");
+    }
+}
 
-    async updateUserPassword(userId, newPassword) {
+async function updateUserPassword(userId, newPassword) {
+    try {
         const hashedPass = await bcrypt.hash(newPassword, 10);
         const query = `
             UPDATE users SET password = $1 WHERE id = $2;
         `;
 
         await db.query(query, [hashedPass, userId]);
-    },
+    } catch (error) {
+        console.error("Database error:", error.message);
+        throw new Error("Could not update the user's password.");
+    }
+}
 
-    async getUserMessages(userId) {
-        try {
-            const query = `
+async function getUserMessages(userId) {
+    try {
+        const query = `
                 SELECT messages.id, messages.title, messages.content, messages.created_at FROM messages INNER JOIN users ON messages.author_id = users.id WHERE users.id = $1 ORDER BY messages.created_at DESC;
             `;
 
-            const { rows } = await db.query(query, [userId]);
+        const { rows } = await db.query(query, [userId]);
 
-            for (let i = 0; i < rows.length; i++) {
-                rows[i].created_at = format(
-                    rows[i].created_at,
-                    "do,  MMMM 'of' yyyy 'at' hh:mm a",
-                );
-            }
-
-            return rows;
-        } catch (error) {
-            console.error("Database error: ", error.message);
-            throw new Error(
-                "Something failed when trying to retrieve messages wrote by user.",
+        for (let i = 0; i < rows.length; i++) {
+            rows[i].created_at = format(
+                rows[i].created_at,
+                "do,  MMMM 'of' yyyy 'at' hh:mm a",
             );
         }
-    },
 
-    async checkIfMessageExists(userId, messageId) {
-        try {
-            const query = `
-                SELECT messages.id FROM messages INNER JOIN users ON messages.author_id = users.id WHERE users.id = $1 AND messages.id = $2;
-            `;
+        return rows;
+    } catch (error) {
+        console.error("Database error: ", error.message);
+        throw new Error(
+            "Something failed when trying to retrieve messages wrote by user.",
+        );
+    }
+}
 
-            const { rows } = await db.query(query, [userId, messageId]);
+async function checkIfMessageExists(messageId) {
+    const query = `
+        SELECT id FROM messages WHERE id = $1;
+    `;
 
-            if (rows.length > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (error) {
-            console.error("Database error: ", error.message);
-            throw new Error(
-                "Something went wrong when trying to verify if the message exists before deletion.",
-            );
+    const { rows } = await db.query(query, [messageId]);
+
+    if (rows.length > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+async function checkIfUserIsMessageAuthor(messageId, userId) {
+    try {
+        const query = `
+            SELECT * FROM messages WHERE id = $1 AND author_id = $2;
+        `;
+
+        const { rows } = await db.query(query, [messageId, userId]);
+
+        if (rows.length > 0) {
+            return true;
+        } else {
+            return false;
         }
-    },
+    } catch (error) {
+        console.error("Database error: ", error.message);
+        throw new Error("Cound not check if the user is the message author.");
+    }
+}
 
-    async deleteUserMessage(userId, messageId) {
-        try {
-            const query = `
+async function deleteUserMessage(userId, messageId) {
+    try {
+        const query = `
                 DELETE FROM messages WHERE author_id = $1 AND id = $2;
             `;
 
-            await db.query(query, [userId, messageId]);
-        } catch (error) {
-            console.error("Database error:", error.message);
-            throw new Error(
-                "Something went wrong when the use was trying to delete one of it's own messages.",
-            );
-        }
-    },
+        await db.query(query, [userId, messageId]);
+    } catch (error) {
+        console.error("Database error:", error.message);
+        throw new Error(
+            "Something went wrong when the use was trying to delete one of it's own messages.",
+        );
+    }
+}
 
-    async getUserProfile(userId) {
-        try {
-            const query = `
+async function getUserProfile(userId) {
+    try {
+        const query = `
                 SELECT users.first_name,
                     users.last_name,
                     users.username,
@@ -377,37 +482,38 @@ const dbInteractions = {
                                 INNER JOIN profile_pictures ON profilepictures_users.profile_picture_id = profile_pictures.id WHERE users.id = $1;
             `;
 
-            const { rows } = await db.query(query, [userId]);
+        const { rows } = await db.query(query, [userId]);
 
-            rows[0].creation_date = format(
-                rows[0].creation_date,
-                "do,  MMMM 'of' yyyy",
-            );
+        rows[0].creation_date = format(
+            rows[0].creation_date,
+            "do,  MMMM 'of' yyyy",
+        );
 
-            const query2 = `
+        const query2 = `
                 SELECT * FROM messages WHERE author_id = $1;
             `;
 
-            const { rows: messages } = await db.query(query2, [userId]);
+        const { rows: messages } = await db.query(query2, [userId]);
 
-            for (let i = 0; i < messages.length; i++) {
-                messages[i].created_at = format(
-                    messages[i].created_at,
+        for (let i = 0; i < messages.length; i++) {
+            messages[i].created_at = format(
+                messages[i].created_at,
 
-                    "do,  MMMM 'of' yyyy 'at' hh:mm a",
-                );
-            }
-
-            rows[0].messages = messages;
-
-            return rows[0];
-        } catch (error) {
-            console.error("Database error:", error.message);
-            throw new Error("Something went wrong when getting user profile.");
+                "do,  MMMM 'of' yyyy 'at' hh:mm a",
+            );
         }
-    },
 
-    async checkIfUserExistsById(userId) {
+        rows[0].messages = messages;
+
+        return rows[0];
+    } catch (error) {
+        console.error("Database error:", error.message);
+        throw new Error("Something went wrong when getting user profile.");
+    }
+}
+
+async function checkIfUserExistsById(userId) {
+    try {
         const query = `
             SELECT id FROM users WHERE id = $1;
         `;
@@ -419,9 +525,37 @@ const dbInteractions = {
         } else {
             return false;
         }
-    },
+    } catch (error) {
+        console.error("Database error:", error.message);
+        throw new Error("Could not check if the user exists by it's id.");
+    }
+}
+
+module.exports = {
+    usernameExists,
+    checkIfMessageExists,
+    checkIfUpdatedUsernameIsValid,
+    getProfilePicturesPath,
+    insertUser,
+    getAllUsers,
+    getUserByUsername,
+    getUserInfoById,
+    grantAdminPrivileges,
+    grantMemberPrivileges,
+    getUserPassword,
+    deleteUser,
+    insertNewMessage,
+    getAllMessages,
+    deleteMessage,
+    updateUserProfile,
+    updateProfilePicture,
+    getUserPassword,
+    updateUserPassword,
+    getUserMessages,
+    deleteUserMessage,
+    getUserProfile,
+    checkIfUserExistsById,
+    checkIfProfilePictureExists,
+    checkIfUserIsMessageAuthor,
+    checkIfUserExistsByUsername,
 };
-
-// PERF: Instead of exporting the whole object, separate the object methods into their own function so each file can import only the funtcion they need.
-
-module.exports = dbInteractions;

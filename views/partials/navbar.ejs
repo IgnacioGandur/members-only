@@ -2,7 +2,7 @@
 const navbarLinks = locals.user ? [
     {
         href: '/',
-        text: 'Homepage',
+        text: 'Homepage | Messages',
         icon: 'home'
     },
     {
@@ -12,13 +12,18 @@ const navbarLinks = locals.user ? [
     },
     {
         href: '/new-message',
-        text: 'New Message',
+        text: 'Send A Message',
         icon: 'send'
     },
     {
         href: '/dashboard',
         text: 'Dashboard',
         icon: 'dashboard'
+    },
+    {
+        href: '/about',
+        text: 'About',
+        icon: 'lightbulb'
     },
     {
         href: '/logout',
@@ -41,6 +46,11 @@ const navbarLinks = locals.user ? [
         text: 'Login',
         icon: 'login'
     },
+    {
+        href: '/about',
+        text: 'About',
+        icon: 'lightbulb'
+    },
 ]
 %>
 
@@ -49,7 +59,7 @@ const navbarLinks = locals.user ? [
         const isActive = locals.currentPath === link.href ||
         (link.href !== '/' && locals.currentPath.startsWith(link.href));
     %>
-            <a class="<%= isActive ? 'active' : null %>" href="<%= link.href %>">
+            <a class="<%= isActive ? 'active' : null %><%= link.text === 'Logout' ? 'logout' : '' %>" href="<%= link.href %>">
                 <span class="material-symbols-sharp">
                     <%= link.icon %>
                 </span>

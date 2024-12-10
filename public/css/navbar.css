@@ -87,4 +87,11 @@
         opacity: 1;
         font-family: var(--font-main);
     }
+
+    a.logout {
+        position: absolute;
+        bottom: 1em;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }

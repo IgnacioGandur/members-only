@@ -16,35 +16,54 @@
         <link rel="stylesheet" href="/css/new-message.css">
         <link rel="stylesheet" href="/css/classes.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20,100,0..1,-50" />
+        <script defer src="/js/utilities/noTranslateGoogleIcons.js"></script>
     </head>
     <body>
         <%- include('../partials/navbar.ejs', { currentPath }) %>
         <%- include('../partials/layered-waves.svg') %>
         <main>
             <%- include('../partials/header.ejs', {pageTitle: "Send A New Message"}) %>
+            <% if(locals.validationErrors) { %>
+                <ul class="errors">
+                    <p class="title">
+                        There's something wrong with the following input fields. Please correct them.
+                    </p>
+                    <% validationErrors.forEach((error)=>{ %>
+                        <li>
+                            <%= error.msg %>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } %>
             <div class="form-container">
                 <form class="message-form" action="/new-message" method="POST">
                     <%- include('../partials/new-message-form.svg') %>
-                    <div class="form-field">
-                        <label class="label" for="title">
-                            Title
-                        </label>
-                        <div class="input-wrapper">
-                            <span class="material-symbols-sharp input-icon">
-                                comic_bubble
-                            </span>
-                            <input class="input-field" type="text" name="title" id="title" />
+                    <p class="sub-title">
+                        Share a message with everybody!
+                    </p>
+                    <img src="/images/sushi.png" alt="Sushi character">
+                    <div class="fields">
+                        <div class="form-field">
+                            <label class="label" for="title">
+                                Title
+                            </label>
+                            <div class="input-wrapper">
+                                <span class="material-symbols-sharp input-icon">
+                                    comic_bubble
+                                </span>
+                                <input class="input-field" minlength="3" maxlength="100" type="text" name="title" id="title" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-field">
-                        <label class="label" for="content">
-                            Content
-                        </label>
-                        <div class="input-wrapper">
-                            <span class="material-symbols-sharp input-icon">
-                                list_alt
-                            </span>
-                            <input class="input-field" id="content" type="text" name="content" >
+                        <div class="form-field">
+                            <label class="label" for="content">
+                                Content
+                            </label>
+                            <div class="input-wrapper">
+                                <span class="material-symbols-sharp input-icon">
+                                    list_alt
+                                </span>
+                                <input class="input-field" minlength="5" maxlength="255" id="content" type="text" name="content" required>
+                            </div>
                         </div>
                     </div>
                     <button class="button" type="submit">

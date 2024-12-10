@@ -1,5 +1,5 @@
 const { param, validationResult } = require("express-validator");
-const dbInteractions = require("../db/queries");
+const { checkIfUserExistsById, getAllUsers } = require("../db/queries");
 
 const validateParams = [
     param("userId")
@@ -9,8 +9,11 @@ const validateParams = [
         .isInt()
         .withMessage("The param must be an integer.")
         .custom(async (userId) => {
-            const userExists =
-                await dbInteractions.checkIfUserExistsById(userId);
+            if (Number.isNaN(Number(userId))) {
+                return;
+            }
+
+            const userExists = await checkIfUserExistsById(userId);
 
             if (!userExists) {
                 throw new Error(
@@ -26,7 +29,7 @@ const validateParamMiddleware = [
         const validationErrors = validationResult(req);
 
         if (!validationErrors.isEmpty()) {
-            const users = await dbInteractions.getAllUsers();
+            const users = await getAllUsers();
 
             return res.status(400).render("pages/users", {
                 user: req.user,

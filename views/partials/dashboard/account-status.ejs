@@ -28,7 +28,7 @@
                 </span>
                 <p class="title">Member</p>
                 <p class="description">
-                    You can send messages, see usernames in messages and visit user profiles
+                    Now you can see usernames in messages and visit user profiles
                 </p>
             </div>
         <% } else { %>
@@ -47,12 +47,23 @@
                 <form class="form" action="/dashboard/account-status/admin-pass" method="POST">
                     <label class="label" for="adminPass">
                         Admin Code
+                        <div class="info-icon">
+                            <span class="material-symbols-sharp">lightbulb</span>
+                        </div>
+                        <p class="code-tag">
+                            admin123abc
+                        </p>
                     </label>
                     <div class="input-wrapper">
                         <span class="material-symbols-sharp input-icon">
                             security
                         </span>
-                        <input class="input-field" type="password" name="adminPass" id="adminPass" />
+                        <input data-show-pass='false' class="input-field" type="password" name="adminPass" id="adminPass" />
+                        <button data-toggle-pass-visibility class="pass-visibility-button toggle-pass-visibility-button" type="button">
+                            <span data-visibility-icon class="material-symbols-sharp input-icon">
+                                visibility
+                            </span>
+                        </button>
                     </div>
                     <button class="button" type="submit">
                         Enable admin status
@@ -66,12 +77,23 @@
                 <form class="form" action="/dashboard/account-status/member-pass" method="POST">
                     <label class="label" for="memberPass">
                         Member Code
+                        <div class="info-icon">
+                            <span class="material-symbols-sharp">lightbulb</span>
+                        </div>
+                        <p class="code-tag">
+                            member123abc
+                        </p>
                     </label>
                     <div class="input-wrapper">
                         <span class="material-symbols-sharp input-icon">
                             heart_check
                         </span>
-                        <input class="input-field" type="password" name="memberPass" id="memberPass" />
+                        <input data-show-pass="false" class="input-field" type="password" name="memberPass" id="memberPass" />
+                        <button data-toggle-pass-visibility class="pass-visibility-button toggle-pass-visibility-button" type="button">
+                            <span data-visibility-icon class="material-symbols-sharp input-icon">
+                                visibility
+                            </span>
+                        </button>
                     </div>
                     <button class="button" type="submit">
                         Enable member status

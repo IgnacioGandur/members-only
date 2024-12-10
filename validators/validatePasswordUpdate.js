@@ -1,16 +1,15 @@
-const { body } = require("express-validator");
+const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
-const dbInteractions = require("../db/queries");
+const { getUserPassword } = require("../db/queries");
 
-const validateUpdatedPassword = [
+const validationChain = [
     body("currentPassword")
         .trim()
         .notEmpty()
         .withMessage("The current password field can't be empty. ")
         .custom(async (currentPassword, { req }) => {
             const { id: userId } = req.user;
-            const correctUserPassword =
-                await dbInteractions.getUserPassword(userId);
+            const correctUserPassword = await getUserPassword(userId);
 
             const passwordsMatch = await bcrypt.compare(
                 currentPassword,
@@ -40,4 +39,21 @@ const validateUpdatedPassword = [
         }),
 ];
 
-module.exports = validateUpdatedPassword;
+const updatePasswordValidator = [
+    validationChain,
+    async (req, res, next) => {
+        const validationErrors = validationResult(req);
+
+        if (!validationErrors.isEmpty()) {
+            return res.status(401).render("pages/dashboard", {
+                dashboardSection: "update-password",
+                user: req.user,
+                validationErrors: validationErrors.array(),
+            });
+        }
+
+        next();
+    },
+];
+
+module.exports = updatePasswordValidator;

@@ -7,7 +7,7 @@ const pool = require("./db/pool");
 const app = express();
 const router = require("./routes/router");
 const passport = require("passport");
-const setActiveLink = require("./middleware/activeLink");
+const setActiveLink = require("./middleware/setActiveLink");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));

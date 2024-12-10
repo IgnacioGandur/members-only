@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <link rel="stylesheet" href="/css/navbar.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/variables.css">
+        <link rel="stylesheet" href="/css/animations.css">
+        <link rel="stylesheet" href="/css/classes.css">
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="/css/about.css">
+        <title>About | Members Only</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20,100,0..1,-50" />
+    </head>
+    <body>
+        <%- include("../partials/navbar.ejs" ) %>
+        <main>
+            <%- include("../partials/header.ejs", {pageTitle: 'About This Website'}) %>
+            <div class="content">
+                <div class="logo-container">
+                    <div class="logo">
+                    </div>
+                    <div class="wb-title">
+                        Members Only!
+                    </div>
+                </div>
+                <div class="mini-horizontal-separator"></div>
+                <div class="website-purpose section">
+                    <h1 class="section-title">The purpose of this website</h1>
+                    <p class="section-content">
+                        Members Only! Is a personal project to learn about granting user's authentication
+                        and authorization by ussing the Passport.js library with a local strategy.
+                    </p>
+                </div>
+                <div class="mini-horizontal-separator"></div>
+                <div class="rebecca-purple section">
+                    <h2 class="section-title">
+                        Why is everything purple?
+                    </h2>
+                    <p class="section-content">
+                        I read about: "<a target="about_blank" href="https://medium.com/@valgaze/the-hidden-purple-memorial-in-your-web-browser-7d84813bb416">why the color #663399 is called 'Rebecca Purple'</a>"
+                        and I liked the story behind it so I chose it as the main color for this website.
+                    </p>
+                </div>
+                <div class="mini-horizontal-separator"></div>
+                <div class="rebecca-purple section">
+                    <h2 class="section-title">
+                        Why is everything purple?
+                    </h2>
+                    <p class="section-content">
+                        I read about: "<a target="about_blank" href="https://medium.com/@valgaze/the-hidden-purple-memorial-in-your-web-browser-7d84813bb416">why the color #663399 is called 'Rebecca Purple'</a>"
+                        and I liked the story behind it so I chose it as the main color for this website.
+                    </p>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

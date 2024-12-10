@@ -13,7 +13,7 @@
                 <span class="message-date">
                     <%= message.created_at %>
                 </span>
-                <form action="/delete-user-message" method="POST">
+                <form class="delete-message-form" action="/dashboard/delete-own-message" method="POST">
                     <input type="hidden" name="messageId" value="<%= message.id %>" />
                     <button class="delete-message-button" type="submit">
                         <span class="material-symbols-sharp">close</span>
@@ -22,9 +22,11 @@
             </div>
         <% }) %>
     <% } %>
-    <% if(locals.userMessages.length === 0) { %>
-        <div class="no-messages">
-            <p>You have not sent any messages. Send your first message <a class="link" href="/new-message">here</a>!</p>
-        </div>
+    <% if(locals.userMessages) { %>
+        <% if(locals.userMessages.length === 0) { %>
+            <div class="no-messages">
+                <p>You have not sent any messages. Send your first message <a class="link" href="/new-message">here</a>!</p>
+            </div>
+        <% } %>
     <% } %>
 </div>

@@ -10,23 +10,43 @@
         <link rel="stylesheet" href="/css/styles.css">
         <link rel="stylesheet" href="/css/navbar.css">
         <link rel="stylesheet" href="/css/variables.css">
-        <link rel="stylesheet" href="/css/dashboard.css">
+        <link rel="stylesheet" href="/css/dashboard/dashboard.css">
         <link rel="stylesheet" href="/css/header.css">
         <link rel="stylesheet" href="/css/classes.css">
+        <link rel="stylesheet" href="/css/animations.css">
         <link rel="stylesheet" href="/css/dashboard/settings-sidebar.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20,100,0..1,-50" />
-        <script defer src="/js/dashboard.js"></script>
+        <script defer src="/js/utilities/noTranslateGoogleIcons.js"></script>
+        <script defer src="/js/utilities/togglePassVisibility.js"></script>
+        <script defer src="/js/utilities/ppf-sound-effect.js"></script>
     </head>
     <body>
         <%- include('../partials/navbar.ejs', {currentPath}) %>
         <main>
             <%- include("../partials/header.ejs", {pageTitle: 'Dashboard'}) %>
             <% if(locals.validationErrors) { %>
-                <% validationErrors.forEach((error)=>{ %>
+                <ul class="errors">
+                    <p class="title">The following inputs have errors. Please check them.</p>
+                    <% validationErrors.forEach((error)=>{ %>
+                        <li>
+                            <%= error.msg %>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } %>
+            <% if(locals.passMessage) { %>
+                <div class="pass-message">
                     <p>
-                        <%= error.msg %>
+                        <%= passMessage %>
                     </p>
-                <% }) %>
+                </div>
+            <% } %>
+            <% if(locals.errorMessage) { %>
+                <ul class="errors">
+                    <p class="title">
+                        <%= errorMessage %>
+                    </p>
+                </ul>
             <% } %>
             <div class="dashboard">
                 <%- include("../partials/dashboard/settings-sidebar.ejs") %>

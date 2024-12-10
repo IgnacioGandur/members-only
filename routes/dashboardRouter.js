@@ -17,11 +17,11 @@ dashboardRouter.get("/user-messages", dashboardController.userMessagesGet);
 // Post
 dashboardRouter.post(
     "/account-status/member-pass",
-    dashboardController.enableMemberStatus,
+    dashboardController.enableMemberStatusPost,
 );
 dashboardRouter.post(
     "/account-status/admin-pass",
-    dashboardController.enableAdminStatus,
+    dashboardController.enableAdminStatusPost,
 );
 dashboardRouter.post(
     "/update-password",
@@ -34,6 +34,11 @@ dashboardRouter.post(
 dashboardRouter.post(
     "/update-user-profile",
     dashboardController.updateuserProfilePost,
+);
+
+dashboardRouter.post(
+    "/delete-own-message",
+    dashboardController.deleteOwnMessagePost,
 );
 dashboardRouter.post("/delete-account", dashboardController.deleteAccountPost);
 

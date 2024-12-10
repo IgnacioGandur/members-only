@@ -8,7 +8,8 @@ main {
 }
 
 .content {
-    min-width: 1024px;
+    width: 100%;
+    max-width: 1024px;
     height: 100%;
     margin: auto;
     display: flex;
@@ -25,13 +26,24 @@ main {
     z-index: 10;
 }
 
+.ppf-and-banner::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    background-image: linear-gradient(180deg, transparent 75%, black);
+    z-index: 10;
+}
+
 .banner {
     width: 100%;
     height: 200px;
     object-fit: cover;
     border-radius: 10px;
     z-index: 5;
-    position: relative;
 }
 
 .ppf {
@@ -49,7 +61,7 @@ main {
     background-size: cover;
     background-position: left bottom;
     transition: all 300ms ease-in-out;
-    z-index: 10;
+    z-index: 15;
 
     img {
         width: 100%;
@@ -150,11 +162,7 @@ main {
 }
 
 .vertical-separator {
-    background-image: radial-gradient(
-        circle at center,
-        #ffffff22 70%,
-        transparent
-    );
+    background-image: radial-gradient(circle at center, #ffffff22, transparent);
     height: 100%;
     min-width: 1px;
 }
@@ -170,6 +178,7 @@ main {
 }
 
 .messages-container {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 1em;
@@ -180,16 +189,30 @@ main {
 
 .message {
     width: 100%;
+    max-width: 1000px;
+    /*width: 100%;*/
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
+    gap: 1em;
     background-color: var(--color-background);
     padding: 1em;
     border-radius: 10px;
 
+    > *:not(.horizontal-separator, .date) {
+        background-color: #ffffff22;
+        padding: 0.5em 1em;
+        border-radius: 5px;
+    }
     .title {
+        width: fit-content;
+
         font-weight: 900;
         text-transform: capitalize;
+        overflow-wrap: break-word;
+    }
+
+    .message-content {
+        overflow-wrap: break-word;
     }
 
     .date {
@@ -286,7 +309,8 @@ main {
 
 .no-messages {
     width: 100%;
-    padding: 2em;
+    height: 100%;
+    padding: 1em;
     display: flex;
     align-items: center;
     justify-content: center;

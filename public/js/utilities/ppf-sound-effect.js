@@ -7,7 +7,7 @@ allIcons.forEach((icon) => {
 });
 
 allRadioButtons.forEach((radioButton) => {
-    radioButton.addEventListener("click", (e) => {
-        bubbleSoundEffect.play();
+    radioButton.addEventListener("mousedown", () => {
+        radioButton.checked ? null : bubbleSoundEffect.play();
     });
 });

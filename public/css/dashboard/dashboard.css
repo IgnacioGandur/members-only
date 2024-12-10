@@ -1,0 +1,358 @@
+.info-icon {
+    padding: 0.05em;
+    border-radius: 5px;
+    background-color: #ffffff22;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 105%;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 300ms ease-in-out;
+    span {
+        animation: wiggleInfoIcon 5s linear infinite;
+    }
+}
+
+.info-icon:hover {
+    border: 1px solid white;
+
+    span {
+        font-variation-settings: "FILL" 1;
+    }
+}
+
+.info-icon:hover + .code-tag {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.code-tag {
+    background-color: black;
+    padding: 0.5em;
+    border: 1px solid white;
+    position: absolute;
+    left: 140%;
+    opacity: 0;
+    text-transform: initial;
+    transform: scale(0);
+    transition: all 300ms ease-in-out;
+    transform-origin: left center;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    .errors {
+        width: calc(100% - 2em);
+        align-self: center;
+    }
+
+    .dashboard {
+        height: 100%;
+        width: 100%;
+        max-width: 1400px;
+        align-self: center;
+        padding: 0 1em 1em 1em;
+        font-family: var(--font-main);
+        display: flex;
+        gap: 1em;
+
+        .section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 3em;
+            animation: appearSection 300ms ease-in-out forwards;
+
+            .update-user-info-form {
+                fieldset {
+                    padding: 1em;
+                }
+
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 1em;
+
+                h2 {
+                    font-size: 1.5rem;
+                }
+
+                .fullname {
+                    display: flex;
+                    gap: 1em;
+                    flex-wrap: wrap;
+                }
+
+                .form-field {
+                    .gender-options {
+                        display: flex;
+                        gap: 1em;
+
+                        .male {
+                            color: var(--color-male);
+                        }
+
+                        .female {
+                            color: var(--color-female);
+                        }
+                    }
+                }
+            }
+
+            .password {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                gap: 1em;
+
+                form {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1em;
+                }
+            }
+
+            .badges {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                gap: 1em;
+            }
+
+            .user-messages {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1em;
+                flex: 1;
+
+                h2 {
+                    align-self: flex-start;
+                }
+
+                .no-messages {
+                    flex: 1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    p {
+                        .link {
+                            font-weight: 700;
+                            color: var(--color-accent);
+                        }
+                    }
+                }
+            }
+        }
+
+        > * {
+            background-color: #19212e;
+            padding: 1em;
+            border-radius: 10px;
+        }
+
+        .profile-picture-section {
+            grid-column: 1/-1;
+            grid-row: 2/3;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1em;
+
+            .profile-picture {
+                display: flex;
+                gap: 1em;
+                padding: 0.5em;
+
+                .current-profile-picture {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 1em;
+
+                    h3 {
+                        text-wrap: nowrap;
+                        font-size: 1rem;
+                    }
+
+                    .ppf-wrapper {
+                        width: 125px;
+                        height: 125px;
+                        background-image: radial-gradient(
+                            transparent,
+                            var(--color-main)
+                        );
+                        background-size: 150%;
+                        background-position: center;
+                        border-radius: 50%;
+                        padding: 1em;
+                        flex-shrink: 0;
+                        box-shadow: var(--box-shadow);
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                }
+
+                .change-profile-picture {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 1em;
+                }
+
+                .profile-pictures-container {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 1em;
+
+                    .option:not(:has(input[type="radio"]:checked)):hover {
+                        transform: scale(1.2);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.horizontal-separator {
+    width: 100%;
+    min-height: 1px;
+    background-image: radial-gradient(
+        circle at center,
+        #ffffff22 80%,
+        transparent
+    );
+}
+
+.gender-and-bio {
+    display: flex;
+    gap: 1em;
+
+    .genders {
+        flex: initial;
+    }
+    .bio {
+        flex: 1;
+        justify-content: space-between;
+    }
+}
+
+.message {
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1em;
+    padding: 1em;
+    position: relative;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    /*border: 2px solid var(--color-main);*/
+
+    .title {
+        width: fit-content;
+        border-radius: 5px;
+        font-weight: 900;
+        text-transform: capitalize;
+    }
+
+    .content {
+        overflow-wrap: break-word;
+        border-radius: 5px;
+        text-transform: capitalize;
+    }
+
+    .content:first-letter {
+        text-transform: capitalize;
+    }
+
+    .message-date {
+        text-align: center;
+        font-size: 0.75rem;
+        opacity: 0.25;
+    }
+
+    .delete-message-form {
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+    }
+
+    .delete-message-button {
+        background-color: var(--color-main);
+        border: 2px solid transparent;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 2px solid #19212e;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 300ms ease-in-out;
+        cursor: pointer;
+    }
+
+    .delete-message-button:hover,
+    .delete-message-button:focus,
+    .delete-message-button:focus-visible {
+        border: 2px solid white;
+    }
+}
+
+.badges-container {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1em;
+}
+
+.badge {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+
+    span {
+        font-size: 6rem;
+    }
+
+    .title {
+        font-weight: 900;
+    }
+
+    .description {
+        font-weight: 400;
+        opacity: 0.5;
+    }
+}
+
+.delete-user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    flex: 1;
+}
+
+.forms-container {
+    display: flex;
+    gap: 1em;
+    justify-content: space-between;
+}

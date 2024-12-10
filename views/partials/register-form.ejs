@@ -16,18 +16,18 @@
                     <span class="material-symbols-sharp input-icon">
                         person
                     </span>
-                    <input class="input-field" type="text" name="firstName" id="firstName" placeholder="John" />
+                    <input class="input-field" type="text" minlength="2" maxlength="20" name="firstName" id="firstName" placeholder="John" value="<%= locals.userInput ? locals.userInput.firstName : '' %>" required/>
                 </div>
             </div>
             <div class="form-field">
-                <label class="label" for="lastname">
+                <label class="label" for="lastName">
                     Last name
                 </label>
                 <div class="input-wrapper">
                     <span class="material-symbols-sharp input-icon">
                         person
                     </span>
-                    <input class="input-field" type="text" name="lastName" id="lastname" placeholder="Doe"/>
+                    <input class="input-field" type="text" name="lastName" id="lastName" placeholder="Doe" minlength="2" maxlength="20" value="<%= locals.userInput ? locals.userInput.lastName : '' %>" required/>
                 </div>
             </div>
             <div class="form-field">
@@ -38,7 +38,7 @@
                     <span class="material-symbols-sharp input-icon">
                         alternate_email
                     </span>
-                    <input class="input-field" type="text" name="username" id="username" placeholder="John.Doe"/>
+                    <input class="input-field" minlength="2" maxlength="30" type="text" name="username" id="username" placeholder="John.Doe" value="<%= locals.userInput ? locals.userInput.username : '' %>" required/>
                 </div>
             </div>
         </div>
@@ -51,8 +51,8 @@
                     <span class="material-symbols-sharp input-icon">
                         password
                     </span>
-                    <input data-password-field class="input-field" type="password" name="password" id="password" placeholder="******"/>
-                    <button data-toggle-pass-visibility class="pass-visibility-button" type="button">
+                    <input data-show-pass="false" class="input-field" type="password" name="password" id="password" placeholder="******" value="<%= locals.userInput ? locals.userInput.password : '' %>" required >
+                    <button data-toggle-pass-visibility class="pass-visibility-button toggle-pass-visibility-button" type="button">
                         <span data-show-pass-icon class="material-symbols-sharp input-icon">
                             visibility
                         </span>
@@ -67,8 +67,8 @@
                     <span class="material-symbols-sharp input-icon">
                         password
                     </span>
-                    <input data-repeat-password-field class="input-field" type="password" name="confirmPassword" id="confirmPassword" placeholder="******" />
-                    <button data-toggle-repeat-pass-visibility class="pass-visibility-button" type="button">
+                    <input data-show-pass="false" class="input-field" type="password" name="confirmPassword" id="confirmPassword" placeholder="******" value="<%= locals.userInput ? locals.userInput.confirmPassword : '' %>" required/>
+                    <button data-toggle-repeat-pass-visibility class="pass-visibility-button toggle-pass-visibility-button" type="button">
                         <span data-repeat-pass-icon class="material-symbols-sharp input-icon">
                             visibility
                         </span>
@@ -91,7 +91,14 @@
                                 Male
                             </p>
                         </label>
-                        <input type="radio" name="gender" id="male" value="male" checked/>
+                        <input type="radio" name="gender" id="male" value="male"
+                            <% if (locals.userInput) { %>
+                                <%= locals.userInput.gender === 'male' ? 'checked' : '' %>
+                            <% } else { %> 
+                                <%= 'checked' %>
+                            <% } %>
+                            required
+                         %> />
                     </div>
                     <div class="gender-option female">
                         <label for='female'>
@@ -102,7 +109,11 @@
                                 Female
                             </p>
                         </label>
-                        <input type="radio" name="gender" id="female" value="female" />
+                        <input type="radio" name="gender" id="female" value="female" 
+                            <% if(locals.userInput) { %>
+                                <%= locals.userInput.gender === 'female' ? 'checked' : '' %>
+                            <% } %>
+                        />
                     </div>
                 </div>
             </div>
@@ -114,7 +125,7 @@
                     <span class="material-symbols-sharp input-icon">
                         person_book
                     </span>
-                    <input class="input-field" type="text" name="bio" id="bio" placeholder="Write something that you will like others to know about you!"/>
+                    <input class="input-field" type="text" name="bio" id="bio" minlength="5" maxlength="150" placeholder="Write something that you will like others to know about you!" value="<%= locals.userInput ? locals.userInput.bio : '' %>" required/>
                 </div>
             </div>
         </div>
@@ -124,12 +135,20 @@
                     Choose a profile picture
                 </p>
                 <div class="profile-pictures-container">
-                    <% profilePictures.forEach((profilePicture) => { %>
-                        <div class="option">
+                    <% profilePictures.forEach((profilePicture,index) => { %>
+                        <% const delay = 50; %>
+                        <div style="animation-delay: <%= delay * index %>ms" class="option">
                             <label for="<%= profilePicture.description %>">
                                 <img style="width: 150px;" src="<%= profilePicture.path %>" alt="<%= profilePicture.description %>" />
                             </label>
-                            <input type="radio" name="profilePicture" id="<%= profilePicture.description %>" value="<%= profilePicture.id %>" <%= profilePicture.id === 1 ? 'checked' : '' %> />
+                            <input type="radio" name="profilePicture" id="<%= profilePicture.description %>" value="<%= profilePicture.id %>" 
+                                <% if(locals.userInput) { %>
+                                    <%= locals.userInput.profilePicture == profilePicture.id ? 'checked' : '' %>
+                                <% } else { %>
+                                    <%= profilePicture.id === 1 ? 'checked' : '' %>
+                                <% } %>
+                                required
+                            />
                         </div>
                     <% }) %>
                 </div>

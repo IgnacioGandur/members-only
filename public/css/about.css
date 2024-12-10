@@ -1,0 +1,106 @@
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    .content {
+        width: 100%;
+        max-width: 1400px;
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1em;
+        height: 100%;
+        border-right: 1px solid #ffffff22;
+        border-left: 1px solid #ffffff22;
+        align-self: center;
+        gap: 5em;
+
+        .mini-horizontal-separator {
+            width: 100%;
+            min-height: 1px;
+            height: 1px;
+            background-image: radial-gradient(
+                circle at center,
+                #ffffff33,
+                transparent
+            );
+        }
+
+        .logo-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
+            align-items: center;
+            position: relative;
+
+            .logo {
+                background-image: linear-gradient(
+                    45deg,
+                    #3c096c,
+                    #7b2cbf,
+                    #3c096c,
+                    #7b2cbf,
+                    #3c096c,
+                    #7b2cbf,
+                    #3c096c,
+                    #7b2cbf,
+                    #3c096c,
+                    #7b2cbf
+                );
+                background-size: 500%;
+                background-position: left bottom;
+                width: 300px;
+                height: 300px;
+                mask-image: url("/images/skull_crown.svg");
+                mask-size: contain;
+                mask-repeat: no-repeat;
+                mask-position: center;
+                animation: animateAboutBackground 15s linear infinite
+                    alternate-reverse;
+            }
+
+            .wb-title {
+                width: 100%;
+                text-align: center;
+                font-size: 6rem;
+                font-family: var(--font-logo);
+                font-weight: 900;
+                background-image: linear-gradient(
+                    45deg,
+                    goldenrod,
+                    purple,
+                    cyan
+                );
+                background-size: 500%;
+                background-position: left bottom;
+                padding: 15px;
+                background-clip: text;
+                color: transparent;
+                animation: animateAboutBackground 5s ease-in-out infinite
+                    alternate-reverse;
+                position: absolute;
+                bottom: -20%;
+                left: 50%;
+                transform: translateX(-50%) rotate(-3deg);
+            }
+        }
+        .section {
+            font-family: var(--font-secondary);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+
+            .section-title {
+                font-size: 2rem;
+                text-transform: capitalize;
+            }
+            .section-content {
+                font-family: var(--font-main);
+            }
+        }
+    }
+}

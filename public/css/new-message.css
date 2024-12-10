@@ -11,7 +11,10 @@ main {
 }
 
 .form-container {
-    flex: 1;
+    height: 100%;
+    width: 100%;
+    max-width: 1400px;
+    align-self: center;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -20,20 +23,45 @@ main {
 .message-form {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     gap: 1em;
-    height: 75%;
-    width: 25%;
-    border-radius: 15px 50px 15px 50px;
-    /*border-radius: 15px;*/
+    width: 400px;
+    height: 750px;
+    border-radius: 15px;
     padding: 2em;
     background-color: transparent;
     position: relative;
     overflow: hidden;
-    box-shadow: 0px 0px 50px 1px rgba(0, 0, 0, 0.75);
+    box-shadow:
+        0px 0px 50px 1px rgba(0, 0, 0, 0.75),
+        0px 0px 30px 5px rgba(255, 255, 255, 0.25) inset;
     animation: appearMessageForm 1s ease-in-out forwards 2s;
     opacity: 0;
     font-family: var(--font-main);
+
+    img {
+        align-self: center;
+        width: 50%;
+    }
+
+    .sub-title {
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        span {
+            font-size: 2.5rem;
+        }
+    }
+}
+
+.fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
 }
 
 .form-field {
@@ -47,10 +75,6 @@ main {
 .input-wrapper,
 .button {
     box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.5);
-}
-
-.button {
-    margin-top: auto;
 }
 
 #form-bg {
@@ -115,7 +139,7 @@ main {
 }
 
 #layered-waves {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
