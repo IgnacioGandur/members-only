@@ -69,3 +69,18 @@ const navbarLinks = locals.user ? [
             </a>
     <% }) %>
 </nav>
+<nav id="mobile-navbar" class="mobile-navbar">
+    <% navbarLinks.forEach((link)=> { 
+        const isActive = locals.currentPath === link.href ||
+        (link.href !== '/' && locals.currentPath.startsWith(link.href));
+    %>
+            <a class="<%= isActive ? 'active' : null %><%= link.text === 'Logout' ? 'logout' : '' %>" href="<%= link.href %>">
+                <span class="material-symbols-sharp">
+                    <%= link.icon %>
+                </span>
+                <p class="description">
+                    <%= link.text %>
+                </p>
+            </a>
+    <% }) %>
+</nav>

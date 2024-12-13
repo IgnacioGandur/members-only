@@ -1,44 +1,33 @@
-.info-icon {
-    padding: 0.05em;
-    border-radius: 5px;
-    background-color: #ffffff22;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.mobile-horizontal-separator {
+    min-height: 1px;
+    height: 1px;
+    width: 100%;
+    background-image: radial-gradient(circle at center, #ffffff33, transparent);
+    display: none;
+}
+
+label[for="adminPass"],
+label[for="memberPass"] {
+    width: 100%;
+    position: relative !important;
+}
+
+label[for="adminPass"]::after,
+label[for="memberPass"]::after {
+    content: "(admin123abc)";
+    font-style: italic;
+    opacity: 0.75;
+    font-size: 0.75rem;
+    font-weight: 400;
     position: absolute;
-    left: 105%;
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: all 300ms ease-in-out;
-    span {
-        animation: wiggleInfoIcon 5s linear infinite;
-    }
-}
-
-.info-icon:hover {
-    border: 1px solid white;
-
-    span {
-        font-variation-settings: "FILL" 1;
-    }
-}
-
-.info-icon:hover + .code-tag {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.code-tag {
-    background-color: black;
-    padding: 0.5em;
-    border: 1px solid white;
-    position: absolute;
-    left: 140%;
-    opacity: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
     text-transform: initial;
-    transform: scale(0);
-    transition: all 300ms ease-in-out;
-    transform-origin: left center;
+}
+
+label[for="memberPass"]::after {
+    content: "(member123abc)";
 }
 
 main {
@@ -249,7 +238,7 @@ main {
 
 .message {
     width: 100%;
-    max-width: 1400px;
+    /*max-width: 1400px;*/
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -258,7 +247,6 @@ main {
     position: relative;
     border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.1);
-    /*border: 2px solid var(--color-main);*/
 
     .title {
         width: fit-content;
@@ -269,6 +257,7 @@ main {
 
     .content {
         overflow-wrap: break-word;
+        word-break: break-all;
         border-radius: 5px;
         text-transform: capitalize;
     }
@@ -355,4 +344,103 @@ main {
     display: flex;
     gap: 1em;
     justify-content: space-between;
+}
+
+@media screen and (max-width: 500px) {
+    .mobile-horizontal-separator {
+        display: block;
+    }
+    main {
+        padding: 0;
+        width: 100%;
+
+        .dashboard {
+            padding: 1em;
+            flex-direction: column;
+            padding-bottom: 4rem;
+
+            .section {
+                .profile-picture-section {
+                    .profile-picture {
+                        flex-direction: column;
+                    }
+                }
+
+                .vertical-separator {
+                    display: none;
+                }
+
+                .update-user-info-form {
+                    .gender-and-bio {
+                        flex-direction: column;
+                    }
+                }
+                .badges {
+                    .badges-container,
+                    .forms-container {
+                        flex-direction: column;
+                    }
+                }
+                .user-messages {
+                    .message {
+                        .delete-message-form {
+                            top: initial;
+                            bottom: 0.5em;
+                            right: 0.5em;
+                        }
+                    }
+                }
+
+                .delete-user-form {
+                    .label {
+                        text-wrap: wrap;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .dashboard {
+        flex-direction: column;
+
+        .section {
+            .profile-picture-section {
+                .profile-picture {
+                    flex-direction: column;
+                }
+            }
+
+            .update-user-info-form {
+                .fullname {
+                    flex-direction: column;
+                    flex-wrap: nowrap !important;
+                }
+            }
+
+            .badges {
+                .badges-container {
+                    flex-direction: column;
+                }
+
+                .mobile-horizontal-separator {
+                    display: block;
+                }
+
+                .vertical-separator {
+                    display: none;
+                }
+
+                .forms-container {
+                    flex-direction: column;
+
+                    .horizontal-separator,
+                    .mobile-horizontal-separator {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
 }

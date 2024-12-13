@@ -19,4 +19,15 @@
     --font-logo: "Tangerine", cursive;
     --box-shadow: rgba(102, 51, 153, 0.4) 0px 3px 6px,
         rgba(102, 51, 153, 0.47) 0px 3px 6px;
+    --logo-gradient: linear-gradient(
+        45deg,
+        var(--color-main),
+        rgba(0, 0, 0, 8),
+        var(--color-main),
+        rgba(0, 0, 0, 8),
+        var(--color-main),
+        rgba(0, 0, 0, 8),
+        var(--color-main),
+        rgba(0, 0, 0, 8)
+    );
 }

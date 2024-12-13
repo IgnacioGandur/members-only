@@ -1,4 +1,35 @@
-<header>
+<header class="wb-header">
+    <div class="logo">
+        <img src="/images/skull_crown.svg" alt="Logo">
+    </div>
+    <h1>
+        <%= pageTitle %>
+    </h1>
+    <% if(locals.user) { %>
+        <div class="logged-user">
+            <a href="/dashboard">
+                @<%= locals.user.username %>
+            </a>
+            <div class="logged-ppf">
+                <img src='<%= user.profile_picture %>' alt='Logged user profile picture.' />
+            </div>
+        </div>
+    <% } else { %>
+        <div class="logged-user">
+            <p>
+                <a href="/login">Log in </a>
+            </p>
+        </div>
+    <% } %>
+</header>
+<header class="mobile-header">
+    <div class="show-navbar-button">
+        <button id="toggle-mobile-navbar" >
+            <span id="toggle-mobile-navbar-icon" class="material-symbols-sharp">
+                menu
+            </span>
+        </button>
+    </div>
     <div class="logo">
         <img src="/images/skull_crown.svg" alt="Logo">
     </div>

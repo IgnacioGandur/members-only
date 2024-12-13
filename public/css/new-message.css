@@ -159,19 +159,17 @@ main {
     animation: appearWave 1550ms ease-out forwards;
 }
 
-@keyframes appearWave {
-    0% {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-    60% {
-        transform: translateY(-5%);
-    }
-    80% {
-        transform: translateY(2%);
-    }
-    100% {
-        transform: translateY(0%);
-        opacity: 1;
+@media screen and (max-width: 500px) {
+    main {
+        padding: 1em;
+
+        .form-container {
+            align-items: flex-start;
+
+            .message-form {
+                width: 100%;
+                height: 90%;
+            }
+        }
     }
 }

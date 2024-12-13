@@ -15,6 +15,7 @@ main {
     align-items: center;
     max-width: 1400px;
     width: 100%;
+    height: 100%;
     align-self: center;
 
     .not-logged-message {
@@ -165,6 +166,7 @@ main {
                 border-radius: 5px;
                 padding: 1em;
                 background-color: #ffffff22;
+                word-break: break-all;
             }
 
             .body:first-letter {
@@ -258,13 +260,72 @@ main {
     z-index: -1;
 }
 
-@keyframes appearMessage {
-    0% {
-        transform: scale(1.2);
-        opacity: 0;
+@media screen and (max-width: 500px) {
+    #bg {
+        display: none;
     }
-    100% {
-        transform: scale(1);
-        opacity: 1;
+
+    main {
+        padding: 0;
+        width: 100%;
+    }
+
+    .messages-container {
+        width: 100%;
+        height: 100%;
+        padding: 0.5em;
+
+        .message {
+            .header {
+                .profile-picture {
+                    display: none;
+                }
+
+                .user-info {
+                    width: 100%;
+
+                    .full-name {
+                        width: 100%;
+                        justify-content: space-between;
+                    }
+                }
+            }
+
+            .message-date {
+                text-align: center;
+                font-size: 0.75rem;
+            }
+
+            .delete-form {
+                top: initial;
+                bottom: 0.5em;
+                right: 0.5em;
+
+                .delete-button {
+                    width: 25px;
+                    height: 25px;
+                    padding: 1em;
+
+                    span {
+                        font-size: 1.5rem;
+                    }
+                }
+            }
+        }
+
+        .no-messages {
+            width: 100%;
+            height: 100%;
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    #bg {
+        display: none;
     }
 }

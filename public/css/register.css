@@ -134,3 +134,42 @@ main {
     align-items: center;
     gap: 1em;
 }
+
+@media screen and (max-width: 500px) {
+    main {
+        width: 100%;
+        padding: 1em;
+        padding-bottom: 4em;
+
+        .wrapper {
+            .form-container {
+                width: 100%;
+
+                background-image: linear-gradient(
+                        0deg,
+                        #19212eee,
+                        #19212eee,
+                        #19212eee
+                    ),
+                    url("/images/login-background.jpg");
+                .register-form {
+                    width: 100%;
+                    padding: 1em;
+
+                    .gender-and-bio {
+                        flex-direction: column;
+
+                        .bio {
+                            gap: 0.5em;
+                        }
+                    }
+                    .profile-picture-section {
+                        .profile-pictures-container {
+                            justify-content: center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

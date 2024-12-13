@@ -21,6 +21,7 @@
             </div>
         <% } %>
         <div class="vertical-separator"></div>
+        <div class="mobile-horizontal-separator"></div>
         <% if(user.is_member) { %>
             <div class="badge is-member" title="Member">
                 <span class="material-symbols-sharp">
@@ -47,12 +48,6 @@
                 <form class="form" action="/dashboard/account-status/admin-pass" method="POST">
                     <label class="label" for="adminPass">
                         Admin Code
-                        <div class="info-icon">
-                            <span class="material-symbols-sharp">lightbulb</span>
-                        </div>
-                        <p class="code-tag">
-                            admin123abc
-                        </p>
                     </label>
                     <div class="input-wrapper">
                         <span class="material-symbols-sharp input-icon">
@@ -72,17 +67,12 @@
             <% } %>
             <% if(!user.is_admin && !user.is_member) { %>
                 <div class="vertical-separator"></div>
+                <div class="mobile-horizontal-separator"></div>
             <% } %>
             <% if(!user.is_member){ %>
                 <form class="form" action="/dashboard/account-status/member-pass" method="POST">
                     <label class="label" for="memberPass">
                         Member Code
-                        <div class="info-icon">
-                            <span class="material-symbols-sharp">lightbulb</span>
-                        </div>
-                        <p class="code-tag">
-                            member123abc
-                        </p>
                     </label>
                     <div class="input-wrapper">
                         <span class="material-symbols-sharp input-icon">
