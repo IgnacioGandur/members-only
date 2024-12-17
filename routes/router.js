@@ -11,6 +11,7 @@ const logoutRouter = require("./logoutRouter");
 const newMessageRouter = require("./newMessageRouter");
 const deleteMessageRouter = require("./deleteMessageRouter");
 const aboutRouter = require("./aboutRouter");
+const notFoundRouter = require("./notFoundRouter");
 
 // Routes
 router.use("/", indexRouter);
@@ -22,5 +23,6 @@ router.use("/logout", logoutRouter);
 router.use("/new-message", newMessageRouter);
 router.use("/delete-message", deleteMessageRouter);
 router.use("/about", aboutRouter);
+router.use("*", notFoundRouter);
 
 module.exports = router;

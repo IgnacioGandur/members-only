@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        404 Not Found | Members Only
+    </title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/variables.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/404.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20,100,0..1,-50" />
+        <script defer src="/js/utilities/toggleMobileNavbar.js"></script>
+</head>
+<body>
+    <%- include('../partials/navbar.ejs', {currentPath: ''}) %>
+    <main>
+            <%- include('../partials/header.ejs', {pageTitle: "404 Page Not Found"}) %>
+            <div class="content">
+                <h2 class="oops">
+                    Oops!
+                    <span class="material-symbols-sharp">heart_broken</span>
+                </h2>
+                <h3 class="sub-title">
+                    Seems like the page you are looking for doesn't exists.
+                </h3>
+                <a class="link" href="/">Take me home, please!</a>
+            </div>
+    </main>
+</body>
+</html>

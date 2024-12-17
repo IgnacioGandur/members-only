@@ -1,0 +1,63 @@
+main {
+    font-family: var(--font-main);
+    display: flex;
+    flex-direction: column;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1em;
+        justify-content: center;
+        flex: 1;
+        text-align: center;
+
+        .oops {
+            font-size: 10rem;
+            background-image: url("/images/wave.svg");
+            background-size: cover;
+            width: fit-content;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(2px 0px white) drop-shadow(-2px 0px white)
+                drop-shadow(0px 2px white) drop-shadow(0px -2px white);
+            display: flex;
+            align-items: center;
+
+            span {
+                font-size: 5rem;
+                font-variation-settings: "FILL" 1;
+            }
+        }
+
+        .sub-title {
+            opacity: 0.9;
+        }
+
+        .link {
+            font-weight: 900;
+            opacity: 0.8;
+        }
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    main {
+        .content {
+            .oops {
+                font-size: 7rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    main {
+        padding: 1em !important;
+        .content {
+            .oops {
+                font-size: 5rem;
+            }
+        }
+    }
+}
