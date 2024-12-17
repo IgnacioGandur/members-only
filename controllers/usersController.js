@@ -1,7 +1,14 @@
-const { getAllUsers, getUserProfile } = require("../db/queries.js");
-const validateParamMiddleware = require("../validators/validateUserProfileParam");
+const {
+    getAllUsers,
+    getUserProfile,
+    searchUserByUsername,
+    getAllUsersSortedBy,
+} = require("../db/queries.js");
 const checkAuthentication = require("../middleware/checkAuthentication");
 const checkIfIsMember = require("../middleware/checkIfIsMember");
+const validateParamMiddleware = require("../validators/validateUserProfileParam");
+const validateUserSearch = require("../validators/validateUserSearch");
+const validateUsersSort = require("../validators/validateUsersSort");
 
 const usersController = {
     usersGet: [
@@ -27,6 +34,39 @@ const usersController = {
             res.render("pages/userProfile", {
                 profileInfo: profileInfo,
                 user: req.user,
+            });
+        },
+    ],
+
+    searchUserGet: [
+        checkIfIsMember,
+        checkAuthentication,
+        validateUserSearch,
+        async (req, res) => {
+            const { username } = req.query;
+            const searchResults = await searchUserByUsername(username);
+            res.render("pages/users", {
+                users: searchResults,
+                user: req.user,
+                searchResultsMessage:
+                    searchResults.length === 0
+                        ? `No matches found for: "${username}"`
+                        : `Showing search results for usernames that contain the term: "${username}".`,
+            });
+        },
+    ],
+
+    sortUsersGet: [
+        checkIfIsMember,
+        checkAuthentication,
+        validateUsersSort,
+        async (req, res) => {
+            const { sortBy } = req.query;
+            const sortedUsers = await getAllUsersSortedBy(sortBy);
+            res.render("pages/users", {
+                users: sortedUsers,
+                user: req.user,
+                sortedUsersMessage: `Sorting users by ${sortBy === "DESC" ? "newest" : "oldest"} first.`,
             });
         },
     ],

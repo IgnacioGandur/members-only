@@ -9,7 +9,7 @@ const SQL = `
         username VARCHAR(255) NOT NULL,
         bio VARCHAR(255) NOT NULL,
         password VARCHAR(255) NOT NULL,
-        creation_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        creation_date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         gender VARCHAR(255),
         is_member BOOLEAN NOT NULL DEFAULT false,
         is_admin BOOLEAN NOT NULL DEFAULT false,
@@ -22,7 +22,7 @@ const SQL = `
         author_id INTEGER,
         title VARCHAR(255) NOT NULL,
         content VARCHAR(255) NOT NULL,
-        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY (id),
         CONSTRAINT fk_user_id FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE
     );
@@ -43,7 +43,7 @@ const SQL = `
         PRIMARY KEY (id),
         CONSTRAINT fk_profile_picture_id FOREIGN KEY (profile_picture_id) REFERENCES profile_pictures(id) ON DELETE SET NULL,
         CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-    )
+    );
 
     CREATE TABLE IF NOT EXISTS likes (
         id INTEGER GENERATED ALWAYS AS IDENTITY,

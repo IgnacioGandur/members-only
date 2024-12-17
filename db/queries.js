@@ -161,7 +161,7 @@ async function getAllUsers() {
         for (let i = 0; i < rows.length; i++) {
             rows[i].creation_date = format(
                 rows[i].creation_date,
-                "do,  MMMM 'of' yyyy",
+                "do 'of' MMMM 'of' yyyy 'at' h:mm b",
             );
         }
 
@@ -531,6 +531,119 @@ async function checkIfUserExistsById(userId) {
     }
 }
 
+async function getAllUsersSortedBy(sortBy) {
+    try {
+        console.log("content of sort by variable:", sortBy);
+
+        const query = `
+            SELECT users.id,
+                users.first_name, 
+                users.last_name,
+                users.username,
+                users.gender,
+                users.is_member,
+                users.is_admin,
+                users.creation_date,
+                profile_pictures.path AS profile_picture,
+                (SELECT COUNT(*) FROM messages WHERE messages.author_id = users.id) AS n_messages FROM users
+                INNER JOIN profilepictures_users ON users.id = profilepictures_users.user_id
+                INNER JOIN profile_pictures ON profilepictures_users.profile_picture_id = profile_pictures.id
+                    ORDER BY users.creation_date ${sortBy};
+        `;
+
+        const { rows } = await db.query(query);
+
+        for (let i = 0; i < rows.length; i++) {
+            rows[i].creation_date = format(
+                rows[i].creation_date,
+                "do 'of' MMMM 'of' yyyy 'at' h:mm b",
+            );
+        }
+
+        console.log("The content of rows is:", rows);
+        return rows;
+    } catch (error) {
+        console.error("Database error:", error.message);
+        throw new Error(
+            "Something went wrong when trying to get the users sorted.",
+        );
+    }
+}
+
+async function searchUserByUsername(username) {
+    try {
+        const query = `
+            SELECT users.id,
+                users.first_name, 
+                users.last_name,
+                users.username,
+                users.gender,
+                users.is_member,
+                users.is_admin,
+                users.creation_date,
+                profile_pictures.path AS profile_picture,
+                (SELECT COUNT(*) FROM messages WHERE messages.author_id = users.id) AS n_messages FROM users
+                INNER JOIN profilepictures_users ON users.id = profilepictures_users.user_id
+                INNER JOIN profile_pictures ON profilepictures_users.profile_picture_id = profile_pictures.id WHERE users.username LIKE $1;
+        `;
+
+        const { rows } = await db.query(query, [`%${username}%`]);
+
+        for (let i = 0; i < rows.length; i++) {
+            rows[i].creation_date = format(
+                rows[i].creation_date,
+                "do 'of' MMMM 'of' yyyy",
+            );
+        }
+
+        return rows;
+    } catch (error) {
+        console.error("Database error:", error.message);
+        throw new Error(
+            "Something went wrong when trying to search for a user.",
+        );
+    }
+}
+
+async function getMessagesSorted(sortBy) {
+    try {
+        const query = `
+            SELECT users.first_name,
+                users.last_name,
+                users.username,
+                users.gender,
+                users.is_member,
+                users.is_admin,
+                messages.id AS message_id,
+                messages.author_id AS message_author,
+                messages.title AS message_title,
+                messages.content AS message_content,
+                messages.created_at AS message_date,
+                profile_pictures.path AS profile_picture,
+                profile_pictures.description AS ppf_description
+                FROM messages INNER JOIN users ON messages.author_id = users.id
+                INNER JOIN profilepictures_users ON users.id = profilepictures_users.user_id
+                INNER JOIN profile_pictures ON profilepictures_users.profile_picture_id = profile_pictures.id ORDER BY messages.created_at ${sortBy};
+        `;
+
+        const { rows } = await db.query(query);
+
+        for (let i = 0; i < rows.length; i++) {
+            rows[i].message_date = format(
+                rows[i].message_date,
+                "do,  MMMM 'of' yyyy 'at' hh:mm a",
+            );
+        }
+
+        return rows;
+    } catch (error) {
+        console.error("Database error:", error.message);
+        throw new Error(
+            "Something went wrong when trying to get messages sorted.",
+        );
+    }
+}
+
 module.exports = {
     usernameExists,
     checkIfMessageExists,
@@ -558,4 +671,7 @@ module.exports = {
     checkIfProfilePictureExists,
     checkIfUserIsMessageAuthor,
     checkIfUserExistsByUsername,
+    searchUserByUsername,
+    getAllUsersSortedBy,
+    getMessagesSorted,
 };
