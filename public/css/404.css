@@ -25,7 +25,7 @@ main {
             align-items: center;
 
             span {
-                font-size: 5rem;
+                font-size: 10rem;
                 font-variation-settings: "FILL" 1;
             }
         }
@@ -46,6 +46,9 @@ main {
         .content {
             .oops {
                 font-size: 7rem;
+                span {
+                    font-size: 7rem;
+                }
             }
         }
     }
@@ -57,6 +60,9 @@ main {
         .content {
             .oops {
                 font-size: 5rem;
+                span {
+                    font-size: 5rem;
+                }
             }
         }
     }
