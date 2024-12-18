@@ -108,6 +108,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 0.5em;
 }
 
 .gender-wrapper {
@@ -133,6 +134,9 @@ main {
     /*justify-content: center;*/
     align-items: center;
     gap: 1em;
+}
+
+@media screen and (max-width: 1100px) {
 }
 
 @media screen and (max-width: 500px) {
