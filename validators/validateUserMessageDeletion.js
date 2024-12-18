@@ -6,6 +6,7 @@ const validateUserMessageDeletion = [
         .trim()
         .notEmpty()
         .withMessage("The message id field can't be empty.")
+        .bail()
         .isInt()
         .withMessage("The message id field must be an integer")
         .custom(async (messageId, { req }) => {
@@ -20,7 +21,8 @@ const validateUserMessageDeletion = [
                     "The message you are trying to delete doesn't exists.",
                 );
             }
-        }),
+        })
+        .bail(),
 ];
 
 module.exports = validateUserMessageDeletion;

@@ -11,8 +11,10 @@ const validationChain = [
         .escape()
         .notEmpty()
         .withMessage("The message id field can't be empty.")
+        .bail()
         .isInt()
         .withMessage("The message id must be an integer.")
+        .bail()
         .custom(async (messageId) => {
             if (Number.isNaN(Number(messageId))) {
                 return;
@@ -25,6 +27,7 @@ const validationChain = [
                 );
             }
         })
+        .bail()
         .custom(async (messageId, { req }) => {
             if (Number.isNaN(Number(messageId))) {
                 return;
