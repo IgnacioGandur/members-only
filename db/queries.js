@@ -592,7 +592,7 @@ async function searchUserByUsername(username) {
         for (let i = 0; i < rows.length; i++) {
             rows[i].creation_date = format(
                 rows[i].creation_date,
-                "do 'of' MMMM 'of' yyyy",
+                "do 'of' MMMM 'of' yyyy 'at' h:mm b",
             );
         }
 

@@ -296,6 +296,29 @@ main {
     transform: scaleX(-1);
 }
 
+@media screen and (max-width: 1100px) {
+    main {
+        .filters {
+            .filters-section {
+                flex-direction: column;
+                padding: 1em;
+
+                > * {
+                    width: 100%;
+                }
+            }
+        }
+        .users-container {
+            display: flex;
+            flex-wrap: wrap;
+
+            .user {
+                flex: 1 1 300px;
+            }
+        }
+    }
+}
+
 @media screen and (max-width: 500px) {
     main {
         width: 100%;
@@ -315,20 +338,7 @@ main {
             padding-bottom: 4rem;
 
             .user {
-                flex: 1 !important  ;
-            }
-        }
-    }
-}
-
-@media screen and (max-width: 1100px) {
-    main {
-        .users-container {
-            display: flex;
-            flex-wrap: wrap;
-
-            .user {
-                flex: 0 0 400px;
+                flex: 1 1 250px;
             }
         }
     }
