@@ -1,0 +1,109 @@
+#waves_bg_about {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scaleX(3);
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: brightness(0.65);
+}
+
+#wave_1,
+#wave_2,
+#wave_3,
+#wave_4,
+#wave_5,
+#wave_6,
+#wave_7 {
+    opacity: 0;
+    transform: translate(0%, 100%);
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+#wave_1 {
+    animation:
+        appearWave 1s ease-in-out forwards 0ms,
+        waveAnimation 3s ease-in-out infinite alternate-reverse 1.5s;
+}
+#wave_2 {
+    animation:
+        appearWave 1s ease-in-out forwards 100ms,
+        waveAnimationReversed 3s linear infinite alternate-reverse 1.5s;
+}
+#wave_3 {
+    animation:
+        appearWave 1s ease-in-out forwards 200ms,
+        waveAnimation 3s ease-in-out infinite alternate-reverse 1.5s;
+}
+#wave_4 {
+    animation:
+        appearWave 1s ease-in-out forwards 300ms,
+        waveAnimationReversed 3s linear infinite alternate-reverse 1.5s;
+}
+#wave_5 {
+    animation:
+        appearWave 1s ease-in-out forwards 400ms,
+        waveAnimation 3s ease-in-out infinite alternate-reverse 1.5s;
+}
+#wave_6 {
+    animation:
+        appearWave 1s ease-in-out forwards 500ms,
+        waveAnimationReversed 3s linear infinite alternate-reverse 1.5s;
+}
+#wave_7 {
+    animation:
+        appearWave 1s ease-in-out forwards 600ms,
+        waveAnimation 3s ease-in-out infinite alternate-reverse 1.5s;
+}
+
+@keyframes appearWave {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    50% {
+        opacity: 1;
+    }
+    70% {
+        transform: translateY(-8%);
+    }
+    90% {
+        transform: translateY(3%);
+    }
+    100% {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes waveAnimation {
+    0% {
+        transform: translate(0%, 0%);
+    }
+    33% {
+        transform: translate(-10%, 0%);
+    }
+    66% {
+        transform: translate(10%, 0%);
+    }
+    100% {
+        transform: translate(0%, 0%);
+    }
+}
+
+@keyframes waveAnimationReversed {
+    0% {
+        transform: translate(0%, 0%);
+    }
+    33% {
+        transform: translate(20%, 0%);
+    }
+    66% {
+        transform: translate(-20%, 0%);
+    }
+    100% {
+        transform: translate(0%, 0%);
+    }
+}

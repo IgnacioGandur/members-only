@@ -1,7 +1,12 @@
+body {
+    background-color: transparent;
+}
+
 main {
     display: flex;
     flex-direction: column;
     gap: 1em;
+    background-color: transparent;
 
     .content {
         width: 100%;
