@@ -25,37 +25,37 @@
 #wave_1 {
     animation:
         appearWave 1s ease-in-out forwards 0ms,
-        waveAnimation 3s ease-in-out infinite alternate-reverse 1.5s;
+        waveAnimation 7s ease-in-out infinite alternate-reverse 1.5s;
 }
 #wave_2 {
     animation:
         appearWave 1s ease-in-out forwards 100ms,
-        waveAnimationReversed 3s linear infinite alternate-reverse 1.5s;
+        waveAnimationReversed 7s linear infinite alternate-reverse 1.5s;
 }
 #wave_3 {
     animation:
         appearWave 1s ease-in-out forwards 200ms,
-        waveAnimation 3s ease-in-out infinite alternate-reverse 1.5s;
+        waveAnimation 7s ease-in-out infinite alternate-reverse 1.5s;
 }
 #wave_4 {
     animation:
         appearWave 1s ease-in-out forwards 300ms,
-        waveAnimationReversed 3s linear infinite alternate-reverse 1.5s;
+        waveAnimationReversed 7s linear infinite alternate-reverse 1.5s;
 }
 #wave_5 {
     animation:
         appearWave 1s ease-in-out forwards 400ms,
-        waveAnimation 3s ease-in-out infinite alternate-reverse 1.5s;
+        waveAnimation 7s ease-in-out infinite alternate-reverse 1.5s;
 }
 #wave_6 {
     animation:
         appearWave 1s ease-in-out forwards 500ms,
-        waveAnimationReversed 3s linear infinite alternate-reverse 1.5s;
+        waveAnimationReversed 7s linear infinite alternate-reverse 1.5s;
 }
 #wave_7 {
     animation:
         appearWave 1s ease-in-out forwards 600ms,
-        waveAnimation 3s ease-in-out infinite alternate-reverse 1.5s;
+        waveAnimation 7s ease-in-out infinite alternate-reverse 1.5s;
 }
 
 @keyframes appearWave {
