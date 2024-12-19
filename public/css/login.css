@@ -14,7 +14,6 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    /*padding: 0;*/
 }
 
 .content {
@@ -25,7 +24,6 @@ main {
     display: flex;
     align-items: flex-start;
     position: relative;
-    /*height: 85%;*/
     border-radius: 10px;
     position: relative;
     background-color: black;
@@ -140,6 +138,31 @@ main {
     flex-direction: column;
 }
 
+@media screen and (max-width: 1600px) {
+    main {
+        .content {
+            background-image: linear-gradient(45deg, transparent, #00000055),
+                radial-gradient(circle at 100% 0%, transparent 0, #19212e 40%),
+                url(/images/login-background.jpg);
+            justify-content: center;
+            .form-container {
+                width: 75%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    main {
+        .content {
+            .form-container {
+                width: 100%;
+                padding: 1em;
+            }
+        }
+    }
+}
+
 @media screen and (max-width: 500px) {
     main {
         padding: 1em;
@@ -161,6 +184,7 @@ main {
             .form-container {
                 width: 100%;
                 padding: 1em;
+                justify-content: center;
                 .text-container {
                     .welcome {
                         font-size: 2.5rem;

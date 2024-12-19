@@ -131,12 +131,43 @@ main {
 .profile-pictures-container {
     display: flex;
     flex-wrap: wrap;
-    /*justify-content: center;*/
     align-items: center;
     gap: 1em;
 }
 
+@media screen and (max-width: 1600px) {
+    main {
+        .wrapper {
+            .form-container {
+                background-image: linear-gradient(#00000088, #00000088),
+                    radial-gradient(
+                        circle at 100% 0%,
+                        transparent 0,
+                        #19212e 40%
+                    ),
+                    url("/images/login-background.jpg");
+                .register-form {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
 @media screen and (max-width: 1100px) {
+    main {
+        .wrapper {
+            .form-container {
+                width: 100%;
+                .register-form {
+                    width: 100%;
+                    .gender-and-bio {
+                        flex-direction: column-reverse;
+                    }
+                }
+            }
+        }
+    }
 }
 
 @media screen and (max-width: 500px) {
