@@ -30,6 +30,11 @@ const navbarLinks = locals.user ? [
         text: 'Logout',
         icon: 'logout'
     },
+    {
+        href: 'https://github.com/IgnacioGandur/members-only',
+        text: 'Github Repo',
+        icon: 'code'
+    },
 ] : [
     {
         href: '/',
@@ -51,6 +56,11 @@ const navbarLinks = locals.user ? [
         text: 'About',
         icon: 'lightbulb'
     },
+    {
+        href: 'https://github.com/IgnacioGandur/members-only',
+        text: 'Github Repo',
+        icon: 'code'
+    },
 ]
 %>
 
@@ -59,7 +69,7 @@ const navbarLinks = locals.user ? [
         const isActive = locals.currentPath === link.href ||
         (link.href !== '/' && locals.currentPath.startsWith(link.href));
     %>
-            <a class="<%= isActive ? 'active' : null %><%= link.text === 'Logout' ? 'logout' : '' %>" href="<%= link.href %>">
+            <a <%= link.text === 'Github Repo' ? 'target="about_blank"' : '' %> class="<%= isActive ? 'active' : null %><%= link.text === 'Logout' ? 'logout' : '' %>" href="<%= link.href %>">
                 <span class="material-symbols-sharp">
                     <%= link.icon %>
                 </span>
