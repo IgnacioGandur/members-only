@@ -1,0 +1,41 @@
+const sections = document.querySelectorAll("section");
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+        entry.target.style.setProperty("animation-delay", `${index}00ms`);
+        if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+        }
+    });
+});
+
+sections.forEach((section) => {
+    observer.observe(section);
+});
+
+// const tools = document.querySelectorAll(".tool");
+// tools.forEach((tool, index) => {
+// });
+
+const tools = document.querySelectorAll(".tool");
+const toolsObserver = new IntersectionObserver(
+    (entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                if ((index + 1) % 2 === 0) {
+                    entry.target.classList.add("appear-even");
+                } else {
+                    entry.target.classList.add("appear-odd");
+                }
+            }
+        });
+    },
+    {
+        root: document.querySelector(".tools-container"),
+        rootMargin: "-80px",
+        threshold: 1.0,
+    },
+);
+
+tools.forEach((tool) => {
+    toolsObserver.observe(tool);
+});

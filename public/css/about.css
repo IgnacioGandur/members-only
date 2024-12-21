@@ -10,7 +10,6 @@ main {
 
     .content {
         width: 100%;
-        max-width: 1400px;
         align-self: center;
         display: flex;
         flex-direction: column;
@@ -85,11 +84,15 @@ main {
             }
         }
         .section {
+            width: 100%;
             font-family: var(--font-secondary);
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 1em;
+            gap: 2em;
+            opacity: 0;
+            transform: translateX(-100%);
+            transition: all 500ms ease-in-out;
 
             .section-title {
                 font-size: 2rem;
@@ -98,7 +101,183 @@ main {
             .section-content {
                 font-family: var(--font-main);
             }
+
+            .tools-container {
+                width: 100%;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                grid-auto-rows: 300px;
+                justify-content: center;
+                gap: 0.5em;
+                transform: perspective(1000px);
+                transform-origin: center;
+                transform-style: preserve-3d;
+                overflow: hidden;
+
+                .tool {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2em;
+                    align-items: center;
+                    padding: 2em;
+                    text-decoration: none;
+                    justify-content: space-between;
+                    font-family: var(--font-main);
+                    box-shadow:
+                        0px 0px 20px 7px var(--color-main-transparent) inset,
+                        0px 0px 15px 2px var(--color-main-transparent);
+                    border: 1px solid var(--color-main);
+                    transition: all 550ms ease-in-out !important;
+                    transform: perspective(1000px);
+                    transform-style: preserve-3d;
+                    transform-origin: center;
+                    opacity: 0;
+                    background-size: 400%;
+                    background-position: left bottom;
+                    background-repeat: no-repeat;
+
+                    .title {
+                        font-size: 1rem;
+                    }
+
+                    .icon-container {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        .outer-wrapper {
+                            padding: 0.5em;
+                            border-radius: 50%;
+
+                            .inner-wrapper {
+                                padding: 1.5em;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            }
+                        }
+
+                        .icon {
+                            width: 65px;
+                            height: 65px;
+                            animation: float 5s ease-in-out infinite
+                                alternate-reverse;
+                            border-radius: 50%;
+                            overflow: visible;
+                        }
+                    }
+
+                    .description {
+                        font-size: 0.9;
+                        opacity: 0.75;
+                    }
+
+                    .icon-container > img {
+                        transition: all 400ms ease-in-out;
+                    }
+                }
+
+                .tool:hover > .icon-container > .icon {
+                    animation-play-state: running !important;
+                }
+
+                .tool:hover {
+                    background-position: top right;
+                }
+
+                .tool:hover > .description {
+                    opacity: 1;
+                }
+
+                .tool.appear-even {
+                    animation: appearEven 1.75s ease-in-out forwards;
+                }
+                .tool.appear-odd {
+                    animation: appearOdd 1.75s ease-in-out forwards;
+                }
+            }
         }
+    }
+}
+
+.show {
+    animation: appearSection 750ms ease-in-out forwards;
+}
+
+@keyframes float {
+    0% {
+        box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+        transform: translatey(0px);
+    }
+    50% {
+        box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
+        transform: translatey(-20px);
+    }
+    100% {
+        box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+        transform: translatey(0px);
+    }
+}
+
+@keyframes appearEven {
+    0% {
+        transform: translateY(-100%);
+    }
+    10% {
+        opacity: 1;
+    }
+    40% {
+        transform: translateY(18%);
+    }
+    50% {
+        transform: translateY(-10%);
+    }
+    60% {
+        transform: translateY(4%);
+    }
+    80% {
+        transform: translateY(-2%);
+    }
+    100% {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes appearOdd {
+    0% {
+        transform: translateY(100%);
+    }
+    10% {
+        opacity: 1;
+    }
+    40% {
+        transform: translateY(-18%);
+    }
+    50% {
+        transform: translateY(10%);
+    }
+    60% {
+        transform: translateY(-4%);
+    }
+    80% {
+        transform: translateY(2%);
+    }
+    100% {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes appearSection {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0%);
     }
 }
 
@@ -106,5 +285,18 @@ main {
     main {
         padding: 0;
         width: 100%;
+        .tool,
+        .tool.appear-even,
+        .tool.appear-odd {
+            animation: none !important;
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+    }
+}
+
+@media (prefers-reduced-motion) {
+    .show {
+        transition: none;
     }
 }

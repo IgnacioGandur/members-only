@@ -6,7 +6,7 @@
     width: 100%;
     height: 100%;
     z-index: -1;
-    filter: brightness(0.65);
+    /*filter: brightness(0.7); */
 }
 
 #wave_1,
@@ -25,37 +25,44 @@
 #wave_1 {
     animation:
         appearWave 1s ease-in-out forwards 0ms,
-        waveAnimation 7s ease-in-out infinite alternate-reverse 1.5s;
+        waveAnimation 7s ease-in-out infinite 1.5s;
+    filter: brightness(1);
 }
 #wave_2 {
     animation:
         appearWave 1s ease-in-out forwards 100ms,
-        waveAnimationReversed 7s linear infinite alternate-reverse 1.5s;
+        waveAnimationReversed 7s linear infinite alternate 1.5s;
+    filter: brightness(0.9);
 }
 #wave_3 {
     animation:
         appearWave 1s ease-in-out forwards 200ms,
-        waveAnimation 7s ease-in-out infinite alternate-reverse 1.5s;
+        waveAnimation 7s ease-in-out infinite 1.5s;
+    filter: brightness(0.8);
 }
 #wave_4 {
     animation:
         appearWave 1s ease-in-out forwards 300ms,
-        waveAnimationReversed 7s linear infinite alternate-reverse 1.5s;
+        waveAnimationReversed 7s linear infinite alternate 1.5s;
+    filter: brightness(0.7);
 }
 #wave_5 {
     animation:
         appearWave 1s ease-in-out forwards 400ms,
-        waveAnimation 7s ease-in-out infinite alternate-reverse 1.5s;
+        waveAnimation 7s ease-in-out infinite 1.5s;
+    filter: brightness(0.6);
 }
 #wave_6 {
     animation:
         appearWave 1s ease-in-out forwards 500ms,
-        waveAnimationReversed 7s linear infinite alternate-reverse 1.5s;
+        waveAnimationReversed 7s linear infinite alternate 1.5s;
+    filter: brightness(0.5);
 }
 #wave_7 {
     animation:
         appearWave 1s ease-in-out forwards 600ms,
-        waveAnimation 7s ease-in-out infinite alternate-reverse 1.5s;
+        waveAnimation 7s ease-in-out infinite 1.5s;
+    filter: brightness(0.4);
 }
 
 @keyframes appearWave {
